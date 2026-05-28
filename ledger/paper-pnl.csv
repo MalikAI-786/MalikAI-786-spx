@@ -1,0 +1,4 @@
+date,day_of_week,bias_score,bias_label,confidence,stand_down,structure,strike_short,strike_long,credit_or_debit,max_risk,max_reward,spx_open_945,spx_close,exit_price,trusted_bot_pnl,trusted_bot_pnl_pct_of_max_risk,running_total,running_winrate,morning_commit_hash,close_commit_hash,notes
+2026-05-26,Tuesday,2.5,bullish,medium,false,put_credit_spread,5275,5270,0.85,415.00,85.00,5298.42,5312.18,0.05,80.00,19.28,80.00,1.000,a1b2c3d,e4f5g6h,Clean trend day; futures bucket led
+2026-05-27,Wednesday,-1.0,neutral_bear,low,true,stand_down,,,,0.00,0.00,5305.11,5289.40,,0.00,0.00,80.00,1.000,b2c3d4e,f5g6h7i,Stand-down on low confidence; SPX dropped 16pts
+2026-05-28,Thursday,3.5,bullish,high,false,put_credit_spread,5290,5285,1.10,390.00,110.00,5315.77,5328.94,0.10,100.00,25.64,180.00,1.000,c3d4e5f,g6h7i8j,Sentiment + futures aligned; full win

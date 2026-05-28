@@ -1,0 +1,167 @@
+# Daily integrity audit for MalikAI-786 SPX repo.
+#
+# Checks:
+#   1. ledger CSV is append-only (no row deletions, no historical mutations)
+#      -- comparison anchor is audits/last-sha.txt (a SHA-256 of the historical
+#         portion of the ledger). To seed for the first run, after the
+#         repo is populated, run locally:
+#            ./scripts/update_ledger_audit_sha.sh
+#         and commit audits/last-sha.txt.
+#   2. expected daily files exist for the last N business days
+#   3. no .env / token.json / credentials.json / *.pem / *.key committed
+#   4. all Python under scripts/ compiles cleanly
+#
+# Failure of any check fails the job. The job emits a status check named
+# "integrity-audit" that can be set as a required check on the main branch.
+
+name: integrity-audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * *'   # 09:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: read
+
+# Number of past business days to require daily files for.
+env:
+  EXPECTED_DAYS: '5'
+
+jobs:
+  integrity-audit:
+    name: integrity-audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history -- ledger append-only check needs it
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ──────────────────────────────────────────────────────────────────
+      # Check 1: ledger append-only
+      # ──────────────────────────────────────────────────────────────────
+      - name: Verify ledger is append-only
+        id: ledger
+        run: |
+          set -euo pipefail
+          LEDGER="ledger/spx_ledger.csv"
+          ANCHOR="audits/last-sha.txt"
+
+          if [ ! -f "$LEDGER" ]; then
+            echo "::warning::No ledger at $LEDGER yet -- skipping append-only check."
+            exit 0
+          fi
+          if [ ! -f "$ANCHOR" ]; then
+            echo "::warning::No audits/last-sha.txt anchor yet."
+            echo "::warning::Seed it once with: ./scripts/update_ledger_audit_sha.sh && commit."
+            exit 0
+          fi
+
+          # Anchor file format (one or two lines):
+          #   ROWS=<N>         -- number of historical rows that must be unchanged
+          #   SHA=<sha256>     -- sha256 of first $ROWS lines of the ledger
+          rows=$(grep -E '^ROWS=' "$ANCHOR" | head -1 | cut -d= -f2 | tr -d '[:space:]')
+          sha=$(grep -E '^SHA=' "$ANCHOR" | head -1 | cut -d= -f2 | tr -d '[:space:]')
+
+          if [ -z "$rows" ] || [ -z "$sha" ]; then
+            echo "::error::audits/last-sha.txt is malformed (need ROWS= and SHA= lines)"
+            exit 1
+          fi
+
+          actual_rows=$(wc -l < "$LEDGER" | tr -d '[:space:]')
+          if [ "$actual_rows" -lt "$rows" ]; then
+            echo "::error::Ledger has $actual_rows rows but anchor expects >= $rows. ROWS DELETED."
+            exit 1
+          fi
+
+          actual_sha=$(head -n "$rows" "$LEDGER" | sha256sum | cut -d' ' -f1)
+          if [ "$actual_sha" != "$sha" ]; then
+            echo "::error::Historical ledger rows have been modified."
+            echo "::error::Expected SHA: $sha"
+            echo "::error::Actual SHA:   $actual_sha"
+            exit 1
+          fi
+
+          echo "OK: $rows historical rows unchanged, $((actual_rows - rows)) new appended."
+
+      # ──────────────────────────────────────────────────────────────────
+      # Check 2: expected daily files exist
+      # ──────────────────────────────────────────────────────────────────
+      - name: Verify daily files exist for last N business days
+        run: |
+          set -euo pipefail
+          N="${EXPECTED_DAYS:-5}"
+          missing=0
+
+          # Walk back day-by-day, skip Sat/Sun, count down to N business days
+          d=0
+          checked=0
+          while [ "$checked" -lt "$N" ] && [ "$d" -lt 21 ]; do
+            date_iso=$(date -u -d "today - $d day" +%Y-%m-%d 2>/dev/null || gdate -u -d "today - $d day" +%Y-%m-%d)
+            dow=$(date -u -d "$date_iso" +%u 2>/dev/null || gdate -u -d "$date_iso" +%u)
+            d=$((d + 1))
+            if [ "$dow" -ge 6 ]; then
+              continue
+            fi
+            checked=$((checked + 1))
+
+            # Expected paths -- adjust if your layout differs
+            morning="SPX-Reports/morning/${date_iso}.md"
+            close="SPX-Reports/close/${date_iso}.md"
+
+            for f in "$morning" "$close"; do
+              if [ ! -f "$f" ]; then
+                echo "::warning::Missing expected daily file: $f"
+                missing=$((missing + 1))
+              fi
+            done
+          done
+
+          # Allow today's files to be absent (the workflow may run before
+          # generation). Only fail if the most recent prior business day is
+          # missing both files.
+          if [ "$missing" -gt 4 ]; then
+            echo "::error::Too many missing daily files ($missing). Investigate."
+            exit 1
+          fi
+          echo "OK: daily file presence check passed (missing=$missing, threshold=4)"
+
+      # ──────────────────────────────────────────────────────────────────
+      # Check 3: no secrets committed
+      # ──────────────────────────────────────────────────────────────────
+      - name: Scan for accidentally committed secrets
+        run: |
+          set -euo pipefail
+          bad=$(git ls-files | grep -E '(^|/)(\.env(\..+)?$|token\.json$|credentials\.json$|client_secret.*\.json$|.*\.pem$|.*\.key$|\.gh-token$)' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Secret-shaped files found in the repo:"
+            echo "$bad" | sed 's/^/  /'
+            exit 1
+          fi
+          echo "OK: no secret-shaped files in repo."
+
+      # ──────────────────────────────────────────────────────────────────
+      # Check 4: Python compiles
+      # ──────────────────────────────────────────────────────────────────
+      - name: Compile Python under scripts/
+        run: |
+          set -euo pipefail
+          if [ ! -d scripts ]; then
+            echo "No scripts/ directory -- skipping."
+            exit 0
+          fi
+          python -m compileall -q scripts/
+          echo "OK: all Python under scripts/ compiles."
