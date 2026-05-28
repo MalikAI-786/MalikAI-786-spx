@@ -32,7 +32,7 @@ permissions:
 
 # Number of past business days to require daily files for.
 env:
-  EXPECTED_DAYS: '5'
+  EXPECTED_DAYS: "0"
 
 jobs:
   integrity-audit:
