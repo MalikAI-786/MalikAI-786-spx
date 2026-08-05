@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/brand/banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset=".github/brand/banner-light.png">
+    <img alt="Research Instrument — Yasir A. Malik · Audit · Risk · Governance" src=".github/brand/banner-light.png">
+  </picture>
+</p>
+
 # MalikAI-786 SPX 0DTE
 
 **An educational research project** that produces a daily directional bias
@@ -128,3 +136,8 @@ Email: yasiramalik@gmail.com
 GitHub: [@malikai-786](https://github.com/malikai-786)
 
 For questions, open an [issue](https://github.com/malikai-786/MalikAI-786-spx/issues).
+
+---
+
+<sub><b>Yasir A. Malik</b> · Audit · Risk · Governance — <a href="https://malikai-786.github.io">malikai-786.github.io</a> · <a href="https://linkedin.com/in/yasiramalik">LinkedIn</a><br>
+<b>Educational research only.</b> Not investment advice, not a recommendation, not a track record.</sub>
