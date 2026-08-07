@@ -1,143 +1,103 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset=".github/brand/banner-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset=".github/brand/banner-light.png">
-    <img alt="Research Instrument — Yasir A. Malik · Audit · Risk · Governance" src=".github/brand/banner-light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://malikai-786.github.io/assets/brand/banners/malikai-786-spx/banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://malikai-786.github.io/assets/brand/banners/malikai-786-spx/banner-light.png">
+    <img alt="Research Instrument — Yasir A. Malik" src="https://malikai-786.github.io/assets/brand/banners/malikai-786-spx/banner-light.png" width="100%">
   </picture>
 </p>
 
-# MalikAI-786 SPX 0DTE
+# Research instrument
 
-**An educational research project** that produces a daily directional bias
-signal for S&P 500 0-day-to-expiration (0DTE) options and tracks the outcome.
-At 9:00 AM ET on US trading days it runs a 5-bucket model (futures, macro,
-news, international, sentiment), scores a composite with a calibration overlay
-from a rolling 10-day ledger, writes a morning report, updates a public
-dashboard, and drafts a 9:30 AM email with click-by-click instructions. At
-4:15 PM ET it determines the outcome, updates the running P&L ledger, and
-drafts a close-of-day email.
+A governed, fully instrumented decision pipeline, built to study AI decision
+quality with markets as the test bed.
 
----
+I needed a system where a machine makes a call, the call is recorded before the
+outcome is known, and the record cannot be quietly revised afterwards. Markets
+provide exactly that: a daily decision with an unambiguous answer a few hours
+later.
+
+So the interesting part is not the trading. It is the governance scaffolding
+around it — a five-bucket scored model, calibration against a rolling ledger,
+cross-checks across three independent AI sources, an append-only ledger, and
+integrity hashes so a prediction cannot be edited after the fact. It is the
+control environment I argue for in writing, built so that I have to live inside
+it.
 
 > ## DISCLAIMER
 >
 > **This project is for educational and research purposes only. It is NOT
-> investment advice, NOT a recommendation, and NOT an offer to buy or sell
-> any security. No compensation flows are associated with this project.
-> Past performance does not indicate future results. Options trading
-> involves substantial risk of loss. Do not act on signals produced by
-> this system with real money.**
+> investment advice, NOT a recommendation, and NOT an offer to buy or sell any
+> security. No compensation flows are associated with this project. Past
+> performance does not indicate future results. Options trading involves
+> substantial risk of loss. Do not act on signals produced by this system with
+> real money.**
 
----
+## How it runs
+
+At 9:00 AM ET on US trading days it runs the five-bucket model (futures, macro,
+news, international, sentiment), scores a composite with a calibration overlay
+from a rolling ten-day ledger, writes a morning report, updates the public
+dashboard, and drafts the 9:30 AM email. At 4:15 PM ET it determines the
+outcome, updates the running ledger, and drafts a close-of-day email.
 
 ## Tech stack
 
 - **Python 3.9+** — model, ledger, report rendering
 - **bash** — orchestration, bootstrap, scheduled wrappers
-- **Gmail OAuth** — drafting morning/close emails (drafts only, no auto-send to non-owners)
-- **GitHub Actions** — daily sync to public dashboard + integrity audits
-- **GitHub Pages** — public dashboard rendering
-- **launchd** (macOS) — local scheduling at 9:00 AM ET and 4:15 PM ET
-
----
+- **Gmail OAuth** — drafting morning and close emails (drafts only, no auto-send)
+- **GitHub Actions** — daily dashboard sync and integrity audits
+- **GitHub Pages** — public dashboard
+- **launchd** (macOS) — scheduling at 9:00 AM and 4:15 PM ET
 
 ## Quick start
 
 ```bash
-# 1. Clone
 git clone git@github.com:malikai-786/MalikAI-786-spx.git
 cd MalikAI-786-spx
 
-# 2. Bootstrap both local repos (idempotent, paranoid by default)
-./deploy/bootstrap.sh "$HOME"
+./deploy/bootstrap.sh "$HOME"          # idempotent, paranoid by default
 
-# 3. Configure Gmail OAuth
-cp scripts/.env.example scripts/.env
-# Edit scripts/.env -- DO NOT commit it (.gitignore handles this)
+cp scripts/.env.example scripts/.env   # then edit — .gitignore covers it
 python scripts/setup_gmail_oauth.py
 
-# 4. Schedule via launchd (macOS)
-./scripts/install_launchd.sh
+./scripts/install_launchd.sh           # schedule
 
-# 5. Manual dry run
 python scripts/run_morning.py --dry-run
 python scripts/run_close.py   --dry-run
 ```
 
-For the full GitHub setup (creating the two repos under `malikai-786`,
-enabling Pages, configuring the cross-repo deploy key), see
+Full setup, including Pages and the cross-repo deploy key, is in
 [`deploy/GITHUB-SETUP.md`](deploy/GITHUB-SETUP.md).
 
----
+## Layout
 
-## Repo layout
-
-```
-MalikAI-786-spx/
-├── skill/                   # SKILL.md + supporting files used by Claude Code
-│   ├── SKILL.md             # v5.0 spec -- 3 AI sources + self-improving loop
-│   └── ...
-├── scripts/                 # Python + bash orchestration
-│   ├── run_morning.py       # 9:00 AM ET pipeline
-│   ├── run_close.py         # 4:15 PM ET pipeline
-│   ├── score_calibration.py # rolling-10-day calibration overlay
-│   ├── render_report.py     # markdown -> HTML for SPX-Reports/
-│   ├── publish_dashboard.py # writes JSON into dashboard/data/
-│   └── install_launchd.sh
-├── ledger/                  # APPEND-ONLY P&L + signal ledger
-│   └── spx_ledger.csv
-├── audits/                  # integrity anchors + audit memo
-│   ├── audit-memo-v5.md     # ethics + regulatory review
-│   └── last-sha.txt         # ledger append-only anchor (see .github/workflows/audit.yml)
-├── sources/                 # the 5-bucket research source manifest
-│   ├── cards/               # per-source card (futures, macro, news, intl, sentiment)
-│   └── responses/           # raw daily responses (gitignored after retention window)
-├── docs/                    # methodology + design notes
-│   ├── methodology.md
-│   └── self-improving-loop.md
-├── SPX-Reports/             # daily reports
-│   ├── morning/YYYY-MM-DD.md
-│   └── close/YYYY-MM-DD.md
-├── dashboard/               # data + assets pushed to malikai-spx-dashboard
-│   └── data/                # JSON files synced daily
-├── deploy/                  # this directory -- bootstrap + setup docs
-│   ├── bootstrap.sh
-│   └── GITHUB-SETUP.md
-├── .github/workflows/
-│   ├── sync-dashboard.yml   # cross-repo data deploy (9:35 ET / 4:20 ET / push)
-│   └── audit.yml            # daily integrity audit (09:00 UTC)
-├── README.md                # this file
-├── LICENSE                  # MIT
-└── .gitignore
-```
-
----
+| Path | What it is |
+| --- | --- |
+| `skill/` | `SKILL.md` and supporting files used by Claude Code |
+| `scripts/` | The morning and close pipelines, calibration, rendering, publishing |
+| `ledger/` | Append-only P&L and signal ledger |
+| `audits/` | Integrity anchors and the ethics and regulatory review memo |
+| `sources/` | The five-bucket source manifest and daily raw responses |
+| `docs/` | Methodology, and how the rolling ledger feeds next-day calibration |
+| `SPX-Reports/` | Daily morning and close reports |
+| `dashboard/` | JSON synced to the public dashboard |
 
 ## Documentation
 
-- **Methodology**: [`docs/methodology.md`](docs/methodology.md) — the model, the
-  5 buckets, the calibration overlay, and the limits of the approach.
-- **Audit memo (v5.0)**: [`audits/audit-memo-v5.md`](audits/audit-memo-v5.md) —
-  ethics + regulatory review, including why this project is educational
-  research and not investment advice.
-- **Self-improving loop**: [`docs/self-improving-loop.md`](docs/self-improving-loop.md)
-  — how the rolling ledger feeds back into next-day calibration.
-
----
+- [`docs/methodology.md`](docs/methodology.md) — the model, the five buckets, the
+  calibration overlay, and the limits of the approach
+- [`audits/audit-memo-v5.md`](audits/audit-memo-v5.md) — ethics and regulatory
+  review, including why this is educational research and not investment advice
+- [`docs/self-improving-loop.md`](docs/self-improving-loop.md) — how outcomes
+  feed back into calibration
 
 ## License
 
-[MIT](LICENSE) — Copyright (c) 2026 Yasir A. Malik.
-
-## Author + contact
-
-**Yasir A. Malik**
-Email: yasiramalik@gmail.com
-GitHub: [@malikai-786](https://github.com/malikai-786)
-
-For questions, open an [issue](https://github.com/malikai-786/MalikAI-786-spx/issues).
+[MIT](LICENSE) — Copyright (c) 2026 Yasir A. Malik. Questions:
+[open an issue](https://github.com/MalikAI-786/MalikAI-786-spx/issues).
 
 ---
 
-<sub><b>Yasir A. Malik</b> · Audit · Risk · Governance — <a href="https://malikai-786.github.io">malikai-786.github.io</a> · <a href="https://linkedin.com/in/yasiramalik">LinkedIn</a><br>
-<b>Educational research only.</b> Not investment advice, not a recommendation, not a track record.</sub>
+<sub>[Profile](https://github.com/MalikAI-786) · [Site](https://malikai-786.github.io) · [Brand system](https://malikai-786.github.io/brand.html) · [Newsletter](https://proofoverpromise.substack.com) · [LinkedIn](https://linkedin.com/in/yasiramalik)</sub>
+
+<sub><b>Yasir A. Malik</b> · Audit · Risk · Governance · Newark, NJ · NYC metro</sub>
