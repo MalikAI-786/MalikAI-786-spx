@@ -1,0 +1,439 @@
+{
+  "schema_version": "1.0.0",
+  "example": true,
+  "week_ending": "2026-08-14",
+  "generated_at": "2026-08-15T22:06:07-04:00",
+  "owner_confirmed": false,
+  "banner": "REFERENCE BASKET \u2014 not the owner's holdings",
+  "basket": {
+    "id": "tech-sleeve",
+    "display_name": "Tech Sleeve",
+    "source": "PENDING_UPLOAD",
+    "as_of": null,
+    "benchmark": "XLK",
+    "constituents": [
+      {
+        "ticker": "AAPL",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "MSFT",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "NVDA",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "GOOGL",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AMZN",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "META",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AVGO",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AMD",
+        "weight_pct": 12.5
+      }
+    ]
+  },
+  "call": {
+    "composite": -0.06,
+    "label": "NEUTRAL",
+    "confidence": "low",
+    "bucket_span": 2.84,
+    "abstained": []
+  },
+  "buckets": [
+    {
+      "name": "momentum",
+      "score": 0.84,
+      "weight": 0.3,
+      "base_weight": 0.3,
+      "rationale": "Basket +0.51% vs 20-day, +1.85% vs 50-day.",
+      "abstained": false
+    },
+    {
+      "name": "breadth",
+      "score": 0.0,
+      "weight": 0.2,
+      "base_weight": 0.2,
+      "rationale": "4/8 constituents above their own 50-day average.",
+      "abstained": false
+    },
+    {
+      "name": "rates",
+      "score": -0.44,
+      "weight": 0.2,
+      "base_weight": 0.2,
+      "rationale": "US 10-year +3.3bp over the week; long-duration tech scores inverse.",
+      "abstained": false
+    },
+    {
+      "name": "earnings",
+      "score": 0.5,
+      "weight": 0.15,
+      "base_weight": 0.15,
+      "rationale": "62% of the sleeve carrying upward 4-week EPS revisions.",
+      "abstained": false
+    },
+    {
+      "name": "volatility",
+      "score": -2.0,
+      "weight": 0.15,
+      "base_weight": 0.15,
+      "rationale": "VIX 10.58, +10.8% on the week.",
+      "abstained": false
+    }
+  ],
+  "levels": {
+    "basket_index": 115.39,
+    "benchmark_index": 140.79
+  },
+  "projection": {
+    "basis": "normalized index, base 100",
+    "cadence": "monthly",
+    "assumed_continuing": true,
+    "horizon_weeks": 52,
+    "method": "bootstrap over trailing weekly returns; composite call excluded",
+    "path": [
+      {
+        "week": 0,
+        "p10": 100.0,
+        "p50": 100.0,
+        "p90": 100.0
+      },
+      {
+        "week": 1,
+        "p10": 98.69,
+        "p50": 100.72,
+        "p90": 102.17
+      },
+      {
+        "week": 2,
+        "p10": 98.62,
+        "p50": 100.9,
+        "p90": 103.33
+      },
+      {
+        "week": 3,
+        "p10": 98.69,
+        "p50": 101.49,
+        "p90": 104.37
+      },
+      {
+        "week": 4,
+        "p10": 98.69,
+        "p50": 102.02,
+        "p90": 105.36
+      },
+      {
+        "week": 5,
+        "p10": 98.84,
+        "p50": 102.37,
+        "p90": 106.44
+      },
+      {
+        "week": 6,
+        "p10": 99.14,
+        "p50": 102.91,
+        "p90": 107.24
+      },
+      {
+        "week": 7,
+        "p10": 99.06,
+        "p50": 103.42,
+        "p90": 108.01
+      },
+      {
+        "week": 8,
+        "p10": 99.45,
+        "p50": 103.9,
+        "p90": 108.73
+      },
+      {
+        "week": 9,
+        "p10": 99.6,
+        "p50": 104.37,
+        "p90": 109.68
+      },
+      {
+        "week": 10,
+        "p10": 99.85,
+        "p50": 104.85,
+        "p90": 110.32
+      },
+      {
+        "week": 11,
+        "p10": 100.04,
+        "p50": 105.47,
+        "p90": 111.07
+      },
+      {
+        "week": 12,
+        "p10": 100.22,
+        "p50": 105.92,
+        "p90": 111.98
+      },
+      {
+        "week": 13,
+        "p10": 100.59,
+        "p50": 106.43,
+        "p90": 112.66
+      },
+      {
+        "week": 14,
+        "p10": 100.76,
+        "p50": 106.97,
+        "p90": 113.55
+      },
+      {
+        "week": 15,
+        "p10": 101.21,
+        "p50": 107.41,
+        "p90": 114.15
+      },
+      {
+        "week": 16,
+        "p10": 101.29,
+        "p50": 107.93,
+        "p90": 114.99
+      },
+      {
+        "week": 17,
+        "p10": 101.61,
+        "p50": 108.61,
+        "p90": 115.83
+      },
+      {
+        "week": 18,
+        "p10": 101.86,
+        "p50": 109.23,
+        "p90": 116.47
+      },
+      {
+        "week": 19,
+        "p10": 102.05,
+        "p50": 109.53,
+        "p90": 117.07
+      },
+      {
+        "week": 20,
+        "p10": 102.28,
+        "p50": 110.26,
+        "p90": 117.81
+      },
+      {
+        "week": 21,
+        "p10": 102.83,
+        "p50": 110.71,
+        "p90": 118.46
+      },
+      {
+        "week": 22,
+        "p10": 102.75,
+        "p50": 111.45,
+        "p90": 119.63
+      },
+      {
+        "week": 23,
+        "p10": 103.21,
+        "p50": 111.84,
+        "p90": 120.29
+      },
+      {
+        "week": 24,
+        "p10": 103.65,
+        "p50": 112.51,
+        "p90": 121.13
+      },
+      {
+        "week": 25,
+        "p10": 104.11,
+        "p50": 113.14,
+        "p90": 121.8
+      },
+      {
+        "week": 26,
+        "p10": 104.28,
+        "p50": 113.58,
+        "p90": 122.15
+      },
+      {
+        "week": 27,
+        "p10": 104.8,
+        "p50": 114.09,
+        "p90": 123.07
+      },
+      {
+        "week": 28,
+        "p10": 105.27,
+        "p50": 114.5,
+        "p90": 123.78
+      },
+      {
+        "week": 29,
+        "p10": 105.5,
+        "p50": 115.09,
+        "p90": 124.62
+      },
+      {
+        "week": 30,
+        "p10": 106.04,
+        "p50": 115.62,
+        "p90": 125.32
+      },
+      {
+        "week": 31,
+        "p10": 106.35,
+        "p50": 116.18,
+        "p90": 126.02
+      },
+      {
+        "week": 32,
+        "p10": 106.64,
+        "p50": 116.46,
+        "p90": 127.05
+      },
+      {
+        "week": 33,
+        "p10": 107.13,
+        "p50": 117.12,
+        "p90": 127.5
+      },
+      {
+        "week": 34,
+        "p10": 107.53,
+        "p50": 117.7,
+        "p90": 128.47
+      },
+      {
+        "week": 35,
+        "p10": 108.01,
+        "p50": 118.04,
+        "p90": 129.31
+      },
+      {
+        "week": 36,
+        "p10": 108.45,
+        "p50": 118.57,
+        "p90": 129.86
+      },
+      {
+        "week": 37,
+        "p10": 108.73,
+        "p50": 119.29,
+        "p90": 130.66
+      },
+      {
+        "week": 38,
+        "p10": 109.11,
+        "p50": 119.85,
+        "p90": 131.53
+      },
+      {
+        "week": 39,
+        "p10": 109.31,
+        "p50": 120.21,
+        "p90": 132.24
+      },
+      {
+        "week": 40,
+        "p10": 109.75,
+        "p50": 120.68,
+        "p90": 133.4
+      },
+      {
+        "week": 41,
+        "p10": 110.0,
+        "p50": 121.24,
+        "p90": 134.13
+      },
+      {
+        "week": 42,
+        "p10": 110.43,
+        "p50": 121.93,
+        "p90": 134.41
+      },
+      {
+        "week": 43,
+        "p10": 110.92,
+        "p50": 122.51,
+        "p90": 135.37
+      },
+      {
+        "week": 44,
+        "p10": 111.39,
+        "p50": 123.04,
+        "p90": 136.64
+      },
+      {
+        "week": 45,
+        "p10": 111.6,
+        "p50": 123.52,
+        "p90": 137.12
+      },
+      {
+        "week": 46,
+        "p10": 111.74,
+        "p50": 124.19,
+        "p90": 138.19
+      },
+      {
+        "week": 47,
+        "p10": 112.48,
+        "p50": 124.55,
+        "p90": 138.72
+      },
+      {
+        "week": 48,
+        "p10": 112.79,
+        "p50": 125.19,
+        "p90": 139.18
+      },
+      {
+        "week": 49,
+        "p10": 113.18,
+        "p50": 125.78,
+        "p90": 140.26
+      },
+      {
+        "week": 50,
+        "p10": 113.67,
+        "p50": 126.33,
+        "p90": 140.81
+      },
+      {
+        "week": 51,
+        "p10": 114.04,
+        "p50": 127.06,
+        "p90": 141.46
+      },
+      {
+        "week": 52,
+        "p10": 114.46,
+        "p50": 127.5,
+        "p90": 142.74
+      }
+    ],
+    "available": true,
+    "note": "Band is drawn from trailing volatility and breaks in a regime change. p10/p90 are not worst and best cases \u2014 roughly one year in ten finishes outside each edge, and real tails are fatter.",
+    "trailing_weeks_sampled": 51,
+    "annualized_vol_pct": 9.1
+  },
+  "track_record": {
+    "weeks_recorded": 0,
+    "weeks_scored": 0,
+    "directional_hit_rate": null
+  },
+  "disclaimer": "Educational only. Not investment advice, not a recommendation, and not an instruction to buy, sell, hold, or reallocate. Past performance does not indicate future results."
+}
