@@ -1,0 +1,482 @@
+{
+  "schema_version": "1.0.0",
+  "example": true,
+  "week_ending": "2026-08-14",
+  "generated_at": "2026-08-16T01:01:08-04:00",
+  "owner_confirmed": false,
+  "banner": "REFERENCE BASKET \u2014 not the owner's holdings",
+  "basket": {
+    "id": "tech-sleeve",
+    "display_name": "Tech Sleeve",
+    "source": "PENDING_UPLOAD",
+    "as_of": null,
+    "benchmark": "XLK",
+    "constituents": [
+      {
+        "ticker": "AAPL",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "MSFT",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "NVDA",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "GOOGL",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AMZN",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "META",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AVGO",
+        "weight_pct": 12.5
+      },
+      {
+        "ticker": "AMD",
+        "weight_pct": 12.5
+      }
+    ]
+  },
+  "call": {
+    "composite": -1.01,
+    "label": "DEFENSIVE",
+    "confidence": "low",
+    "bucket_span": 2.5,
+    "abstained": []
+  },
+  "buckets": [
+    {
+      "name": "momentum",
+      "score": -2.0,
+      "weight": 0.3,
+      "base_weight": 0.3,
+      "rationale": "Basket -2.99% vs 20-day, -4.75% vs 50-day.",
+      "abstained": false
+    },
+    {
+      "name": "breadth",
+      "score": -1.0,
+      "weight": 0.2,
+      "base_weight": 0.2,
+      "rationale": "2/8 constituents above their own 50-day average.",
+      "abstained": false
+    },
+    {
+      "name": "rates",
+      "score": -0.77,
+      "weight": 0.2,
+      "base_weight": 0.2,
+      "rationale": "US 10-year +5.8bp over the week; long-duration tech scores inverse.",
+      "abstained": false
+    },
+    {
+      "name": "earnings",
+      "score": 0.5,
+      "weight": 0.15,
+      "base_weight": 0.15,
+      "rationale": "62% of the sleeve carrying upward 4-week EPS revisions.",
+      "abstained": false
+    },
+    {
+      "name": "volatility",
+      "score": -0.86,
+      "weight": 0.15,
+      "base_weight": 0.15,
+      "rationale": "VIX 32.55, +4.3% on the week.",
+      "abstained": false
+    }
+  ],
+  "levels": {
+    "basket_index": 138.41,
+    "benchmark_index": 124.73
+  },
+  "risk": {
+    "available": true,
+    "benchmark": "XLK",
+    "risk_free_rate": 0.0,
+    "holdings_measured": 8,
+    "annualized_vol": 0.21988214295526004,
+    "ewma_vol": 0.2523734786830613,
+    "sharpe": 1.5331187106078936,
+    "max_drawdown": -0.1392432744298997,
+    "beta": 1.1131764723587068,
+    "correlation_to_benchmark": 0.9183037702762556,
+    "mean_pairwise_correlation": 0.532,
+    "rolling_beta_60d": {
+      "latest": 1.122,
+      "min": 0.983,
+      "max": 1.216
+    },
+    "note": "Sharpe assumes a 0% risk-free rate, as in the source notebook. At current short rates that overstates it."
+  },
+  "projection": {
+    "basis": "normalized index, base 100",
+    "cadence": "monthly",
+    "assumed_continuing": true,
+    "horizon_weeks": 52,
+    "method": "correlated Monte Carlo over trailing weekly returns (analytics.montecarlo); composite call excluded",
+    "path": [
+      {
+        "week": 0,
+        "p10": 100.0,
+        "p50": 100.0,
+        "p90": 100.0
+      },
+      {
+        "week": 1,
+        "p10": 95.96,
+        "p50": 100.86,
+        "p90": 105.38
+      },
+      {
+        "week": 2,
+        "p10": 94.8,
+        "p50": 101.55,
+        "p90": 108.36
+      },
+      {
+        "week": 3,
+        "p10": 94.56,
+        "p50": 102.36,
+        "p90": 110.64
+      },
+      {
+        "week": 4,
+        "p10": 93.99,
+        "p50": 103.15,
+        "p90": 113.34
+      },
+      {
+        "week": 5,
+        "p10": 93.9,
+        "p50": 103.85,
+        "p90": 115.35
+      },
+      {
+        "week": 6,
+        "p10": 93.58,
+        "p50": 104.6,
+        "p90": 117.12
+      },
+      {
+        "week": 7,
+        "p10": 93.73,
+        "p50": 105.94,
+        "p90": 119.28
+      },
+      {
+        "week": 8,
+        "p10": 93.65,
+        "p50": 106.73,
+        "p90": 121.77
+      },
+      {
+        "week": 9,
+        "p10": 93.46,
+        "p50": 107.57,
+        "p90": 123.73
+      },
+      {
+        "week": 10,
+        "p10": 93.63,
+        "p50": 108.5,
+        "p90": 125.94
+      },
+      {
+        "week": 11,
+        "p10": 93.68,
+        "p50": 109.53,
+        "p90": 127.86
+      },
+      {
+        "week": 12,
+        "p10": 93.71,
+        "p50": 110.11,
+        "p90": 129.85
+      },
+      {
+        "week": 13,
+        "p10": 94.06,
+        "p50": 111.4,
+        "p90": 131.91
+      },
+      {
+        "week": 14,
+        "p10": 94.73,
+        "p50": 112.44,
+        "p90": 134.39
+      },
+      {
+        "week": 15,
+        "p10": 94.91,
+        "p50": 113.17,
+        "p90": 135.67
+      },
+      {
+        "week": 16,
+        "p10": 95.34,
+        "p50": 114.29,
+        "p90": 137.37
+      },
+      {
+        "week": 17,
+        "p10": 94.74,
+        "p50": 115.06,
+        "p90": 139.17
+      },
+      {
+        "week": 18,
+        "p10": 95.55,
+        "p50": 115.97,
+        "p90": 141.46
+      },
+      {
+        "week": 19,
+        "p10": 95.32,
+        "p50": 117.09,
+        "p90": 143.03
+      },
+      {
+        "week": 20,
+        "p10": 96.09,
+        "p50": 117.78,
+        "p90": 145.52
+      },
+      {
+        "week": 21,
+        "p10": 96.42,
+        "p50": 118.49,
+        "p90": 147.15
+      },
+      {
+        "week": 22,
+        "p10": 96.86,
+        "p50": 119.59,
+        "p90": 149.83
+      },
+      {
+        "week": 23,
+        "p10": 97.35,
+        "p50": 120.47,
+        "p90": 151.11
+      },
+      {
+        "week": 24,
+        "p10": 97.95,
+        "p50": 121.43,
+        "p90": 152.68
+      },
+      {
+        "week": 25,
+        "p10": 98.97,
+        "p50": 122.87,
+        "p90": 154.56
+      },
+      {
+        "week": 26,
+        "p10": 98.76,
+        "p50": 123.84,
+        "p90": 156.94
+      },
+      {
+        "week": 27,
+        "p10": 98.34,
+        "p50": 124.53,
+        "p90": 158.73
+      },
+      {
+        "week": 28,
+        "p10": 98.93,
+        "p50": 126.06,
+        "p90": 161.81
+      },
+      {
+        "week": 29,
+        "p10": 99.06,
+        "p50": 126.72,
+        "p90": 163.67
+      },
+      {
+        "week": 30,
+        "p10": 99.49,
+        "p50": 127.77,
+        "p90": 164.29
+      },
+      {
+        "week": 31,
+        "p10": 99.91,
+        "p50": 128.9,
+        "p90": 166.84
+      },
+      {
+        "week": 32,
+        "p10": 100.28,
+        "p50": 129.64,
+        "p90": 168.99
+      },
+      {
+        "week": 33,
+        "p10": 100.93,
+        "p50": 130.8,
+        "p90": 169.96
+      },
+      {
+        "week": 34,
+        "p10": 101.4,
+        "p50": 131.52,
+        "p90": 172.06
+      },
+      {
+        "week": 35,
+        "p10": 100.69,
+        "p50": 132.56,
+        "p90": 174.42
+      },
+      {
+        "week": 36,
+        "p10": 101.56,
+        "p50": 134.5,
+        "p90": 175.9
+      },
+      {
+        "week": 37,
+        "p10": 102.2,
+        "p50": 135.35,
+        "p90": 177.88
+      },
+      {
+        "week": 38,
+        "p10": 102.65,
+        "p50": 136.74,
+        "p90": 180.06
+      },
+      {
+        "week": 39,
+        "p10": 102.99,
+        "p50": 138.07,
+        "p90": 180.79
+      },
+      {
+        "week": 40,
+        "p10": 103.58,
+        "p50": 138.91,
+        "p90": 183.25
+      },
+      {
+        "week": 41,
+        "p10": 103.66,
+        "p50": 140.3,
+        "p90": 185.91
+      },
+      {
+        "week": 42,
+        "p10": 104.31,
+        "p50": 141.45,
+        "p90": 189.12
+      },
+      {
+        "week": 43,
+        "p10": 104.78,
+        "p50": 142.69,
+        "p90": 191.0
+      },
+      {
+        "week": 44,
+        "p10": 105.94,
+        "p50": 143.71,
+        "p90": 192.87
+      },
+      {
+        "week": 45,
+        "p10": 106.35,
+        "p50": 145.11,
+        "p90": 194.0
+      },
+      {
+        "week": 46,
+        "p10": 106.84,
+        "p50": 145.98,
+        "p90": 196.55
+      },
+      {
+        "week": 47,
+        "p10": 107.21,
+        "p50": 146.94,
+        "p90": 198.55
+      },
+      {
+        "week": 48,
+        "p10": 108.13,
+        "p50": 148.64,
+        "p90": 202.82
+      },
+      {
+        "week": 49,
+        "p10": 108.93,
+        "p50": 150.04,
+        "p90": 203.7
+      },
+      {
+        "week": 50,
+        "p10": 108.29,
+        "p50": 151.19,
+        "p90": 204.9
+      },
+      {
+        "week": 51,
+        "p10": 108.53,
+        "p50": 151.63,
+        "p90": 207.37
+      },
+      {
+        "week": 52,
+        "p10": 109.0,
+        "p50": 152.89,
+        "p90": 210.2
+      }
+    ],
+    "available": true,
+    "note": "Band is drawn from trailing volatility and breaks in a regime change. p10/p90 are not worst and best cases \u2014 roughly one year in ten finishes outside each edge, and real equity tails are fatter than the Gaussian this draws from. Management fees are not netted out.",
+    "summary": {
+      "simulations": 2000,
+      "periods": 52,
+      "correlated": true,
+      "tickers": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL",
+        "AMZN",
+        "META",
+        "AVGO",
+        "AMD"
+      ],
+      "mean": 156.99,
+      "median": 152.89,
+      "p10": 109.0,
+      "p90": 210.2,
+      "ci95_lower": 91.14,
+      "ci95_upper": 252.15,
+      "basis": "index, base 100"
+    },
+    "correlated": true,
+    "holdings_simulated": 8,
+    "trailing_weeks_sampled": 51,
+    "annualized_vol_pct": 26.9
+  },
+  "track_record": {
+    "weeks_recorded": 0,
+    "weeks_scored": 0,
+    "directional_hit_rate": null
+  },
+  "disclaimer": "Educational only. Not investment advice, not a recommendation, and not an instruction to buy, sell, hold, or reallocate. Past performance does not indicate future results."
+}

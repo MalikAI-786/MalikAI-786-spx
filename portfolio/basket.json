@@ -1,0 +1,47 @@
+{
+  "_comment": [
+    "Tech-sleeve basket definition for the weekly outlook model.",
+    "PUBLIC FILE. Tickers and percentage weights ONLY.",
+    "Never add dollar balances, share counts, cost basis, or account numbers.",
+    "Those belong in private/holdings.json, which is gitignored. See",
+    "docs/PORTFOLIO-SCHEMA.md for the full data contract."
+  ],
+  "schema_version": "1.0.0",
+  "basket_id": "tech-sleeve",
+  "display_name": "Tech Sleeve",
+  "status": "PROVISIONAL_REFERENCE",
+  "owner_confirmed": false,
+  "source": "PENDING_UPLOAD",
+  "as_of": null,
+  "notes": [
+    "status=PROVISIONAL_REFERENCE means these constituents are a generic",
+    "large-cap US technology reference basket, NOT the owner's holdings.",
+    "portfolio_track.py refuses to publish an owner-attributed call while",
+    "owner_confirmed is false -- it publishes the call labelled REFERENCE",
+    "BASKET instead. Replace constituents from the uploaded JPMorgan",
+    "statement, set owner_confirmed=true, set source and as_of, then rerun.",
+    "Weights are placeholders and are deliberately equal: no weighting claim",
+    "is being made about the owner's actual allocation."
+  ],
+  "benchmark": "XLK",
+  "constituents": [
+    { "ticker": "AAPL", "name": "Apple",            "weight_pct": 12.5 },
+    { "ticker": "MSFT", "name": "Microsoft",        "weight_pct": 12.5 },
+    { "ticker": "NVDA", "name": "NVIDIA",           "weight_pct": 12.5 },
+    { "ticker": "GOOGL","name": "Alphabet",         "weight_pct": 12.5 },
+    { "ticker": "AMZN", "name": "Amazon",           "weight_pct": 12.5 },
+    { "ticker": "META", "name": "Meta Platforms",   "weight_pct": 12.5 },
+    { "ticker": "AVGO", "name": "Broadcom",         "weight_pct": 12.5 },
+    { "ticker": "AMD",  "name": "Advanced Micro Devices", "weight_pct": 12.5 }
+  ],
+  "contribution": {
+    "_comment": [
+      "Cadence only -- no dollar amount. The projection tab renders a",
+      "normalized index (base 100), so it needs the RHYTHM of contributions,",
+      "not their size. Dollar amounts live in private/holdings.json and",
+      "appear only in the owner-only email."
+    ],
+    "cadence": "monthly",
+    "assumed_continuing": true
+  }
+}

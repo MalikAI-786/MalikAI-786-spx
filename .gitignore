@@ -24,6 +24,13 @@ yarn-debug.log*
 yarn-error.log*
 .npm
 
+# Personal financial records -- NEVER COMMIT
+# AGENTS.md safeguard #3. Every file in this repo is public; dollar balances,
+# share counts, cost basis and account numbers are not. The public pipeline
+# reads tickers and percentage weights from portfolio/basket.json instead.
+# See docs/PORTFOLIO-SCHEMA.md.
+private/
+
 # Secrets / credentials -- NEVER COMMIT
 .env
 .env.*
