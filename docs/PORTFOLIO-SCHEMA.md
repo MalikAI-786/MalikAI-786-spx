@@ -41,6 +41,8 @@ extend this script, preserve that property — it is the whole control.
 | File | Purpose | Written by | Read by |
 |---|---|---|---|
 | `portfolio/basket.json` | Basket definition — tickers, weights, benchmark, contribution cadence. | Human (from uploaded statement) | `portfolio_track.py` |
+| `analytics/risk.py` | Sharpe, vol, beta, drawdown, correlation. Ported from `A-Whale-Off-the-Port-folio`. | — | `portfolio_track.py` |
+| `analytics/montecarlo.py` | Correlated Monte Carlo. Ported from `API/MCForecastTools.py`. | — | `portfolio_track.py` |
 | `private/holdings.json` | **Never committed.** Dollar balances and contribution amount. Optional. | Human | `portfolio_track.py` (email only) |
 | `ledger/portfolio-signals.csv` | One row per scored week. Append-only. | `portfolio_track.py` | dashboard, calibration |
 | `dashboard/data/portfolio.json` | What the Tech Outlook tab renders. Public-safe by construction. | `portfolio_track.py` | `spx_0dte_ai_signal_dashboard.html` |
@@ -192,21 +194,60 @@ that it can be published without disclosing a balance.
 
 ---
 
+## The risk panel
+
+`risk` carries the metric set ported from `A-Whale-Off-the-Port-folio` via
+`analytics/risk.py`: annualized and EWMA volatility, Sharpe, max drawdown,
+beta and correlation against the benchmark, rolling 60-day beta range, and
+mean pairwise correlation across holdings.
+
+All of it is computed on **daily** returns (`periods=252`), not the weekly
+returns the call is scored on. Beta and drawdown both degrade badly on a
+weekly sample this short, and drawdown in particular is path-dependent —
+sampling weekly hides the intra-week trough entirely.
+
+`mean_pairwise_correlation` is on the panel because it is the number that
+determines whether the projection band below is honest. See
+`docs/ANALYTICS-PROVENANCE.md`.
+
+Sharpe is published at a **0% risk-free rate**, inherited from the source
+notebook, with `risk_free_rate` in the payload so the assumption travels with
+the number. At current short rates that overstates it.
+
+---
+
 ## The projection is a scenario, not a forecast
 
 `projection.path` answers the question "if contributions continue at the
-current cadence, what range of outcomes is consistent with this basket's own
-realized volatility?" It is a bootstrap over the basket's trailing weekly
-returns, not a view about the future.
+current cadence, what range of outcomes is consistent with this sleeve's own
+realized volatility and co-movement?" It is a correlated Monte Carlo over
+trailing weekly returns (`analytics/montecarlo.py`), not a view about the
+future.
 
-Three honest limits, stated on the tab itself:
+**Shocks are drawn correlated across holdings, and that is the point.** The
+original `MCForecastTools` drew each holding independently, which on a sleeve
+with the ~0.5 pairwise correlation large-cap tech shows understates the decile
+band by roughly half and puts p10 about 20 index points too high. A
+concentrated sleeve does not diversify its own risk away. If the covariance
+matrix is degenerate the simulation falls back to independent draws, sets
+`projection.correlated: false`, and says so in `projection.note` — it does not
+silently publish the narrower band.
 
-1. The band is drawn from **trailing** volatility. A regime change breaks it.
+Four honest limits, stated on the tab itself:
+
+1. The band is drawn from **trailing** volatility and **static** correlation.
+   A regime change breaks it, and in a real drawdown correlations converge
+   toward 1 — so even the corrected band is optimistic when it matters most.
 2. `p10`/`p90` are not worst and best cases. Roughly one year in ten finishes
-   outside each edge, and tails are fatter than the sample suggests.
-3. The composite call does **not** feed the projection. Mixing a one-week
+   outside each edge, and real equity tails are fatter than the Gaussian this
+   draws from.
+3. Drift comes from the trailing sample mean, so a sleeve that has run hot
+   projects forward hot. This is the model's most flattering assumption.
+4. The composite call does **not** feed the projection. Mixing a one-week
    directional score into a 52-week path would imply the model can forecast a
    year out. It cannot, and the ledger is the evidence either way.
+
+Management fees are not netted out of any path.
 
 ---
 

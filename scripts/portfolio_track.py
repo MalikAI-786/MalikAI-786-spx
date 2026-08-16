@@ -39,8 +39,6 @@ import csv
 import datetime as dt
 import json
 import os
-import random
-import statistics
 import subprocess
 import sys
 import tempfile
@@ -50,6 +48,9 @@ import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from analytics import montecarlo, risk  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Paths & constants
@@ -441,76 +442,174 @@ def build_call(buckets: list[Bucket]) -> Call:
 # Projection — a scenario, not a forecast
 # ---------------------------------------------------------------------------
 
-def build_projection(
-    idx: Optional[list[float]], cadence: str, continuing: bool,
-    horizon_weeks: int = 52, seed: int = 786,
-) -> dict:
-    """Bootstrap the basket's own trailing weekly returns forward.
+def weekly_returns_by_ticker(series: dict, b: Basket) -> dict:
+    """Non-overlapping weekly simple returns per holding, aligned across the
+    sleeve so the covariance estimate compares the same weeks."""
+    present = [t for t in b.tickers if t in series and len(series[t]) >= 120]
+    if not present:
+        return {}
+    n = min(len(series[t]) for t in present)
+    out = {}
+    for t in present:
+        s = series[t][-n:]
+        out[t] = [s[i] / s[i - 5] - 1.0 for i in range(5, n, 5) if s[i - 5]]
+    return out
 
-    Normalized to base 100 so it can be published without disclosing a
-    balance. The composite call is deliberately NOT an input: folding a
-    one-week directional score into a 52-week path would imply the model
-    forecasts a year out. It does not.
+
+def build_projection(
+    series: dict, b: Basket, horizon_weeks: int = 52, seed: int = 786,
+) -> dict:
+    """Correlated Monte Carlo forward from the sleeve's trailing weekly returns.
+
+    Normalized to base 100 so it publishes without disclosing a balance. The
+    composite call is deliberately NOT an input: folding a one-week
+    directional score into a 52-week path would imply the model forecasts a
+    year out. It does not.
+
+    Uses analytics.montecarlo, which draws CORRELATED shocks across holdings.
+    This matters more than it sounds: on a fixture with the ~0.5 pairwise
+    correlation large-cap tech actually shows, independent draws understate
+    the decile band by roughly half and put the 10th percentile ~20 index
+    points too high. A concentrated sleeve does not diversify its own risk
+    away, and a projection that says otherwise is flattering, not useful.
     """
     base = {
         "basis": "normalized index, base 100",
-        "cadence": cadence,
-        "assumed_continuing": continuing,
+        "cadence": b.cadence,
+        "assumed_continuing": b.assumed_continuing,
         "horizon_weeks": horizon_weeks,
-        "method": "bootstrap over trailing weekly returns; composite call excluded",
+        "method": ("correlated Monte Carlo over trailing weekly returns "
+                   "(analytics.montecarlo); composite call excluded"),
         "path": [],
         "available": False,
         "note": "Insufficient history to draw a band.",
     }
-    if not idx or len(idx) < 120:
+
+    weekly = weekly_returns_by_ticker(series, b)
+    weekly = {t: r for t, r in weekly.items() if len(r) >= 30}
+    if len(weekly) < max(2, len(b.tickers) // 2):
         return base
 
-    weekly = [idx[i] / idx[i - 5] - 1.0 for i in range(5, len(idx), 5)]
-    if len(weekly) < 20:
+    # Contribution in index points per week, never currency, so the output
+    # stays publishable. A monthly cadence adds ~1 point a month.
+    per_week = {"weekly": 1.0, "biweekly": 0.5, "monthly": 0.25}.get(b.cadence, 0.0)
+    if not b.assumed_continuing:
+        per_week = 0.0
+
+    try:
+        mc = montecarlo.MCSimulation(
+            weekly,
+            weights={t: b.weights_pct[t] for t in weekly},
+            num_simulation=2000,
+            num_periods=horizon_weeks,
+            seed=seed,
+        )
+        paths = mc.run(contribution_per_period=per_week)
+    except ValueError as e:
+        base["note"] = f"Projection unavailable: {e}"
         return base
 
-    rng = random.Random(seed)
-    contrib_per_week = {"weekly": 1.0, "biweekly": 0.5, "monthly": 0.25}.get(cadence, 0.0)
-    if not continuing:
-        contrib_per_week = 0.0
-    # Contribution is expressed as a percent of the base-100 index per week,
-    # scaled so a monthly cadence adds ~1 index point a month. This keeps the
-    # projection normalized -- no dollar amount enters the calculation.
-    contrib_per_week *= 1.0
+    path = [
+        {"week": row["period"], "p10": row["p10"], "p50": row["p50"], "p90": row["p90"]}
+        for row in mc.percentile_path(paths)
+    ]
 
-    paths = []
-    for _ in range(2000):
-        level = 100.0
-        row = [100.0]
-        for _w in range(horizon_weeks):
-            level *= (1.0 + rng.choice(weekly))
-            level += contrib_per_week
-            row.append(level)
-        paths.append(row)
+    port = portfolio_return_series(weekly, b)
+    ann_vol = risk.annualized_vol(port, periods=52) if port else None
 
-    path = []
-    for w in range(horizon_weeks + 1):
-        col = sorted(p[w] for p in paths)
-        path.append({
-            "week": w,
-            "p10": round(col[int(0.10 * (len(col) - 1))], 2),
-            "p50": round(col[int(0.50 * (len(col) - 1))], 2),
-            "p90": round(col[int(0.90 * (len(col) - 1))], 2),
-        })
-
-    ann_vol = statistics.pstdev(weekly) * (52 ** 0.5) * 100.0
     base.update({
         "path": path,
         "available": True,
-        "trailing_weeks_sampled": len(weekly),
-        "annualized_vol_pct": round(ann_vol, 1),
+        "summary": mc.summarize(),
+        "correlated": mc.correlated,
+        "holdings_simulated": len(weekly),
+        "trailing_weeks_sampled": min(len(r) for r in weekly.values()),
+        "annualized_vol_pct": round(ann_vol * 100, 1) if ann_vol else None,
         "note": (
             "Band is drawn from trailing volatility and breaks in a regime "
             "change. p10/p90 are not worst and best cases — roughly one year "
-            "in ten finishes outside each edge, and real tails are fatter."
+            "in ten finishes outside each edge, and real equity tails are "
+            "fatter than the Gaussian this draws from. Management fees are "
+            "not netted out."
         ),
     })
+    if not mc.correlated:
+        base["note"] = ("Covariance across holdings was degenerate, so shocks "
+                        "were drawn independently — this band is too narrow. "
+                        + base["note"])
     return base
+
+
+def portfolio_return_series(returns_by_ticker: dict, b: Basket) -> list[float]:
+    """Weight-blended return series across the holdings that resolved."""
+    if not returns_by_ticker:
+        return []
+    tickers = list(returns_by_ticker)
+    wsum = sum(b.weights_pct[t] for t in tickers)
+    n = min(len(returns_by_ticker[t]) for t in tickers)
+    return [
+        sum(b.weights_pct[t] / wsum * returns_by_ticker[t][-n:][i] for t in tickers)
+        for i in range(n)
+    ]
+
+
+def build_risk_panel(series: dict, b: Basket) -> dict:
+    """Sharpe, vol, beta, drawdown and correlation for the sleeve.
+
+    Ported from A-Whale-Off-the-Port-folio/whale_analysis.ipynb via
+    analytics.risk. Computed on DAILY returns (periods=252) because beta and
+    drawdown both degrade badly on a weekly sample this short.
+
+    risk_free is left at 0.0 and labelled as such. The source notebook used
+    the zero form, which was defensible at 2021 short rates and is not now --
+    the Sharpe here is therefore flattering and is published with that stated
+    rather than quietly corrected to a rate nobody chose.
+    """
+    daily = {
+        t: risk.daily_returns(series[t])
+        for t in b.tickers if t in series and len(series[t]) >= 60
+    }
+    if len(daily) < max(2, len(b.tickers) // 2):
+        return {"available": False,
+                "note": "Too few constituents resolved to compute risk metrics."}
+
+    port = portfolio_return_series(daily, b)
+    bench_daily = (risk.daily_returns(series[b.benchmark])
+                   if b.benchmark in series else None)
+    panel = risk.summarize(port, bench_daily, periods=risk.TRADING_DAYS,
+                           risk_free=0.0)
+
+    pairs = [
+        risk.correlation(daily[a], daily[c])
+        for i, a in enumerate(daily) for c in list(daily)[i + 1:]
+    ]
+    pairs = [p for p in pairs if p is not None]
+
+    rb = risk.rolling_beta(port, bench_daily, window=60) if bench_daily else []
+    rb = [x for x in rb if x is not None]
+
+    return {
+        "available": True,
+        "benchmark": b.benchmark,
+        "risk_free_rate": 0.0,
+        "holdings_measured": len(daily),
+        "annualized_vol": panel["annualized_vol"],
+        "ewma_vol": panel["ewma_vol"],
+        "sharpe": panel["sharpe"],
+        "max_drawdown": panel["max_drawdown"],
+        "beta": panel["beta"],
+        "correlation_to_benchmark": panel["correlation_to_benchmark"],
+        "mean_pairwise_correlation": (
+            round(sum(pairs) / len(pairs), 3) if pairs else None
+        ),
+        "rolling_beta_60d": {
+            "latest": round(rb[-1], 3) if rb else None,
+            "min": round(min(rb), 3) if rb else None,
+            "max": round(max(rb), 3) if rb else None,
+        },
+        "note": ("Sharpe assumes a 0% risk-free rate, as in the source "
+                 "notebook. At current short rates that overstates it."),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -662,6 +761,7 @@ def git_short_sha() -> str:
 def write_dashboard_json(
     b: Basket, call: Call, projection: dict, week_ending: str,
     basket_idx: Optional[list[float]], bench_idx: Optional[float],
+    risk_panel: Optional[dict] = None,
     dry_run: bool = False, example: bool = False,
 ) -> Path:
     """Public-safe by construction: every value here derives from public market
@@ -705,6 +805,7 @@ def write_dashboard_json(
             "basket_index": round(basket_idx[-1], 2) if basket_idx else None,
             "benchmark_index": round(bench_idx, 2) if bench_idx else None,
         },
+        "risk": risk_panel or {"available": False},
         "projection": projection,
         "track_record": track_record(),
         "disclaimer": DISCLAIMER,
@@ -904,7 +1005,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     bench_idx = (bench_series[-1] / bench_series[-len(idx)] * 100.0
                  if bench_series and idx and len(bench_series) >= len(idx) else None)
 
-    projection = build_projection(idx, b.cadence, b.assumed_continuing)
+    projection = build_projection(series, b)
+    risk_panel = build_risk_panel(series, b)
 
     row = {
         "week_ending": week_ending,
@@ -930,13 +1032,14 @@ def main(argv: Optional[list[str]] = None) -> int:
         # Example mode exists so the tab can be smoke-tested from a fixture
         # without a fabricated week ever entering the append-only ledger.
         out = write_dashboard_json(b, call, projection, week_ending, idx,
-                                   bench_idx, dry_run=args.dry_run, example=True)
+                                   bench_idx, risk_panel=risk_panel,
+                                   dry_run=args.dry_run, example=True)
         print(f"[portfolio_track] example written to {out}; ledger untouched.")
         return 0
 
     append_ledger_row(row, dry_run=args.dry_run)
     write_dashboard_json(b, call, projection, week_ending, idx, bench_idx,
-                         dry_run=args.dry_run)
+                         risk_panel=risk_panel, dry_run=args.dry_run)
     write_email_fragment(b, call, week_ending, dry_run=args.dry_run)
     priv = write_private_email_fragment(b, call, week_ending, dry_run=args.dry_run)
 
