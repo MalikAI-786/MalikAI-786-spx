@@ -1,48 +1,28 @@
-# Auto-deploys data files from the SPX repo into the dashboard repo.
+# Manual recovery sync from the SPX research repo into the separate public dashboard repo.
 #
-# TARGET: malikai-786/index007.html — the repo that actually hosts
-# spx_0dte_ai_signal_dashboard.html and its tabs. This previously pointed at
-# malikai-786/malikai-spx-dashboard, which does not exist on the account; every
-# run failed at the clone step until GitHub auto-disabled the workflow. Two
-# manual steps are required to bring it back:
-#   1. Re-enable this workflow (Actions tab -> sync-dashboard -> Enable).
-#   2. Register the DASHBOARD_DEPLOY_KEY public key as a write-enabled deploy
-#      key on malikai-786/index007.html, not on the old repo name.
+# WHY MANUAL-ONLY (2026-08-21)
+# The scheduled workflow was generating repeated failure notifications because the
+# required DASHBOARD_DEPLOY_KEY secret is not configured. The dashboard itself is
+# already published in MalikAI-786/index007.html. Repeated scheduled failures add
+# no analytical value and obscure real model/control failures.
 #
-# Layout mapping (the dashboard HTML sits at the target repo root, so its
-# fetch paths are relative to that root):
-#   spx/dashboard/data/**  ->  data/**       e.g. data/portfolio.json
-#   spx/SPX-Reports/**     ->  reports/**
+# This workflow is deliberately preserved rather than deleted. Once a write-enabled
+# deploy key is configured for MalikAI-786/index007.html, run it manually from the
+# Actions tab to copy public-safe dashboard data and reports.
 #
-# Triggers:
-#   - push to main (only if dashboard/data/** or SPX-Reports/** changed)
-#   - 9:35 AM ET (post-morning report)
-#   - 4:20 PM ET (post-EOD monitor)
-#   - manual via workflow_dispatch
+# Source mapping:
+#   dashboard/data/** -> target data/**
+#   SPX-Reports/**    -> target reports/**
 #
-# Requires repo secret:  DASHBOARD_DEPLOY_KEY  (ed25519 private key whose
-# public counterpart is registered as a write-enabled deploy key on
-# malikai-786/malikai-spx-dashboard).  See GITHUB-SETUP.md § 5.
+# Required secret for a manual run:
+#   DASHBOARD_DEPLOY_KEY
 #
-# DST note: cron times below are UTC. The two entries cover the EST window
-# (winter). During EDT they fire ~1 hour earlier in local time, which is
-# acceptable -- the workflow is idempotent and a no-op when there's nothing
-# to sync. If you want exact local-time triggers in both seasons, add the
-# bracketed lines marked "EDT".
+# IMPORTANT: no scheduled or push trigger may be reintroduced until the secret is
+# verified and one manual run succeeds end-to-end.
 
 name: sync-dashboard
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'dashboard/data/**'
-      - 'SPX-Reports/**'
-  schedule:
-    - cron: '35 13 * * 1-5'   # 9:35 AM ET (EST)
-    - cron: '20 20 * * 1-5'   # 4:20 PM ET (EST)
-    # - cron: '35 14 * * 1-5' # 9:35 AM ET (EDT) -- uncomment for DST coverage
-    # - cron: '20 21 * * 1-5' # 4:20 PM ET (EDT)
   workflow_dispatch:
 
 concurrency:
@@ -53,28 +33,7 @@ permissions:
   contents: read
 
 jobs:
-  guard:
-    # Only run if a triggering path changed, or trigger is schedule/manual.
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    outputs:
-      should_run: ${{ steps.decide.outputs.should_run }}
-    steps:
-      - name: Decide whether to run
-        id: decide
-        env:
-          EVENT: ${{ github.event_name }}
-        run: |
-          if [ "$EVENT" = "schedule" ] || [ "$EVENT" = "workflow_dispatch" ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          # For push events, the path filter above already gated us in.
-          echo "should_run=true" >> "$GITHUB_OUTPUT"
-
   sync:
-    needs: guard
-    if: needs.guard.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -89,7 +48,7 @@ jobs:
           DEPLOY_KEY: ${{ secrets.DASHBOARD_DEPLOY_KEY }}
         run: |
           if [ -z "${DEPLOY_KEY:-}" ]; then
-            echo "::error::DASHBOARD_DEPLOY_KEY secret not set. See GITHUB-SETUP.md section 5."
+            echo "::error::DASHBOARD_DEPLOY_KEY is not configured. This workflow is manual-only until the dashboard deploy key is installed."
             exit 1
           fi
 
@@ -111,21 +70,16 @@ jobs:
           CFG
 
       - name: Clone dashboard repo
-        run: |
-          git clone --depth 1 git@github.com:malikai-786/index007.html.git dashboard
+        run: git clone --depth 1 git@github.com:MalikAI-786/index007.html.git dashboard
 
-      - name: Detect changes & copy data files
+      - name: Detect changes and copy public-safe files
         id: copy
         run: |
           mkdir -p dashboard/data
           changed=0
 
-          # Copy dashboard/data/* to the target repo's data/ (primary target).
-          # The Tech Outlook tab reads data/portfolio.json from here.
           if [ -d spx/dashboard/data ]; then
-            # rsync would be cleaner but isn't on the default runner image always
-            # cp with -R + checksum compare suffices
-            for src in $(find spx/dashboard/data -type f); do
+            while IFS= read -r -d '' src; do
               rel="${src#spx/dashboard/data/}"
               dst="dashboard/data/$rel"
               mkdir -p "$(dirname "$dst")"
@@ -133,13 +87,12 @@ jobs:
                 cp "$src" "$dst"
                 changed=1
               fi
-            done
+            done < <(find spx/dashboard/data -type f -print0)
           fi
 
-          # Mirror the latest SPX-Reports (read-only on the dashboard side)
           if [ -d spx/SPX-Reports ]; then
             mkdir -p dashboard/reports
-            for src in $(find spx/SPX-Reports -type f \( -name '*.md' -o -name '*.html' -o -name '*.json' \)); do
+            while IFS= read -r -d '' src; do
               rel="${src#spx/SPX-Reports/}"
               dst="dashboard/reports/$rel"
               mkdir -p "$(dirname "$dst")"
@@ -147,26 +100,26 @@ jobs:
                 cp "$src" "$dst"
                 changed=1
               fi
-            done
+            done < <(find spx/SPX-Reports -type f \( -name '*.md' -o -name '*.html' -o -name '*.json' \) -print0)
           fi
 
           echo "changed=$changed" >> "$GITHUB_OUTPUT"
 
-      - name: Commit & push to dashboard
+      - name: Commit and push dashboard data
         if: steps.copy.outputs.changed == '1'
         working-directory: dashboard
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "No staged changes after copy -- nothing to push."
+            echo "No staged changes."
             exit 0
           fi
           ts="$(date -u +%Y-%m-%dT%H:%MZ)"
-          git commit -m "chore(data): auto-sync from SPX repo $ts"
+          git commit -m "chore(data): manual sync from SPX repo $ts"
           git push origin main
 
-      - name: Skip push (no changes)
+      - name: No changes
         if: steps.copy.outputs.changed != '1'
-        run: echo "No data changes detected -- skipping commit."
+        run: echo "Dashboard is already current; no commit required."
