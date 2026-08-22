@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-08-22T03:43:00Z",
+  "public_safe": true,
+  "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
+  "summary": {
+    "verified_days": 6,
+    "verified_cumulative_pnl": 120.0,
+    "wins": 1,
+    "losses": 1,
+    "stand_downs": 3,
+    "flat_non_stand_downs": 1,
+    "win_rate": 0.5,
+    "avg_win": 300.0,
+    "avg_loss": -180.0,
+    "expectancy_per_non_stand_trade": 40.0,
+    "max_drawdown": 180.0,
+    "direction_hit_rate": 0.6666666667,
+    "direction_scored_days": 3,
+    "structure_hit_rate": 0.5,
+    "structure_scored_days": 2,
+    "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history.",
+    "curve": [
+      {"date":"2026-05-21","pnl":0.0,"cumulative":0.0,"record_id":"acct-20260521-v1"},
+      {"date":"2026-05-22","pnl":0.0,"cumulative":0.0,"record_id":"acct-20260522-v1"},
+      {"date":"2026-05-26","pnl":-180.0,"cumulative":-180.0,"record_id":"acct-20260526-v1"},
+      {"date":"2026-05-27","pnl":300.0,"cumulative":120.0,"record_id":"acct-20260527-v1"},
+      {"date":"2026-05-28","pnl":0.0,"cumulative":120.0,"record_id":"acct-20260528-v1"},
+      {"date":"2026-08-21","pnl":0.0,"cumulative":120.0,"record_id":"acct-20260821-v1"}
+    ]
+  },
+  "latest_effective_result": {
+    "record_id": "acct-20260821-v1",
+    "date": "2026-08-21",
+    "bias_score": "0.01",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0",
+    "counterfactual_pnl": "",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a0246e8c6212baf",
+    "correction_of": "",
+    "notes": "Sent morning analysis explicitly published STAND-DOWN and no trade. Synthetic disciplined P&L is therefore $0 by the model contract. Historical June-August backfill remains incomplete."
+  },
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+}
