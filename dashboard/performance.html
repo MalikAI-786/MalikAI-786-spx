@@ -65,7 +65,14 @@ fetch('./data/performance.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new 
  document.getElementById('coverage').textContent=s.coverage_note;
  document.getElementById('diagnosis').textContent=d.diagnosis;
  if(l){const p=Number(l.disciplined_pnl||0);document.getElementById('yesterday').textContent=l.stand_down==='true'?'If we had followed the latest published setup ('+l.date+'), we would have stayed flat: $0 synthetic P&L.':'Latest audited setup ('+l.date+'): '+money(p)+' standardized synthetic P&L.'}
- new Chart(document.getElementById('curve'),{type:'line',data:{labels:s.curve.map(x=>x.date),datasets:[{label:'Cumulative P&L',data:s.curve.map(x=>x.cumulative),borderColor:'#0F5F5A',backgroundColor:'rgba(15,95,90,.08)',fill:true,tension:.2,pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>money(v)}},x:{grid:{display:false}}}}});
+ try{
+  if(typeof Chart==='undefined')throw new Error('Chart.js unavailable');
+  new Chart(document.getElementById('curve'),{type:'line',data:{labels:s.curve.map(x=>x.date),datasets:[{label:'Cumulative P&L',data:s.curve.map(x=>x.cumulative),borderColor:'#0F5F5A',backgroundColor:'rgba(15,95,90,.08)',fill:true,tension:.2,pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>money(v)}},x:{grid:{display:false}}}}});
+ }catch(e){
+  // Chart-library failure is cosmetic -- the numbers above are already
+  // correct and must not be overwritten by a rendering problem in the chart.
+  document.getElementById('curve').replaceWith(Object.assign(document.createElement('p'),{className:'sub',textContent:'Chart unavailable. Cumulative P&L by date: '+s.curve.map(x=>x.date+' '+money(x.cumulative)).join(' · ')}));
+ }
 }).catch(e=>{document.getElementById('yesterday').textContent='Performance data unavailable';document.getElementById('diagnosis').textContent=e.message});
 </script>
 </body>
