@@ -35,6 +35,13 @@
     <canvas id="curve" aria-label="Cumulative verified synthetic P and L"></canvas>
   </section>
 
+  <section class="card wide">
+    <h2>When we deviate</h2>
+    <p class="sub" style="margin:-6px 0 14px">Published composite score per day. Green bars are days the sign matched what SPX actually did; red bars are days it didn't. Gray marks a stand-down &mdash; the model made no directional claim to score.</p>
+    <canvas id="deviation" aria-label="Composite bias score per day, colored by whether the direction call was later verified right or wrong"></canvas>
+    <p class="sub" id="deviationLegend" style="margin-top:10px"></p>
+  </section>
+
   <section class="grid" style="margin-top:12px">
     <div class="card"><div class="k">Direction hit rate</div><div class="v" id="dir">—</div><div class="sub" id="dirN">—</div></div>
     <div class="card"><div class="k">Structure hit rate</div><div class="v" id="struct">—</div><div class="sub" id="structN">—</div></div>
@@ -64,7 +71,19 @@ fetch('./data/performance.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new 
  document.getElementById('stands').textContent=s.stand_downs;
  document.getElementById('coverage').textContent=s.coverage_note;
  document.getElementById('diagnosis').textContent=d.diagnosis;
- if(l){const p=Number(l.disciplined_pnl||0);document.getElementById('yesterday').textContent=l.stand_down==='true'?'If we had followed the latest published setup ('+l.date+'), we would have stayed flat: $0 synthetic P&L.':'Latest audited setup ('+l.date+'): '+money(p)+' standardized synthetic P&L.'}
+ if(l){
+  // disciplined_pnl can be "" (blank) when the direction/structure verdict is
+  // verified but the exact dollar fill was never stated in the sent email --
+  // that is a confirmed HIT with an unknown dollar amount, not a $0 result.
+  // Number(''||0) collapses both to 0, so branch on the raw string first.
+  const hasPnl = l.disciplined_pnl !== '' && l.disciplined_pnl != null;
+  const p = hasPnl ? Number(l.disciplined_pnl) : null;
+  let line;
+  if(l.stand_down==='true') line = 'If we had followed the latest published setup ('+l.date+'), we would have stayed flat: $0 synthetic P&L.';
+  else if(hasPnl) line = 'Latest audited setup ('+l.date+'): '+money(p)+' standardized synthetic P&L.';
+  else line = 'Latest audited setup ('+l.date+'): direction '+(l.direction_verdict||'').toLowerCase()+', structure '+(l.structure_verdict||'').toLowerCase()+' -- exact dollar P&L not stated in the sent email.';
+  document.getElementById('yesterday').textContent = line;
+ }
  try{
   if(typeof Chart==='undefined')throw new Error('Chart.js unavailable');
   new Chart(document.getElementById('curve'),{type:'line',data:{labels:s.curve.map(x=>x.date),datasets:[{label:'Cumulative P&L',data:s.curve.map(x=>x.cumulative),borderColor:'#0F5F5A',backgroundColor:'rgba(15,95,90,.08)',fill:true,tension:.2,pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>money(v)}},x:{grid:{display:false}}}}});
@@ -72,6 +91,49 @@ fetch('./data/performance.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new 
   // Chart-library failure is cosmetic -- the numbers above are already
   // correct and must not be overwritten by a rendering problem in the chart.
   document.getElementById('curve').replaceWith(Object.assign(document.createElement('p'),{className:'sub',textContent:'Chart unavailable. Cumulative P&L by date: '+s.curve.map(x=>x.date+' '+money(x.cumulative)).join(' · ')}));
+ }
+
+ // "When we deviate" -- composite score per day, colored by whether the
+ // direction call was later verified right or wrong. Independent try/catch,
+ // same reason as the curve above: a chart failure must never blank text
+ // that already rendered correctly from the same fetch.
+ const hist = s.history || [];
+ const dirColor = h => h.stand_down ? '#A6B0BA' : h.direction_verdict==='HIT' ? '#0F5F5A' : h.direction_verdict==='MISS' ? '#AD4317' : '#CBD3DA';
+ const dirLabel = h => h.stand_down ? 'stand-down' : h.direction_verdict==='HIT' ? 'hit' : h.direction_verdict==='MISS' ? 'miss' : 'unscored';
+ const hits = hist.filter(h=>h.direction_verdict==='HIT').length;
+ const misses = hist.filter(h=>h.direction_verdict==='MISS').length;
+ const standDownN = hist.filter(h=>h.stand_down).length;
+ document.getElementById('deviationLegend').textContent =
+   hist.length ? (hits+' hit · '+misses+' miss · '+standDownN+' stand-down, out of '+hist.length+' verified days') : 'No verified history yet.';
+ try{
+  if(typeof Chart==='undefined')throw new Error('Chart.js unavailable');
+  if(!hist.length)throw new Error('no history rows');
+  new Chart(document.getElementById('deviation'),{
+    type:'bar',
+    data:{labels:hist.map(h=>h.date),datasets:[{
+      label:'Composite score',
+      data:hist.map(h=>h.bias_score),
+      backgroundColor:hist.map(dirColor),
+      borderRadius:2,
+    }]},
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>{
+          const h=hist[c.dataIndex];
+          return h.bias_label+' ('+(h.bias_score>0?'+':'')+h.bias_score+') — '+dirLabel(h);
+        }}}
+      },
+      scales:{
+        y:{title:{display:true,text:'composite score'},grid:{color:'#E2DAD3'}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+ }catch(e){
+  document.getElementById('deviation').replaceWith(Object.assign(document.createElement('p'),{className:'sub',
+    textContent:'Chart unavailable. By date: '+hist.map(h=>h.date+' '+(h.bias_score>0?'+':'')+h.bias_score+' ('+dirLabel(h)+')').join(' · ')}));
  }
 }).catch(e=>{document.getElementById('yesterday').textContent='Performance data unavailable';document.getElementById('diagnosis').textContent=e.message});
 </script>
