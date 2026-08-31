@@ -410,7 +410,8 @@ The model has already committed to a bias by §3. These sections are
         self-directed-trader page."
     17. **Audit memo link** — `/audits/AUDIT-MEMO-v5.0.md`.
     18. **NOT-INVESTMENT-ADVICE box** — see §8 for exact text.
-    19. **Hazrat Ali quote** — see §9 for the rotating quote pool.
+    19. **Questions line** — see §9.1.
+    20. **Hazrat Ali quote** — see §9 for the rotating quote pool.
 
 7.4. Save the report. Stage and commit:
     ```
@@ -466,6 +467,23 @@ v5.0 default pool:
 Format the chosen line as the final line of the email body, italicized,
 with the attribution `— Hazrat Ali (RA)`.
 
+### 9.1. Questions line (added v5.1)
+
+Immediately after the educational disclaimer paragraph and any system
+notes, and before the Hazrat Ali quote, add one plain line:
+
+```
+Questions or something look off? Reply to this email.
+```
+
+This is the only mechanism for a reader (cc/bcc'd recipients included) to
+reach the owner about the content — not a calendar invite, not a
+scheduling link, and not a Notion link (the control-center workspace is
+private; recipients outside it cannot open a page there even if one were
+linked). A reply lands in the same thread the owner already reads every
+morning. Do not add any other contact channel without the owner's
+explicit say-so.
+
 ---
 
 ## 10. Compose the email payload (9:24:00 → 9:25:00)
@@ -503,7 +521,7 @@ with the attribution `— Hazrat Ali (RA)`.
     bearish evidence → vol/positioning → catalysts → SPX levels →
     signal invalidation → educational structure → pre-flight checklist →
     rolling 10-day trusted-bot P&L table → dashboard link →
-    audit-memo link → NOT-INVESTMENT-ADVICE box → Hazrat Ali quote.
+    audit-memo link → NOT-INVESTMENT-ADVICE box → questions line → Hazrat Ali quote.
 
 10.4. **Banned phrases in the body** (lint pass before send — F-01):
     `"Trade at"`, `"buy "`, `"sell "`, `"recommendation"`, `"signal to enter"`,
