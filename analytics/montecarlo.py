@@ -216,16 +216,25 @@ class MCSimulation:
         def q(p: float) -> float:
             return round(f[int(p * last)], 2)
 
+        median = q(0.50)
+        p10 = q(0.10)
+        p90 = q(0.90)
         return {
             "simulations": self.nSim,
             "periods": self.nPeriods,
             "correlated": self.correlated,
             "tickers": list(self.tickers),
             "mean": round(sum(f) / len(f), 2),
-            "median": q(0.50),
-            "p10": q(0.10),
-            "p90": q(0.90),
+            "median": median,
+            "p10": p10,
+            "p90": p90,
             "ci95_lower": q(0.025),
             "ci95_upper": q(0.975),
             "basis": "index, base 100",
+            # One-line for email / dashboard chrome (still base-100 index points).
+            "email_line": (
+                f"MC {self.nPeriods}p · "
+                f"{'corr' if self.correlated else 'indep'} · "
+                f"p10 {p10} / p50 {median} / p90 {p90}"
+            ),
         }
