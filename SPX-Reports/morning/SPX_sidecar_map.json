@@ -1,11 +1,23 @@
 {
-  "generated_at": "2026-09-06T18:28:00Z",
+  "generated_at": "2026-09-08T14:21:20Z",
   "folder_path": "06_Malik_Marketplace/SPX_Daily",
   "folder_id": "1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "folder_url": "https://drive.google.com/drive/folders/1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "parent_folder_id": "193-5IEA_SzGarZxiQH_Eqlm5OHkRStgs",
-  "count": 5,
+  "count": 6,
   "entries": [
+    {
+      "filename": "SPX_2026-09-08_LEAN-BEARISH_BearCall.md",
+      "date": "2026-09-08",
+      "bias": "LEAN-BEARISH",
+      "action": "BearCall",
+      "gmail_message_id": "1a08121e13828dad",
+      "gmail_thread_id": "1a08121e13828dad",
+      "subject": "SPX 0DTE \u2014 2026-09-08 \u2014 LEAN BEARISH (-0.58) \u2014 Bear Call 7730/7770, enter 9:45 ET",
+      "drive_file_id": "190iqQ9NVCQLUF8jGsORj46YR5R0Ql8NA",
+      "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_2026-09-08_LEAN-BEARISH_BearCall.md",
+      "view_url": "https://drive.google.com/file/d/190iqQ9NVCQLUF8jGsORj46YR5R0Ql8NA/view"
+    },
     {
       "filename": "SPX_2026-09-02_BEARISH_BearCall.md",
       "date": "2026-09-02",
