@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-30T15:47:15.055250+00:00",
+  "generated_at": "2026-09-08T04:49:25.237447+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 14,
+    "verified_days": 16,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 6,
+    "stand_downs": 8,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -79,6 +79,18 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20260826-013"
+      },
+      {
+        "date": "2026-08-28",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260828-015"
+      },
+      {
+        "date": "2026-09-01",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260901-016"
       }
     ],
     "history": [
@@ -207,26 +219,44 @@
         "direction_verdict": "HIT",
         "structure_verdict": "HIT",
         "disciplined_pnl": null
+      },
+      {
+        "date": "2026-08-28",
+        "bias_score": 0.03,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "bias_score": null,
+        "bias_label": "LATE RUN -- NO TRADE ISSUED",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260827-014",
-    "date": "2026-08-27",
-    "bias_score": "0.47",
-    "bias_label": "LEAN BULLISH",
+    "record_id": "acct-20260902-017",
+    "date": "2026-09-02",
+    "bias_score": "-1.06",
+    "bias_label": "BEARISH",
     "stand_down": "false",
-    "structure": "bull_put_spread",
+    "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "HIT",
+    "model_verdict": "MIXED",
+    "direction_verdict": "MISS",
     "structure_verdict": "HIT",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a0487bb70884ca6",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a0623ad2007d106",
     "correction_of": "",
-    "notes": "Bull Put 7625/7585. Aug 28 email's own recap: SPX closed 7,730.99 (+0.72%), spread finished 106pts OTM, would have expired worthless for full credit. disciplined_pnl left blank -- exact fill not stated."
+    "notes": "Bear Call 7690/7730, credit target ~8.0. SPX closed 7,666.60 (+0.46 pct): the bearish sign was wrong, but the close landed 23pts BELOW the 7690 short call, so the spread still expired out-of-the-money. Direction wrong, structure saved it. PARTIAL not VERIFIED: no close-report email or committed close report exists for this day, so the outcome rests on the public index close rather than one of the three evidence sources in SKILL-accountability section 4. disciplined_pnl left blank -- no fill was ever published, and section 4 forbids inferring a spread fill from the index close alone. Upgrade with a correction row if the owner supplies the fill."
   },
-  "diagnosis": "Direction and structure both confirmed correct from the sent email's own recap. The exact dollar fill was not stated, so disciplined_pnl is left blank rather than estimated -- this day is excluded from the P&L statistics but counted in the hit-rate ones."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
