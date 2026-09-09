@@ -1,11 +1,23 @@
 {
-  "generated_at": "2026-09-08T14:21:20Z",
+  "generated_at": "2026-09-09T14:44:45Z",
   "folder_path": "06_Malik_Marketplace/SPX_Daily",
   "folder_id": "1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "folder_url": "https://drive.google.com/drive/folders/1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "parent_folder_id": "193-5IEA_SzGarZxiQH_Eqlm5OHkRStgs",
-  "count": 6,
+  "count": 7,
   "entries": [
+    {
+      "filename": "SPX_2026-09-09_LEAN-BEARISH_BearCall.md",
+      "date": "2026-09-09",
+      "bias": "LEAN-BEARISH",
+      "action": "BearCall",
+      "gmail_message_id": "1a086458f15f062e",
+      "gmail_thread_id": "1a086458f15f062e",
+      "subject": "SPX 0DTE — 2026-09-09 — LEAN BEARISH (-0.68) — Bear Call 7725/7765, enter 9:45 ET",
+      "drive_file_id": "1XRK-1PbAEWYQ17Kwz2BN5sIfi3UVLgVo",
+      "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_2026-09-09_LEAN-BEARISH_BearCall.md",
+      "view_url": "https://drive.google.com/file/d/1XRK-1PbAEWYQ17Kwz2BN5sIfi3UVLgVo/view"
+    },
     {
       "filename": "SPX_2026-09-08_LEAN-BEARISH_BearCall.md",
       "date": "2026-09-08",
@@ -13,7 +25,7 @@
       "action": "BearCall",
       "gmail_message_id": "1a08121e13828dad",
       "gmail_thread_id": "1a08121e13828dad",
-      "subject": "SPX 0DTE \u2014 2026-09-08 \u2014 LEAN BEARISH (-0.58) \u2014 Bear Call 7730/7770, enter 9:45 ET",
+      "subject": "SPX 0DTE — 2026-09-08 — LEAN BEARISH (-0.58) — Bear Call 7730/7770, enter 9:45 ET",
       "drive_file_id": "190iqQ9NVCQLUF8jGsORj46YR5R0Ql8NA",
       "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_2026-09-08_LEAN-BEARISH_BearCall.md",
       "view_url": "https://drive.google.com/file/d/190iqQ9NVCQLUF8jGsORj46YR5R0Ql8NA/view"
@@ -74,5 +86,6 @@
     "filename": "SPX_sidecar_map.json",
     "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_sidecar_map.json"
   },
-  "repo_queue_note": "Archive commits into MalikAI-786/MalikAI-786-spx via Mac Documents/MalikAI-786-spx or CloudAgent only \u2014 never legal-os."
+  "repo_queue_note": "Archive commits into MalikAI-786/MalikAI-786-spx via Mac Documents/MalikAI-786-spx or CloudAgent only — never legal-os.",
+  "note": "2026-09-09 10:15 ET pass: archived today's SPX 0DTE; fresh sidecar upload (Drive update_file is metadata-only)."
 }
