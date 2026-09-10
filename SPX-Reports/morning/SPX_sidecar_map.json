@@ -1,11 +1,23 @@
 {
-  "generated_at": "2026-09-09T14:44:45Z",
+  "generated_at": "2026-09-10T14:35:10Z",
   "folder_path": "06_Malik_Marketplace/SPX_Daily",
   "folder_id": "1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "folder_url": "https://drive.google.com/drive/folders/1LUeBSXODiN8j2aVDbzl_bB2K8DenM1M_",
   "parent_folder_id": "193-5IEA_SzGarZxiQH_Eqlm5OHkRStgs",
-  "count": 7,
+  "count": 8,
   "entries": [
+    {
+      "filename": "SPX_2026-09-10_LEAN-BEARISH_BearCall.md",
+      "date": "2026-09-10",
+      "bias": "LEAN-BEARISH",
+      "action": "BearCall",
+      "gmail_message_id": "1a08b6d5cfe40838",
+      "gmail_thread_id": "1a08b6d5cfe40838",
+      "subject": "SPX 0DTE — 2026-09-10 — LEAN BEARISH (-0.42) — Bear Call 7715/7750, enter 9:45 ET",
+      "drive_file_id": "1kU_VJfnuJu76n7U6Ra92v8EgqtthpMCL",
+      "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_2026-09-10_LEAN-BEARISH_BearCall.md",
+      "view_url": "https://drive.google.com/file/d/1kU_VJfnuJu76n7U6Ra92v8EgqtthpMCL/view"
+    },
     {
       "filename": "SPX_2026-09-09_LEAN-BEARISH_BearCall.md",
       "date": "2026-09-09",
@@ -87,5 +99,5 @@
     "drive_path": "06_Malik_Marketplace/SPX_Daily/SPX_sidecar_map.json"
   },
   "repo_queue_note": "Archive commits into MalikAI-786/MalikAI-786-spx via Mac Documents/MalikAI-786-spx or CloudAgent only — never legal-os.",
-  "note": "2026-09-09 10:15 ET pass: archived today's SPX 0DTE; fresh sidecar upload (Drive update_file is metadata-only)."
+  "note": "2026-09-10 10:15 ET pass: archived today's SPX 0DTE; fresh sidecar upload (Drive update_file is metadata-only)."
 }
