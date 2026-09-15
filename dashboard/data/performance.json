@@ -1,10 +1,10 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-09-08T13:17:31.055366+00:00",
+  "generated_at": "2026-09-15T13:13:45.839581+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 16,
+    "verified_days": 17,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
@@ -15,10 +15,10 @@
     "avg_loss": -180.0,
     "expectancy_per_non_stand_trade": 30.0,
     "max_drawdown": 180.0,
-    "direction_hit_rate": 0.625,
-    "direction_scored_days": 8,
-    "structure_hit_rate": 0.8333333333333334,
-    "structure_scored_days": 6,
+    "direction_hit_rate": 0.6666666666666666,
+    "direction_scored_days": 9,
+    "structure_hit_rate": 0.8571428571428571,
+    "structure_scored_days": 7,
     "curve": [
       {
         "date": "2026-05-21",
@@ -237,26 +237,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "bias_score": -0.68,
+        "bias_label": "LEAN BEARISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260902-017",
-    "date": "2026-09-02",
-    "bias_score": "-1.06",
-    "bias_label": "BEARISH",
+    "record_id": "acct-20260910-019",
+    "date": "2026-09-10",
+    "bias_score": "-0.42",
+    "bias_label": "LEAN BEARISH",
     "stand_down": "false",
     "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "MIXED",
-    "direction_verdict": "MISS",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a0623ad2007d106",
+    "evidence_ref": "gmail:1a08b6d5cfe40838",
     "correction_of": "",
-    "notes": "Bear Call 7690/7730, credit target ~8.0. SPX closed 7,666.60 (+0.46 pct): the bearish sign was wrong, but the close landed 23pts BELOW the 7690 short call, so the spread still expired out-of-the-money. Direction wrong, structure saved it. PARTIAL not VERIFIED: no close-report email or committed close report exists for this day, so the outcome rests on the public index close rather than one of the three evidence sources in SKILL-accountability section 4. disciplined_pnl left blank -- no fill was ever published, and section 4 forbids inferring a spread fill from the index close alone. Upgrade with a correction row if the owner supplies the fill."
+    "notes": "Bear Call 7715/7750. SPX closed 7,591.70, down 0.49 pct from 7,629.00 -- direction right and the close finished 123pts below the 7715 short call, so the spread expired OTM. PARTIAL not VERIFIED: the pipeline went dark Sep 11 so no close report or next-day recap exists; outcome rests on the public index close. disciplined_pnl blank -- no published fill."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
