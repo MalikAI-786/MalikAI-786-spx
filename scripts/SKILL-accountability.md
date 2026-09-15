@@ -188,6 +188,13 @@ member, or external reader.
 7. **Actual Portfolio** — private/approved disclosure only
 8. Dashboard link
 9. Full educational / not-investment-advice disclaimer
+10. **Questions line** (added v2.1) — one plain line, after the disclaimer
+    and any system notes, before the sign-off quote:
+    `Questions or something look off? Reply to this email.`
+    This is the only contact channel offered to cc/bcc'd recipients — not a
+    calendar invite, not a link into the private Notion control-center
+    workspace (recipients outside it cannot open a page there regardless).
+    A reply lands in the thread the owner already reads every morning.
 
 The point of v2 is simple: **prediction without a recorded outcome is content;
 prediction plus an immutable outcome ledger is analysis.**
