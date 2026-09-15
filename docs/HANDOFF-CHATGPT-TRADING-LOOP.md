@@ -150,6 +150,17 @@ Note the current ET time.
 This gate exists because the 2026-09-01 run fired at 8:29 PM ET and published
 as though it were a morning note.
 
+STEP 1B — BINARY-EVENT GATE
+Check whether today carries a scheduled binary: an FOMC decision, CPI, PPI, or
+NFP. On those days do NOT publish a full-conviction directional call. Either
+stand down, or cut size and say so explicitly in the email — the composite is
+scored entirely on pre-event information that the event is about to invalidate.
+Name the event and its release time in the body.
+This is not theoretical. The Sep 10 email correctly flagged "Fri 9/11 CPI --
+size down into it" and "Sept 15-16 FOMC, ~60% hike odds" as the month's two
+biggest risks, and then the pipeline went dark for both of them. An event gate
+that is only prose in the WHY section is not a gate.
+
 STEP 2 — LOAD THE LEDGER FIRST, BEFORE ANY MARKET DATA
 Read dashboard/data/performance.json (regenerate with
 `python3 scripts/accountability_track.py build` if you have the repo).
@@ -272,6 +283,44 @@ HARD RULES
 ```
 
 ---
+
+## Part 4B — Status as of 2026-09-15, and what is still broken
+
+Re-verified against Gmail and git, not assumed:
+
+**Working.** Sends went out Sep 8, 9 and 10 at ~9:06 ET. The model is calling
+well — Sep 9 published LEAN BEARISH −0.68 and SPX closed −0.58%, direction hit
+with the 7725 short strike staying OTM; Sep 10 reported a second straight correct
+call, with real inputs (10Y ~4.85%, FedWatch odds, Brent >$102) and renormalized
+weights shown and recomputed. Morning reports for those three days are committed
+to `main` under `SPX-Reports/morning/`.
+
+**Dark since Sep 10.** No email and no report for Fri Sep 11 or Mon Sep 14. Last
+commit to `main` is Sep 10. It missed the Sep 11 CPI print and is currently down
+going into the FOMC decision.
+
+**D-1 not fixed.** All three sends (Sep 8, 9, 10) carry the `HOW TO PLACE IT`
+block naming Option Alpha and Tastytrade with full click-by-click order entry.
+Three consecutive violations of the §0.7 hard-halt condition, each cc'd to a
+third party.
+
+**D-5 not fixed.** The Sep 10 email's own system note: *"Dashboard/git still
+broken (fatal: not a git repository) — report saved directly via file tools, not
+through git. Needs repair on your Mac (see FIX-DASHBOARD-GIT.md)."* That file is
+not in this repo. `git log --since=2026-09-07 -- ledger/ dashboard/data/` returns
+nothing: the ledger and dashboard have not been touched. Reports are archived as
+markdown; the accountability layer is still dead.
+
+**D-4 getting worse.** Published rolling win rate has drifted from "80%" (Sep 8)
+to "~86%" (Sep 10) against an audited 50% with a 62.5% direction hit rate. Every
+day the ledger stays frozen, that gap widens.
+
+**Environment hazard, newly found.** A container rebuild checked out the
+designated branch *name* at `main`'s commit, leaving a local branch that had
+diverged from its remote — 5 commits from `main` on one side, the 7 real commits
+on the other. Pushing it would have destroyed the branch. Any fresh session must
+run `git status -sb` and compare against origin before trusting the working tree,
+and must never force a divergent push.
 
 ## Part 5 — Close-of-day
 
