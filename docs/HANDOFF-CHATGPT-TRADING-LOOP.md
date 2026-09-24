@@ -284,6 +284,52 @@ HARD RULES
 
 ---
 
+## Part 4C — Correction as of 2026-09-24: the publisher may not be ChatGPT
+
+Everything in Parts 1-4B assumed the live publisher was a ChatGPT scheduled task,
+per the Notion "AI control room" contract ("ChatGPT is the orchestration and
+control layer"). New evidence on 2026-09-24 complicates that.
+
+A close-report email arrived 2026-09-23 8:06 PM ET, subject `SPX 0DTE Close —
+Wed Sep 23, 2026 — [INCOMPLETE] — Educational`. Its own error message:
+
+> this run's cloud session has no local device connected, and the required
+> local clones ($REPO = malikai-spx-dashboard, $PUB = malikai-spx-pages) and
+> the Gmail OAuth token file (~/.gmail-mcp/token.json) referenced by the skill
+> do not exist in this cloud workspace... Action needed: this scheduled task
+> currently runs in the cloud only... it likely needs "Require this computer"
+> turned on for this task (in the Claude desktop app, on the machine holding
+> those repos and the token).
+
+Three things follow from this:
+
+1. **The repo path is wrong.** `$REPO = malikai-spx-dashboard` is not
+   `MalikAI-786/MalikAI-786-spx` — the repo this handoff package and the whole
+   accountability layer live in. Either that repo exists separately and holds
+   its own (possibly divergent) copy of `scripts/SKILL.md`, or it no longer
+   exists and the task has been silently failing against a stale path for
+   some time.
+2. **The mechanism is a Claude scheduled task, not a ChatGPT one** — "Require
+   this computer" and "Claude desktop app" are Claude Code / Claude Desktop
+   concepts, not ChatGPT Tasks. This may mean the morning sends (which do
+   reach Gmail successfully, unlike this close job) are ALSO a Claude task
+   rather than ChatGPT, or it may mean there are two separate systems — a
+   working Claude-or-ChatGPT morning task and a broken Claude close task.
+   Undetermined from here.
+3. **The fix, if it's accurate, is a one-time owner action**: open the Claude
+   desktop app on whichever machine has a real clone of the correct repo and
+   a valid Gmail OAuth token, find this scheduled task, and enable "Require
+   this computer" so it stops running cloud-only. Not something fixable from
+   this session — this session has no visibility into the owner's Claude
+   Desktop task list.
+
+**Do not treat Parts 1-4B's "ChatGPT" framing as settled.** Confirm the actual
+publisher and the actual repo path before doing more remediation work aimed at
+"the ChatGPT task" specifically — the fix may be pointed at the wrong system
+entirely.
+
+---
+
 ## Part 4B — Status as of 2026-09-15, and what is still broken
 
 Re-verified against Gmail and git, not assumed:
