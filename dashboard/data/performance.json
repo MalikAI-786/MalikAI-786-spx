@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-09-21T13:16:02.573738+00:00",
+  "generated_at": "2026-09-25T13:20:14.333948+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 18,
+    "verified_days": 19,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 9,
+    "stand_downs": 10,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -97,6 +97,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20260916-020"
+      },
+      {
+        "date": "2026-09-24",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260924-021"
       }
     ],
     "history": [
@@ -261,26 +267,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "bias_score": null,
+        "bias_label": "LATE RUN -- NO TRADE ISSUED",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260916-020",
-    "date": "2026-09-16",
-    "bias_score": "-0.32",
-    "bias_label": "STAND-DOWN",
+    "record_id": "acct-20260924-021",
+    "date": "2026-09-24",
+    "bias_score": "",
+    "bias_label": "LATE RUN -- NO TRADE ISSUED",
     "stand_down": "true",
-    "structure": "stand-down",
+    "structure": "no-trade",
     "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
+    "model_verdict": "NO-TRADE",
     "direction_verdict": "N/A",
     "structure_verdict": "N/A",
     "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a0aa5208f34bb69",
+    "evidence_ref": "gmail:1a0d56f2a6d85890",
     "correction_of": "",
-    "notes": "Composite -0.32, a hair past the neutral band, but the model correctly deferred to the FOMC decision (2:00 PM ET, 25bp hike to 3.75-4pct, first since 2023) and the Warsh presser, both inside the 0DTE window. No exposure taken. Sent email did not carry broker names or click-by-click instructions -- first clean send on that count since Sep 8. Did not lead with the accountability block (SKILL-accountability section 1 violation) and its published rolling win rate (~88pct) still did not match the audited ledger (50pct win rate) -- root cause stated in the email itself: local git repo still not repaired."
+    "notes": "OPERATIONAL FAILURE, NOT A MODEL STAND-DOWN. Run fired 17:54 ET -- ~8h54m after the intended 09:00 ET start and ~1h54m after the 4:00 PM cash close. No bias scored, no strikes computed, by design (matches the 2026-09-01 precedent). The email itself is an unusually good-faith self-diagnosis: discloses 6 consecutive dark sessions (09-17 through 09-23, plus this late one), states its own calibration overlay is stale (last touched 09-10) and recommends treating any future composite as lower-confidence until re-scored, and recommends a staleness guard (skip trade plan after ~10:00 ET), a git repair, and backfilling or voiding the gap. No banned broker strings, no fabricated win rate published this time."
   },
   "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
