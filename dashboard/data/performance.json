@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-09-28T13:29:14.188031+00:00",
+  "generated_at": "2026-09-29T13:22:21.741402+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -281,21 +281,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260925-022",
-    "date": "2026-09-25",
-    "bias_score": "-0.37",
+    "record_id": "acct-20260928-023",
+    "date": "2026-09-28",
+    "bias_score": "-0.99",
     "bias_label": "LEAN BEARISH",
     "stand_down": "false",
     "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "MIXED",
-    "direction_verdict": "MISS",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a0d8c1d4e5d2075",
+    "evidence_ref": "gmail:1a0e83ad0514f847",
     "correction_of": "",
-    "notes": "Bear Call 7770/7810, half unit, credit target ~8.0. SPX closed 7,743.41 (+0.51 pct): the bearish sign was wrong, but the close finished ~27pts BELOW the 7770 short call, so the spread expired OTM. Direction wrong, structure saved it -- third such case (Aug 19, Sep 2, Sep 25). PARTIAL not VERIFIED: no close report or next-day recap exists; outcome rests on the public index close. disciplined_pnl blank -- no published fill. This send re-introduced the Option Alpha / Tastytrade click-by-click block after two clean sends (Sep 16, Sep 24) -- finding F-01 regression. Its own system note: data/latest.json and ledger/sent-emails.csv locked on the local repo, ledger unavailable, no win rate published."
+    "notes": "Bear Call 7790/7830, half unit, credit target ~8.0, composite -0.99 (moderate-to-firm). SPX closed 7,683.69 (-0.77 pct): direction right, and the close finished ~106pts below the 7790 short call, spread expired OTM. PARTIAL not VERIFIED: no close report or next-day recap; outcome rests on the public index close. disciplined_pnl blank -- no published fill. Send carried the Option Alpha / tastytrade numbered click-by-click block again (F-01, second consecutive send after two clean ones). Its Sep 25 recap scored a flat MISS, collapsing direction/structure (structure had held). No win rate published -- ledger unreachable. New root cause stated in its own system note: repo files are cloud-evicted iCloud placeholders in the run session, so the ledger, dashboard refresh, and git push are paused until repaired on the owner's Mac."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
