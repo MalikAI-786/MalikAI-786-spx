@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-09-30T13:15:16.981229+00:00",
+  "generated_at": "2026-10-01T13:19:23.789179+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 20,
+    "verified_days": 21,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 11,
+    "stand_downs": 12,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -109,6 +109,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20260929-024"
+      },
+      {
+        "date": "2026-09-30",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260930-025"
       }
     ],
     "history": [
@@ -291,14 +297,23 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "bias_score": 0.12,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260929-024",
-    "date": "2026-09-29",
-    "bias_score": "-0.18",
+    "record_id": "acct-20260930-025",
+    "date": "2026-09-30",
+    "bias_score": "0.12",
     "bias_label": "STAND-DOWN",
     "stand_down": "true",
     "structure": "stand-down",
@@ -308,9 +323,9 @@
     "direction_verdict": "N/A",
     "structure_verdict": "N/A",
     "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a0ed5a3972e639e",
+    "evidence_ref": "gmail:1a0f27b4ba7283b5",
     "correction_of": "",
-    "notes": "Composite -0.18 inside the neutral band; no trade. Futures flat into the open (ES -0.01, NQ +0.14, YM -0.09), day before the GDP/PCE binary. SPX closed 7,670.84 (-0.2 pct) on rising yields -- no directional claim to score. The backstop draft that morning reached the same call independently (-0.13, stand-down). No exposure, $0 definitional."
+    "notes": "Composite +0.12 inside the neutral band; no trade. Cooler core PCE and firmer ADP vs flat futures and 10-yr yields at multi-decade highs; VIX 16.2. SPX closed 7,651.54 (-0.25 pct), inside the published 1-sigma range 7,592-7,748. No exposure, $0 definitional. Send was D-1 clean (no broker names, no click-by-click) and published no win rate. Its recap covered 9/28 not 9/29 and said it could not read a 9/29 log entry; system note: repo files locked/unreadable from the run. The unsent backstop draft that morning was LEAN BULLISH +0.38 Bull Put 7615/7580: direction would have been wrong, the 7615 short put would have finished ~36pts OTM -- not scored, never published."
   },
   "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
