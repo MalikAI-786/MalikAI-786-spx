@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-02T13:20:06.307300+00:00",
+  "generated_at": "2026-10-05T13:23:47.190213+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -326,21 +326,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261001-026",
-    "date": "2026-10-01",
-    "bias_score": "-0.01",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261002-027",
+    "date": "2026-10-02",
+    "bias_score": "0.54",
+    "bias_label": "LEAN BULLISH",
+    "stand_down": "false",
+    "structure": "bull_put_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a0f7a3a6466a3c4",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a0fccb08954ae75",
     "correction_of": "",
-    "notes": "Composite -0.005 inside the neutral band; no trade. Firm futures and a Tokyo chip rally vs 10-yr at 5.33 pct (highest since 2002), oil near $100, soft Europe, NFP next day. SPX closed 7,666.45 (+0.19 pct) after touching a two-week low intraday and recovering as yields reversed from 5.342 pct; inside the published 1-sigma range 7,572-7,731. No exposure, $0 definitional. The backstop draft reached the same call independently (+0.01, stand-down) -- second consecutive agreement. Send was D-1 clean (no broker names, no click-by-click) and published no win rate. No accountability lead: said yesterday's stored prediction could not be retrieved, scored n/a. System note: latest.json and sent-emails ledger locked/unreadable from the mounted folder; report, ledger, dashboard not updated."
+    "notes": "Bull Put 7640/7600, half unit, credit target ~8.0, composite +0.54 (moderate). Jobs-report day: payrolls +29K vs +90K, unemployment 4.2 pct; scored on the post-release reaction. SPX closed 7,722.72 (+0.73 pct): direction right, close finished ~83pts above the 7640 short put, spread expired OTM. PARTIAL not VERIFIED: no close report or next-day recap; outcome rests on the public index close. disciplined_pnl blank -- no published fill. Send carried the Option Alpha / tastytrade numbered click-by-click block again (F-01) after three clean sends. Prior close stated as ~7,678; actual was 7,666.45. No accountability lead (prior call not retrievable, not scored); no win rate published. System note: repo file read blocked. The backstop draft that morning was LEAN BULLISH +0.58, Bull Put 7655/7615, half size -- same call, would also have expired OTM."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
