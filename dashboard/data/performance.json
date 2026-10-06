@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-05T13:23:47.190213+00:00",
+  "generated_at": "2026-10-06T13:20:00.893694+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 22,
+    "verified_days": 23,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 13,
+    "stand_downs": 14,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -121,6 +121,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261001-026"
+      },
+      {
+        "date": "2026-10-05",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261005-028"
       }
     ],
     "history": [
@@ -321,26 +327,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-05",
+        "bias_score": -0.06,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261002-027",
-    "date": "2026-10-02",
-    "bias_score": "0.54",
-    "bias_label": "LEAN BULLISH",
-    "stand_down": "false",
-    "structure": "bull_put_spread",
-    "disciplined_pnl": "",
+    "record_id": "acct-20261005-028",
+    "date": "2026-10-05",
+    "bias_score": "-0.06",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "HIT",
-    "structure_verdict": "HIT",
-    "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a0fccb08954ae75",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a10c416bd60ead0",
     "correction_of": "",
-    "notes": "Bull Put 7640/7600, half unit, credit target ~8.0, composite +0.54 (moderate). Jobs-report day: payrolls +29K vs +90K, unemployment 4.2 pct; scored on the post-release reaction. SPX closed 7,722.72 (+0.73 pct): direction right, close finished ~83pts above the 7640 short put, spread expired OTM. PARTIAL not VERIFIED: no close report or next-day recap; outcome rests on the public index close. disciplined_pnl blank -- no published fill. Send carried the Option Alpha / tastytrade numbered click-by-click block again (F-01) after three clean sends. Prior close stated as ~7,678; actual was 7,666.45. No accountability lead (prior call not retrievable, not scored); no win rate published. System note: repo file read blocked. The backstop draft that morning was LEAN BULLISH +0.58, Bull Put 7655/7615, half size -- same call, would also have expired OTM."
+    "notes": "Composite -0.06 inside the neutral band; no trade. Futures slightly red (ES -0.12, NQ -0.23, YM -0.14), 10-yr ~5.28 pct, ISM services pending. SPX closed 7,773.95 (+0.66 pct), Nasdaq at a record, inside the published 1-sigma range 7,634-7,792. No exposure, $0 definitional. The backstop draft reached the same call independently (-0.03, stand-down) -- third agreement in four sessions. Send was D-1 clean (no broker names, no click-by-click) and published no win rate. No accountability lead: prior call not scored (stored model file unreadable). Stated VIX 16.25 rising; Friday's actual close was 15.31. System note: local data files returned read errors (resource deadlock); international bucket headline-level only."
   },
-  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
