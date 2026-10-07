@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-06T13:20:00.893694+00:00",
+  "generated_at": "2026-10-07T13:20:08.357866+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -341,21 +341,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261005-028",
-    "date": "2026-10-05",
-    "bias_score": "-0.06",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261006-029",
+    "date": "2026-10-06",
+    "bias_score": "0.44",
+    "bias_label": "LEAN BULLISH",
+    "stand_down": "false",
+    "structure": "bull_put_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a10c416bd60ead0",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a111650dfcc86d7",
     "correction_of": "",
-    "notes": "Composite -0.06 inside the neutral band; no trade. Futures slightly red (ES -0.12, NQ -0.23, YM -0.14), 10-yr ~5.28 pct, ISM services pending. SPX closed 7,773.95 (+0.66 pct), Nasdaq at a record, inside the published 1-sigma range 7,634-7,792. No exposure, $0 definitional. The backstop draft reached the same call independently (-0.03, stand-down) -- third agreement in four sessions. Send was D-1 clean (no broker names, no click-by-click) and published no win rate. No accountability lead: prior call not scored (stored model file unreadable). Stated VIX 16.25 rising; Friday's actual close was 15.31. System note: local data files returned read errors (resource deadlock); international bucket headline-level only."
+    "notes": "Bull Put 7725/7685, half unit, credit target ~8.0, composite +0.44 (low-moderate). SPX closed 7,818.93 (+0.58 pct), first record close since August and first close above 7,800: direction right, close finished ~94pts above the 7725 short put, spread expired OTM. PARTIAL not VERIFIED: no close report or published fill; outcome rests on the public index close. disciplined_pnl blank. Send carried the Option Alpha / tastytrade numbered click-by-click block (F-01) for the second consecutive directional send. Used VIX ~16.2 as last verified print; Monday's actual close was 15.52. No accountability lead (prior call not retrievable); no win rate published. System note: repo files locked/unreadable. TWO SENDS THIS MORNING: the backstop draft (LEAN BULLISH +0.36, Bull Put 7715/7680, half size, gmail:1a1116353af4edb6) was sent from the owner's account at 9:24 ET with bcc to three recipients, two minutes before this live send at 9:26 ET. Same direction, different strikes; the backstop structure also expired OTM (~104pts). Not a second ledger row; recorded here for the record."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
