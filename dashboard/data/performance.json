@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-07T13:20:08.357866+00:00",
+  "generated_at": "2026-10-08T13:21:03.714736+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 23,
+    "verified_days": 24,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 14,
+    "stand_downs": 15,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -127,6 +127,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261005-028"
+      },
+      {
+        "date": "2026-10-07",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261007-030"
       }
     ],
     "history": [
@@ -336,26 +342,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-07",
+        "bias_score": 0.0,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261006-029",
-    "date": "2026-10-06",
-    "bias_score": "0.44",
-    "bias_label": "LEAN BULLISH",
-    "stand_down": "false",
-    "structure": "bull_put_spread",
-    "disciplined_pnl": "",
+    "record_id": "acct-20261007-030",
+    "date": "2026-10-07",
+    "bias_score": "0.0",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "HIT",
-    "structure_verdict": "HIT",
-    "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a111650dfcc86d7",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a1168c039b20958",
     "correction_of": "",
-    "notes": "Bull Put 7725/7685, half unit, credit target ~8.0, composite +0.44 (low-moderate). SPX closed 7,818.93 (+0.58 pct), first record close since August and first close above 7,800: direction right, close finished ~94pts above the 7725 short put, spread expired OTM. PARTIAL not VERIFIED: no close report or published fill; outcome rests on the public index close. disciplined_pnl blank. Send carried the Option Alpha / tastytrade numbered click-by-click block (F-01) for the second consecutive directional send. Used VIX ~16.2 as last verified print; Monday's actual close was 15.52. No accountability lead (prior call not retrievable); no win rate published. System note: repo files locked/unreadable. TWO SENDS THIS MORNING: the backstop draft (LEAN BULLISH +0.36, Bull Put 7715/7680, half size, gmail:1a1116353af4edb6) was sent from the owner's account at 9:24 ET with bcc to three recipients, two minutes before this live send at 9:26 ET. Same direction, different strikes; the backstop structure also expired OTM (~104pts). Not a second ledger row; recorded here for the record."
+    "notes": "Composite +0.00 inside the neutral band; no trade. Futures flat at its read (ES +0.03, NQ -0.19, YM -0.06); FOMC minutes at 2 PM. SPX closed 7,801.77 (-0.22 pct) off Tuesday's record as 10-yr yields climbed back toward 5.34 pct and the minutes showed most policymakers expecting one more hike in 2026; inside the published 1-sigma range 7,744-7,894. No exposure, $0 definitional. Send was D-1 clean in its plain-text body (no broker names, no click-by-click) and published no win rate; no accountability lead; stated VIX 15.25 vs Tuesday's close of 15.01 (likely a premarket print). The backstop draft that morning read LEAN BEARISH -0.62, Bear Call 7860/7900 half size, on futures that were already -0.44 pct by 8:22 ET: not sent, not scored; both direction and structure would have held (close 58pts below the short call). The two reads diverged on timing of the futures snapshot, not on the data."
   },
-  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
