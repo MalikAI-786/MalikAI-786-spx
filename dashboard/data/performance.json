@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-08T13:21:03.714736+00:00",
+  "generated_at": "2026-10-09T13:23:23.286033+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -356,21 +356,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261007-030",
-    "date": "2026-10-07",
-    "bias_score": "0.0",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261008-031",
+    "date": "2026-10-08",
+    "bias_score": "-0.92",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a1168c039b20958",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a11bb1cea7b40dd",
     "correction_of": "",
-    "notes": "Composite +0.00 inside the neutral band; no trade. Futures flat at its read (ES +0.03, NQ -0.19, YM -0.06); FOMC minutes at 2 PM. SPX closed 7,801.77 (-0.22 pct) off Tuesday's record as 10-yr yields climbed back toward 5.34 pct and the minutes showed most policymakers expecting one more hike in 2026; inside the published 1-sigma range 7,744-7,894. No exposure, $0 definitional. Send was D-1 clean in its plain-text body (no broker names, no click-by-click) and published no win rate; no accountability lead; stated VIX 15.25 vs Tuesday's close of 15.01 (likely a premarket print). The backstop draft that morning read LEAN BEARISH -0.62, Bear Call 7860/7900 half size, on futures that were already -0.44 pct by 8:22 ET: not sent, not scored; both direction and structure would have held (close 58pts below the short call). The two reads diverged on timing of the futures snapshot, not on the data."
+    "notes": "Bear Call 7880/7915, half unit, credit target ~7.0, composite -0.92 (moderate). Oil +4-5 pct on Gulf tanker attacks, 10-yr near 5.3 pct, Asia -1.4 pct. SPX closed 7,765.36 (-0.47 pct), Nasdaq -1.25 pct on the OpenAI revenue-shortfall report: direction right, close finished ~115pts below the 7880 short call, spread expired OTM. Intraday the Dow and Russell rallied into the green after Trump said no Iran strike before the midterms; the index never approached the strike. PARTIAL not VERIFIED: no close report or published fill. disciplined_pnl blank. Send carried the Option Alpha / tastytrade click-by-click block (F-01) for the third directional send in a row. No accountability lead (prior call not retrievable); no win rate; VIX cited ~15.8 premarket; repo files locked. The backstop draft that morning was LEAN BEARISH -0.62, Bear Call 7845/7880 half size: not sent, would also have expired OTM (~80pts)."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
