@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-09T13:23:23.286033+00:00",
+  "generated_at": "2026-10-12T13:29:26.392319+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 24,
+    "verified_days": 25,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 15,
+    "stand_downs": 16,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -133,6 +133,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261007-030"
+      },
+      {
+        "date": "2026-10-09",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261009-032"
       }
     ],
     "history": [
@@ -351,26 +357,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-09",
+        "bias_score": 0.26,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261008-031",
-    "date": "2026-10-08",
-    "bias_score": "-0.92",
-    "bias_label": "LEAN BEARISH",
-    "stand_down": "false",
-    "structure": "bear_call_spread",
-    "disciplined_pnl": "",
+    "record_id": "acct-20261009-032",
+    "date": "2026-10-09",
+    "bias_score": "0.26",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "HIT",
-    "structure_verdict": "HIT",
-    "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a11bb1cea7b40dd",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a120db626801a98",
     "correction_of": "",
-    "notes": "Bear Call 7880/7915, half unit, credit target ~7.0, composite -0.92 (moderate). Oil +4-5 pct on Gulf tanker attacks, 10-yr near 5.3 pct, Asia -1.4 pct. SPX closed 7,765.36 (-0.47 pct), Nasdaq -1.25 pct on the OpenAI revenue-shortfall report: direction right, close finished ~115pts below the 7880 short call, spread expired OTM. Intraday the Dow and Russell rallied into the green after Trump said no Iran strike before the midterms; the index never approached the strike. PARTIAL not VERIFIED: no close report or published fill. disciplined_pnl blank. Send carried the Option Alpha / tastytrade click-by-click block (F-01) for the third directional send in a row. No accountability lead (prior call not retrievable); no win rate; VIX cited ~15.8 premarket; repo files locked. The backstop draft that morning was LEAN BEARISH -0.62, Bear Call 7845/7880 half size: not sent, would also have expired OTM (~80pts)."
+    "notes": "Composite +0.26 inside the neutral band; no trade. Futures green into the open (ES ~+0.3, NQ ~+0.7) after a two-day pullback; oil easing on the no-strike pledge. SPX closed 7,811.54 (+0.59 pct), range 7,779.34-7,820.57 (Yahoo daily history). No exposure, $0 definitional. Sent 9:30 ET. The backstop draft that morning reached the same call independently (+0.25, stand-down). Body not audited line by line this run; stand-down sends have been clean on F-01 throughout October."
   },
-  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
