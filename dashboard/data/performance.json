@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-14T13:18:02.246336+00:00",
+  "generated_at": "2026-10-15T13:15:09.996638+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -371,9 +371,9 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261013-033",
-    "date": "2026-10-13",
-    "bias_score": "-0.5",
+    "record_id": "acct-20261014-034",
+    "date": "2026-10-14",
+    "bias_score": "-0.37",
     "bias_label": "LEAN BEARISH",
     "stand_down": "false",
     "structure": "bear_call_spread",
@@ -383,9 +383,9 @@
     "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a13576b27a95858",
+    "evidence_ref": "gmail:1a13a97d00933177",
     "correction_of": "",
-    "notes": "Bear Call 7880/7915, half unit, credit target ~7.0, composite -0.50 (moderate-low), sent 9:32 ET. Drivers: memory-chip rout (KOSPI -6, Nikkei -2.6), NQ futures -0.8, CPI next day. SPX closed 7,805.45 (-0.02 pct, -1.79 pts) per several post-close reports: direction technically right but effectively flat; close ~75pts below the 7880 short call, spread expired OTM. Intraday high not sourced, so stop risk unchecked. PARTIAL: no close report or published fill. Send was a terse plain-text plan with no broker names or click-by-click (F-01 clean), no accountability lead, no win rate. No live send on Mon Oct 12."
+    "notes": "Bear Call 7880/7920, half unit, credit target ~8.0, composite -0.37 (low-moderate), sent 9:26 ET, cc to a second recipient. Drivers: hot September CPI (3.7 pct vs 3.6 est), Brent above 105, chip weakness. SPX closed 7,718.94 (-86.51, -1.11 pct) per CNBC/TheStreet; close ~161pts below the 7880 short call, spread expired OTM. Intraday high not sourced, so stop risk unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: body carried named-broker click-by-click order entry (bot setup and order-ticket steps). No accountability lead: yesterday scored n/a at the bottom, synthetic P&L not updated, repo reported unreadable."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
