@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-15T13:15:09.996638+00:00",
+  "generated_at": "2026-10-16T13:12:30.126697+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -371,21 +371,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261014-034",
-    "date": "2026-10-14",
-    "bias_score": "-0.37",
+    "record_id": "acct-20261015-035",
+    "date": "2026-10-15",
+    "bias_score": "-0.83",
     "bias_label": "LEAN BEARISH",
     "stand_down": "false",
     "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
     "model_verdict": "WON",
-    "direction_verdict": "HIT",
+    "direction_verdict": "MISS",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a13a97d00933177",
+    "evidence_ref": "gmail:1a13fba2d63c4fc6",
     "correction_of": "",
-    "notes": "Bear Call 7880/7920, half unit, credit target ~8.0, composite -0.37 (low-moderate), sent 9:26 ET, cc to a second recipient. Drivers: hot September CPI (3.7 pct vs 3.6 est), Brent above 105, chip weakness. SPX closed 7,718.94 (-86.51, -1.11 pct) per CNBC/TheStreet; close ~161pts below the 7880 short call, spread expired OTM. Intraday high not sourced, so stop risk unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: body carried named-broker click-by-click order entry (bot setup and order-ticket steps). No accountability lead: yesterday scored n/a at the bottom, synthetic P&L not updated, repo reported unreadable."
+    "notes": "Bear Call 7775/7815, half unit, credit target ~8.0, composite -0.83 (moderate-high), sent 9:22 ET, cc to a second recipient, issued about 50 min after the 8:30 PPI print. SPX closed 7,744.06 (+0.33 pct) per FRED/Investrade after an early ~0.5 pct dip: direction MISS. Close ~31pts below the 7775 short call, so the spread expired OTM: structure HIT. Intraday high not sourced; with a reversal day the 7775 invalidation may have been tested, so stop risk is unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: named-broker click-by-click order entry again. No accountability lead; repo reported unreadable. The Oct 16 live send then scored this day n/a ('not retrievable') instead of reporting the direction miss."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
