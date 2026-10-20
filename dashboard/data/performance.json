@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-19T13:19:50.170746+00:00",
+  "generated_at": "2026-10-20T13:05:07.674232+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 26,
+    "verified_days": 27,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 17,
+    "stand_downs": 18,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -145,6 +145,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261016-036"
+      },
+      {
+        "date": "2026-10-19",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261019-037"
       }
     ],
     "history": [
@@ -381,14 +387,23 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-19",
+        "bias_score": 0.09,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261016-036",
-    "date": "2026-10-16",
-    "bias_score": "0.12",
+    "record_id": "acct-20261019-037",
+    "date": "2026-10-19",
+    "bias_score": "0.09",
     "bias_label": "STAND-DOWN",
     "stand_down": "true",
     "structure": "stand-down",
@@ -398,9 +413,9 @@
     "direction_verdict": "N/A",
     "structure_verdict": "N/A",
     "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a144d6af7150656",
+    "evidence_ref": "gmail:1a1544a1d6340ae2",
     "correction_of": "",
-    "notes": "Composite +0.12 inside the neutral band; no trade. Sent 9:11 ET, cc to a second recipient. SPX closed 7,659.44 (-84.62, -1.1 pct) per AP/Yahoo; Nasdaq -2.1 pct, VIX 19.99. No exposure, $0 definitional; standing aside avoided a -1.1 pct day the model read as mildly positive. F-01 clean (no broker names or order-entry steps). No accountability lead: it scored the Oct 15 direction miss as n/a ('not retrievable')."
+    "notes": "Composite +0.09 inside the neutral band; no trade. Sent 9:11 ET, cc to a second recipient. SPX closed 7,690.73 (+31.29, +0.41 pct) per Yahoo/CappNotes. No exposure, $0 definitional. F-01 clean. No accountability lead (Oct 16 stand-down scored n/a). Body gave the prior close as 'roughly 7,690 (estimate)' vs actual 7,659.44: an invented number (safeguard 5)."
   },
   "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
