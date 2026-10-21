@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-20T13:05:07.674232+00:00",
+  "generated_at": "2026-10-21T13:06:42.971295+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -401,21 +401,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261019-037",
-    "date": "2026-10-19",
-    "bias_score": "0.09",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261020-038",
+    "date": "2026-10-20",
+    "bias_score": "-0.45",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a1544a1d6340ae2",
+    "model_verdict": "WON",
+    "direction_verdict": "MISS",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a15974da0df9c48",
     "correction_of": "",
-    "notes": "Composite +0.09 inside the neutral band; no trade. Sent 9:11 ET, cc to a second recipient. SPX closed 7,690.73 (+31.29, +0.41 pct) per Yahoo/CappNotes. No exposure, $0 definitional. F-01 clean. No accountability lead (Oct 16 stand-down scored n/a). Body gave the prior close as 'roughly 7,690 (estimate)' vs actual 7,659.44: an invented number (safeguard 5)."
+    "notes": "Bear Call 7770/7815, half unit, credit target ~9.0, composite -0.45 (moderate-low), sent 9:16 ET, cc to a second recipient. SPX closed 7,712.57 (+0.28 pct) per FRED/CappNotes: direction MISS. Close ~57pts below the 7770 short call, spread expired OTM: structure HIT. Intraday high not sourced, stop risk unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: named-broker click-by-click order entry again. No accountability lead. Rolling P&L section cited 'last logged calls 09-25 MISS, 09-28' with no source in the ledger. The backstop draft that morning (unsent) reached the same side independently: LEAN BEARISH -0.40, 7780/7825."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
