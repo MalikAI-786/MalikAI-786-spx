@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-21T13:06:42.971295+00:00",
+  "generated_at": "2026-10-22T13:06:10.736895+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 27,
+    "verified_days": 28,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 18,
+    "stand_downs": 19,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -151,6 +151,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261019-037"
+      },
+      {
+        "date": "2026-10-21",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261021-039"
       }
     ],
     "history": [
@@ -396,26 +402,35 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-21",
+        "bias_score": 0.22,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261020-038",
-    "date": "2026-10-20",
-    "bias_score": "-0.45",
-    "bias_label": "LEAN BEARISH",
-    "stand_down": "false",
-    "structure": "bear_call_spread",
-    "disciplined_pnl": "",
+    "record_id": "acct-20261021-039",
+    "date": "2026-10-21",
+    "bias_score": "0.22",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "MISS",
-    "structure_verdict": "HIT",
-    "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a15974da0df9c48",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a15e9dbd0bbd607",
     "correction_of": "",
-    "notes": "Bear Call 7770/7815, half unit, credit target ~9.0, composite -0.45 (moderate-low), sent 9:16 ET, cc to a second recipient. SPX closed 7,712.57 (+0.28 pct) per FRED/CappNotes: direction MISS. Close ~57pts below the 7770 short call, spread expired OTM: structure HIT. Intraday high not sourced, stop risk unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: named-broker click-by-click order entry again. No accountability lead. Rolling P&L section cited 'last logged calls 09-25 MISS, 09-28' with no source in the ledger. The backstop draft that morning (unsent) reached the same side independently: LEAN BEARISH -0.40, 7780/7825."
+    "notes": "Composite +0.22 (recompute +0.215) inside the neutral band; no trade. Sent 9:19 ET, cc to a second recipient. SPX closed 7,757.17 (+44.60, +0.58 pct), range 7,709.34-7,770.40 per Yahoo/CNBC. No exposure, $0 definitional. F-01 clean. No accountability lead: scored the Oct 20 bear call (direction MISS, structure HIT) as n/a 'not retrievable'. The backstop draft that morning (unsent) scored +0.315 LEAN BULLISH, a borderline disagreement; SPX rose."
   },
-  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
