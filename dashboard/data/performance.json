@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-27T13:13:41.514287+00:00",
+  "generated_at": "2026-10-28T13:29:36.829377+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -431,21 +431,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261026-042",
-    "date": "2026-10-26",
-    "bias_score": "0.0",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261027-043",
+    "date": "2026-10-27",
+    "bias_score": "0.45",
+    "bias_label": "LEAN BULLISH",
+    "stand_down": "false",
+    "structure": "bull_put_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a17864d50b38b4a",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a17d8d2cbb0d488",
     "correction_of": "",
-    "notes": "Composite +0.00 inside the neutral band; no trade. Sent after 9:27 ET (backstop draft r-5696616024846055764 was saved first and reached the same call independently, +0.13 stand-down), cc to a second recipient. SPX closed 7,676.77 (+0.70 pct) per CNBC/Yahoo on Anthropic IPO tech bid. No exposure, $0 definitional. Body not audited line by line; stand-down sends have been clean on F-01 throughout October."
+    "notes": "Bull Put 7615/7570, half unit, credit target ~9.0, composite +0.45 (moderate), sent 9:29 ET, cc to a second recipient. SPX closed 7,722.60 (+45.83, +0.60 pct) per AP/Investrade. Direction HIT. Close ~108pts above the 7615 short put, spread expired OTM: structure HIT. Intraday low not sourced, stop risk unchecked. PARTIAL: no close report or published fill. F-01 VIOLATION: named-broker click-by-click order entry again. No accountability lead. Rolling P&L table showed 'since log start 0/0/1', which does not match the ledger. The backstop draft that morning (r-1657519647944833098, unsent, ~9:15 ET) scored +0.15 STAND-DOWN with two buckets unsourced: the publishers disagreed and the live call was right."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
