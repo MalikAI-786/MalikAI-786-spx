@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-29T13:17:06.417076+00:00",
+  "generated_at": "2026-10-30T13:06:38.471181+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -446,21 +446,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261028-044",
-    "date": "2026-10-28",
-    "bias_score": "0.04",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261029-045",
+    "date": "2026-10-29",
+    "bias_score": "-0.65",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a182a2dc19033d4",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a187d7bab90e73b",
     "correction_of": "",
-    "notes": "Composite +0.04 inside the neutral band, and FOMC decision day (2:00 PM ET); no trade. Sent 9:11 ET, cc to a second recipient. Fed held at 3.75-4.00 pct (10-2, two hike dissents). SPX closed 7,743.98 (+0.28 pct) per CNBC/BBN Times. No exposure, $0 definitional. F-01 clean, binary named correctly. No accountability lead (Oct 27 scored 'not retrievable')."
+    "notes": "Bear Call 7805/7845, credit target ~8.0, composite -0.65 (moderate), sent 9:27 ET, cc to a second recipient. SPX closed 7,720.39 (-23.59, -0.30 pct) per Yahoo/TheStreet on Alphabet's post-earnings drop; equal-weight RSP +1.2 pct. Direction HIT. Close ~85pts below the 7805 short call, spread expired OTM: structure HIT. Intraday high not sourced, stop risk unchecked. PARTIAL: no close report or published fill. Body not audited line by line this run (F-01 status unchecked; prior directional sends all carried broker order entry). The backstop draft that morning (r-1497882001544614378, unsent) scored -0.23 STAND-DOWN with three buckets unsourced: the publishers disagreed and the live call was right."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
