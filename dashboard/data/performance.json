@@ -1,50 +1,466 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-22T03:43:00Z",
+  "generated_at": "2026-10-30T13:06:38.471181+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 6,
+    "verified_days": 30,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 3,
-    "flat_non_stand_downs": 1,
+    "stand_downs": 21,
+    "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
     "avg_loss": -180.0,
-    "expectancy_per_non_stand_trade": 40.0,
+    "expectancy_per_non_stand_trade": 30.0,
     "max_drawdown": 180.0,
-    "direction_hit_rate": 0.6666666667,
-    "direction_scored_days": 3,
-    "structure_hit_rate": 0.5,
-    "structure_scored_days": 2,
-    "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history.",
+    "direction_hit_rate": 0.6666666666666666,
+    "direction_scored_days": 9,
+    "structure_hit_rate": 0.8571428571428571,
+    "structure_scored_days": 7,
     "curve": [
-      {"date":"2026-05-21","pnl":0.0,"cumulative":0.0,"record_id":"acct-20260521-v1"},
-      {"date":"2026-05-22","pnl":0.0,"cumulative":0.0,"record_id":"acct-20260522-v1"},
-      {"date":"2026-05-26","pnl":-180.0,"cumulative":-180.0,"record_id":"acct-20260526-v1"},
-      {"date":"2026-05-27","pnl":300.0,"cumulative":120.0,"record_id":"acct-20260527-v1"},
-      {"date":"2026-05-28","pnl":0.0,"cumulative":120.0,"record_id":"acct-20260528-v1"},
-      {"date":"2026-08-21","pnl":0.0,"cumulative":120.0,"record_id":"acct-20260821-v1"}
-    ]
+      {
+        "date": "2026-05-21",
+        "pnl": 0.0,
+        "cumulative": 0.0,
+        "record_id": "acct-20260521-v1"
+      },
+      {
+        "date": "2026-05-22",
+        "pnl": 0.0,
+        "cumulative": 0.0,
+        "record_id": "acct-20260522-v1"
+      },
+      {
+        "date": "2026-05-26",
+        "pnl": -180.0,
+        "cumulative": -180.0,
+        "record_id": "acct-20260526-v1"
+      },
+      {
+        "date": "2026-05-27",
+        "pnl": 300.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260527-v1"
+      },
+      {
+        "date": "2026-05-28",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260528-v1"
+      },
+      {
+        "date": "2026-08-17",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260817-007"
+      },
+      {
+        "date": "2026-08-20",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260820-010"
+      },
+      {
+        "date": "2026-08-21",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260821-v1"
+      },
+      {
+        "date": "2026-08-25",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260825-012"
+      },
+      {
+        "date": "2026-08-26",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260826-013"
+      },
+      {
+        "date": "2026-08-28",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260828-015"
+      },
+      {
+        "date": "2026-09-01",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260901-016"
+      },
+      {
+        "date": "2026-09-16",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260916-020"
+      },
+      {
+        "date": "2026-09-24",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260924-021"
+      },
+      {
+        "date": "2026-09-29",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260929-024"
+      },
+      {
+        "date": "2026-09-30",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20260930-025"
+      },
+      {
+        "date": "2026-10-01",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261001-026"
+      },
+      {
+        "date": "2026-10-05",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261005-028"
+      },
+      {
+        "date": "2026-10-07",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261007-030"
+      },
+      {
+        "date": "2026-10-09",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261009-032"
+      },
+      {
+        "date": "2026-10-16",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261016-036"
+      },
+      {
+        "date": "2026-10-19",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261019-037"
+      },
+      {
+        "date": "2026-10-21",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261021-039"
+      },
+      {
+        "date": "2026-10-26",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261026-042"
+      },
+      {
+        "date": "2026-10-28",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261028-044"
+      }
+    ],
+    "history": [
+      {
+        "date": "2026-05-21",
+        "bias_score": 4.0,
+        "bias_label": "BULLISH",
+        "stand_down": false,
+        "direction_verdict": "MISS",
+        "structure_verdict": "MISS",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-05-22",
+        "bias_score": 2.0,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-05-26",
+        "bias_score": 3.0,
+        "bias_label": "MODERATELY BULLISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "MIXED",
+        "disciplined_pnl": -180.0
+      },
+      {
+        "date": "2026-05-27",
+        "bias_score": 3.0,
+        "bias_label": "MODERATELY BULLISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": 300.0
+      },
+      {
+        "date": "2026-05-28",
+        "bias_score": -1.0,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-17",
+        "bias_score": 0.11,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-18",
+        "bias_score": -0.92,
+        "bias_label": "LEAN BEARISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
+      },
+      {
+        "date": "2026-08-19",
+        "bias_score": -0.67,
+        "bias_label": "LEAN BEARISH",
+        "stand_down": false,
+        "direction_verdict": "MISS",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
+      },
+      {
+        "date": "2026-08-20",
+        "bias_score": 0.57,
+        "bias_label": "LEAN BULLISH",
+        "stand_down": false,
+        "direction_verdict": "MISS",
+        "structure_verdict": "SCRATCH",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-21",
+        "bias_score": 0.01,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-24",
+        "bias_score": -0.64,
+        "bias_label": "LEAN BEARISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
+      },
+      {
+        "date": "2026-08-25",
+        "bias_score": 0.27,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "bias_score": -0.01,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-08-27",
+        "bias_score": 0.47,
+        "bias_label": "LEAN BULLISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
+      },
+      {
+        "date": "2026-08-28",
+        "bias_score": 0.03,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "bias_score": null,
+        "bias_label": "LATE RUN -- NO TRADE ISSUED",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "bias_score": -0.68,
+        "bias_label": "LEAN BEARISH",
+        "stand_down": false,
+        "direction_verdict": "HIT",
+        "structure_verdict": "HIT",
+        "disciplined_pnl": null
+      },
+      {
+        "date": "2026-09-16",
+        "bias_score": -0.32,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "bias_score": null,
+        "bias_label": "LATE RUN -- NO TRADE ISSUED",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "bias_score": -0.18,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "bias_score": 0.12,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "bias_score": -0.01,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-05",
+        "bias_score": -0.06,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-07",
+        "bias_score": 0.0,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-09",
+        "bias_score": 0.26,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-16",
+        "bias_score": 0.12,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-19",
+        "bias_score": 0.09,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-21",
+        "bias_score": 0.22,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-26",
+        "bias_score": 0.0,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-10-28",
+        "bias_score": 0.04,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      }
+    ],
+    "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20260821-v1",
-    "date": "2026-08-21",
-    "bias_score": "0.01",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0",
+    "record_id": "acct-20261029-045",
+    "date": "2026-10-29",
+    "bias_score": "-0.65",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a0246e8c6212baf",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a187d7bab90e73b",
     "correction_of": "",
-    "notes": "Sent morning analysis explicitly published STAND-DOWN and no trade. Synthetic disciplined P&L is therefore $0 by the model contract. Historical June-August backfill remains incomplete."
+    "notes": "Bear Call 7805/7845, credit target ~8.0, composite -0.65 (moderate), sent 9:27 ET, cc to a second recipient. SPX closed 7,720.39 (-23.59, -0.30 pct) per Yahoo/TheStreet on Alphabet's post-earnings drop; equal-weight RSP +1.2 pct. Direction HIT. Close ~85pts below the 7805 short call, spread expired OTM: structure HIT. Intraday high not sourced, stop risk unchecked. PARTIAL: no close report or published fill. Body not audited line by line this run (F-01 status unchecked; prior directional sends all carried broker order entry). The backstop draft that morning (r-1497882001544614378, unsent) scored -0.23 STAND-DOWN with three buckets unsourced: the publishers disagreed and the live call was right."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
