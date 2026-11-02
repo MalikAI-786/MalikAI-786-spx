@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-10-30T13:06:38.471181+00:00",
+  "generated_at": "2026-11-02T13:21:23.979235+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -446,10 +446,10 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261029-045",
-    "date": "2026-10-29",
-    "bias_score": "-0.65",
-    "bias_label": "LEAN BEARISH",
+    "record_id": "acct-20261030-046",
+    "date": "2026-10-30",
+    "bias_score": "-1.01",
+    "bias_label": "BEARISH",
     "stand_down": "false",
     "structure": "bear_call_spread",
     "disciplined_pnl": "",
@@ -458,9 +458,9 @@
     "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a187d7bab90e73b",
+    "evidence_ref": "gmail:1a18d083c409edec",
     "correction_of": "",
-    "notes": "Bear Call 7805/7845, credit target ~8.0, composite -0.65 (moderate), sent 9:27 ET, cc to a second recipient. SPX closed 7,720.39 (-23.59, -0.30 pct) per Yahoo/TheStreet on Alphabet's post-earnings drop; equal-weight RSP +1.2 pct. Direction HIT. Close ~85pts below the 7805 short call, spread expired OTM: structure HIT. Intraday high not sourced, stop risk unchecked. PARTIAL: no close report or published fill. Body not audited line by line this run (F-01 status unchecked; prior directional sends all carried broker order entry). The backstop draft that morning (r-1497882001544614378, unsent) scored -0.23 STAND-DOWN with three buckets unsourced: the publishers disagreed and the live call was right."
+    "notes": "Bear Call 7730/7775, composite -1.01 (BEARISH), cc to a second recipient. SPX closed 7,580.07 (-1.82 pct), intraday low 7,527.67, per Yahoo/Investing.com: worst day since June on Intel and Amazon AI-capex selloff. Direction HIT. Close ~150pts below the 7730 short call, spread expired OTM: structure HIT. Intraday high not sourced, but the session gapped down. PARTIAL: no close report or published fill. Body not audited line by line this run (F-01 status unchecked). The backstop draft that morning (r5541935390500940835, unsent) reached the same side independently: LEAN BEARISH -0.57, Bear Call 7805/7845, half size."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
