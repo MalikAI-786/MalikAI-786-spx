@@ -23,3 +23,12 @@ chmod +x jarvis-sync.sh
 ```
 Fully automated install (one command, Mac):
 `bash <(curl -fsSL https://raw.githubusercontent.com/MalikAI-786/MalikAI-786-spx/claude/gmail-workspace-organization-d9xr53/scripts/jarvis-sync/install-jarvis-sync.sh)`
+
+## Fix for Google "401 Invalid Credentials" (rclone shared client ID retired)
+1. https://console.cloud.google.com → create project `jarvis-sync`.
+2. APIs & Services → Library → enable **Google Drive API**.
+3. OAuth consent screen → External → app name `jarvis-sync`, your email → add yourself under **Test users** → then **Publish app** (otherwise tokens expire every 7 days).
+4. Credentials → Create credentials → OAuth client ID → **Desktop app** → copy Client ID + Client secret.
+5. Re-run the installer with them:
+   `GDRIVE_CLIENT_ID='…' GDRIVE_CLIENT_SECRET='…' bash <(curl -fsSL https://raw.githubusercontent.com/MalikAI-786/MalikAI-786-spx/claude/gmail-workspace-organization-d9xr53/scripts/jarvis-sync/install-jarvis-sync.sh)`
+   At the "Google hasn't verified this app" screen: Advanced → Go to jarvis-sync → Allow.

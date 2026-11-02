@@ -16,13 +16,28 @@ RCLONE="$(command -v rclone || echo /opt/homebrew/bin/rclone)"
 started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 echo "[$started] jarvis-sync start ${DRY}" >> "$LOG"
 
+# 0. Auth check — both remotes must answer, or stop (never sync on a broken login)
+pkill -f "rclone size gdrive:" 2>/dev/null || true
+auth_fail=""
+"$RCLONE" lsf gdrive: --max-depth 1 --dirs-only >/dev/null 2>>"$LOG" || auth_fail="gdrive"
+"$RCLONE" lsf box:Jarvis --max-depth 1 >/dev/null 2>>"$LOG" || auth_fail="${auth_fail:+$auth_fail+}box"
+
 # 1. Size guard — how big is the documents-only slice of Drive?
-size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json 2>>"$LOG" || echo '{"bytes":0,"count":0}')"
-bytes="$(echo "$size_json" | sed -E 's/.*"bytes":([0-9]+).*/\1/')"
-count="$(echo "$size_json" | sed -E 's/.*"count":([0-9]+).*/\1/')"
-gb="$(awk -v b="$bytes" 'BEGIN{printf "%.2f", b/1024/1024/1024}')"
-echo "filtered set: $count files, ${gb} GB (budget ${BOX_BUDGET_GB} GB)" | tee -a "$LOG"
-if awk -v g="$gb" -v m="$BOX_BUDGET_GB" 'BEGIN{exit !(g>m)}'; then
+bytes=0; count=0; gb="0.00"; size_ok=0
+if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json 2>>"$LOG")"; then
+  bytes="$(echo "$size_json" | sed -E 's/.*"bytes":([0-9]+).*/\1/')"
+  count="$(echo "$size_json" | sed -E 's/.*"count":([0-9]+).*/\1/')"
+  gb="$(awk -v b="$bytes" 'BEGIN{printf "%.2f", b/1024/1024/1024}')"
+  size_ok=1
+  echo "filtered set: $count files, ${gb} GB (budget ${BOX_BUDGET_GB} GB)" | tee -a "$LOG"
+fi
+if [ -n "$auth_fail" ]; then
+  echo "ABORT: login failed for: $auth_fail — run: rclone config reconnect ${auth_fail%%+*}:" | tee -a "$LOG"
+  result="auth_failed_$auth_fail"
+elif [ "$size_ok" -ne 1 ]; then
+  echo "ABORT: could not measure Drive (see log) — nothing synced." | tee -a "$LOG"
+  result="size_check_failed"
+elif awk -v g="$gb" -v m="$BOX_BUDGET_GB" 'BEGIN{exit !(g>m)}'; then
   echo "ABORT: ${gb} GB exceeds Box budget ${BOX_BUDGET_GB} GB — tighten jarvis-filter.txt or upgrade Box." | tee -a "$LOG"
   result="aborted_over_budget"
 else
@@ -45,5 +60,8 @@ cat > "$STATUS" <<EOF
 {"result":"$result","dry_run":"${DRY:-false}","started":"$started","finished":"$finished",
  "files_in_scope":$count,"size_gb":$gb,"budget_gb":$BOX_BUDGET_GB,"host":"$(hostname)"}
 EOF
-[ -z "$DRY" ] && "$RCLONE" copyto "$STATUS" box:Jarvis/_Agent_Output/_sync_status.json --log-file "$LOG" --log-level ERROR
+if [ -z "$DRY" ] && [[ "$auth_fail" != *box* ]]; then
+  "$RCLONE" copyto "$STATUS" box:Jarvis/_Agent_Output/_sync_status.json --log-file "$LOG" --log-level ERROR || true
+fi
 echo "[$finished] jarvis-sync $result — log: $LOG" | tee -a "$LOG"
+[ "$result" = "ok" ]

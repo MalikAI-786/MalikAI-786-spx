@@ -7,6 +7,9 @@
 - /16_Archives/**
 - /17_Existing_Folders/**
 - /_To_Be_Deleted*/**
+- /To Be Deleted/**
+- **/.git/**
+- **/node_modules/**
 - **/whatsapp_*/**
 - **/.DS_Store
 - **/Thumbs.db
