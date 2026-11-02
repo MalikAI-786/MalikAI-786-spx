@@ -21,5 +21,5 @@ chmod +x jarvis-sync.sh
 ./jarvis-sync.sh --dry-run     # read ~/rclone-jarvis.log
 ./jarvis-sync.sh               # real run
 ```
-Schedule (every 6 h): `crontab -e` →
-`0 */6 * * * /path/to/jarvis-sync.sh >/dev/null 2>&1`
+Fully automated install (one command, Mac):
+`bash <(curl -fsSL https://raw.githubusercontent.com/MalikAI-786/MalikAI-786-spx/claude/gmail-workspace-organization-d9xr53/scripts/jarvis-sync/install-jarvis-sync.sh)`
