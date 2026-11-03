@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-02T13:21:23.979235+00:00",
+  "generated_at": "2026-11-03T13:05:22.604587+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -446,21 +446,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261030-046",
-    "date": "2026-10-30",
-    "bias_score": "-1.01",
-    "bias_label": "BEARISH",
+    "record_id": "acct-20261102-047",
+    "date": "2026-11-02",
+    "bias_score": "0.47",
+    "bias_label": "LEAN BULLISH",
     "stand_down": "false",
-    "structure": "bear_call_spread",
+    "structure": "bull_put_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
     "model_verdict": "WON",
-    "direction_verdict": "HIT",
+    "direction_verdict": "MISS",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a18d083c409edec",
+    "evidence_ref": "gmail:1a19cdd68c67d2d8",
     "correction_of": "",
-    "notes": "Bear Call 7730/7775, composite -1.01 (BEARISH), cc to a second recipient. SPX closed 7,580.07 (-1.82 pct), intraday low 7,527.67, per Yahoo/Investing.com: worst day since June on Intel and Amazon AI-capex selloff. Direction HIT. Close ~150pts below the 7730 short call, spread expired OTM: structure HIT. Intraday high not sourced, but the session gapped down. PARTIAL: no close report or published fill. Body not audited line by line this run (F-01 status unchecked). The backstop draft that morning (r5541935390500940835, unsent) reached the same side independently: LEAN BEARISH -0.57, Bear Call 7805/7845, half size."
+    "notes": "Bull Put 7525/7480, half unit, composite +0.47, cc to a second recipient. SPX closed 7,541.40 (-0.51 pct) per Portfolio Terminal/CappNotes: direction MISS. Close only ~16pts above the 7525 short put, so the spread expired OTM by a thin margin: structure HIT. Intraday low not sourced; a breach and stop-out is plausible, so this is the weakest structure HIT this month. VIX closed 21.15 (+8.9 pct). PARTIAL: no close report or published fill. Body not audited (F-01 unchecked). The backstop draft that morning (r8976692887793178856, run at 8:20 ET, unsent) scored +0.09 STAND-DOWN: the publishers disagreed and the backstop's caution was closer."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
