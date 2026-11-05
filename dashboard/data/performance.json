@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-04T13:05:04.572712+00:00",
+  "generated_at": "2026-11-05T13:05:18.297837+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -461,21 +461,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261103-048",
-    "date": "2026-11-03",
-    "bias_score": "0.08",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261104-049",
+    "date": "2026-11-04",
+    "bias_score": "0.68",
+    "bias_label": "LEAN BULLISH",
+    "stand_down": "false",
+    "structure": "bull_put_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a1a1c2d12ca1365",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a1a6e67e7a1fed0",
     "correction_of": "",
-    "notes": "Composite +0.08 inside the neutral band on midterm Election Day; no trade. Sent 9:14 ET, cc to a second recipient. SPX closed 7,568.92 (+27.52, +0.36 pct) per CNBC/BBN Times, snapping a three-day skid; VIX ~20.5-20.8. No exposure, $0 definitional. Body not audited line by line; stand-down sends have been clean on F-01. The backstop draft that morning (r-4465124087888770400, run at 8:05 ET) reached the same call independently (-0.19 stand-down). Prior-day note: the Nov 2 live send (1a19cdd68c67d2d8) went out at 10:25 ET, after the 9:45 entry."
+    "notes": "Bull Put 7555/7510, composite +0.68 (moderate), sent 9:11 ET, cc to a second recipient. SPX closed 7,688.62 (+1.58 pct), its best day in three months, on the post-midterm relief rally; VIX 16.61 (-20 pct). Direction HIT. Close ~134pts above the 7555 short put, spread expired OTM: structure HIT. Intraday low not sourced, but the session gapped up after an overnight NQ -2.4 pct low. PARTIAL: no close report or published fill. Body not audited (F-01 unchecked). The backstop draft that morning (r331728293531647008, run at 8:04 ET, unsent) scored +0.14 STAND-DOWN with two buckets unsourced: the publishers disagreed and the live call was right."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
