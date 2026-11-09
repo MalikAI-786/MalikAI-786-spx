@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-06T13:03:47.830666+00:00",
+  "generated_at": "2026-11-09T13:06:16.791948+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -476,21 +476,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261105-050",
-    "date": "2026-11-05",
-    "bias_score": "0.16",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261106-051",
+    "date": "2026-11-06",
+    "bias_score": "-0.49",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a1ac0d757d05de2",
+    "model_verdict": "WON",
+    "direction_verdict": "MISS",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a1b1358f3148021",
     "correction_of": "",
-    "notes": "Composite +0.16 inside the neutral band; no trade. Sent 9:12 ET, cc to a second recipient. SPX closed 7,353.73 (-4.36 pct), its worst day since April 2025, on an AI/chip selloff; Nasdaq -5.52 pct; VIX 28.18 (+69.7 pct). No exposure, $0 definitional: the stand-down avoided the month's largest move, which would have blown through any 1-sigma short strike. Body not audited line by line; stand-down sends have been clean on F-01. The backstop draft (r6571284996650235177, run at 8:05 ET) reached the same call independently (+0.02 stand-down)."
+    "notes": "Bear Call 7500/7565, composite -0.49 (moderate-low), sent 9:13 ET, cc to a second recipient. BINARY-GATE VIOLATION: directional call issued on NFP day (October payrolls 8:30 ET); the spec requires a stand-down or an explicit size cut. Payrolls +165k vs ~65k expected, unemployment 4.1 pct. SPX closed 7,376.86 (+0.31 pct) per Yahoo/BBN Times: direction MISS. Close ~123pts below the 7500 short call, spread expired OTM: structure HIT. VIX 25.64. PARTIAL: no close report or published fill. Body not audited (F-01 unchecked). The backstop draft (r1797759382330000380, 8:03 ET) stood down under the binary gate as specified."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
