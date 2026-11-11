@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-10T13:05:55.255642+00:00",
+  "generated_at": "2026-11-11T13:03:14.022671+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -476,21 +476,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261109-052",
-    "date": "2026-11-09",
-    "bias_score": "0.63",
-    "bias_label": "LEAN BULLISH",
+    "record_id": "acct-20261110-053",
+    "date": "2026-11-10",
+    "bias_score": "-0.33",
+    "bias_label": "LEAN BEARISH",
     "stand_down": "false",
-    "structure": "bull_put_spread",
+    "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
     "model_verdict": "WON",
     "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a1c0ac63238b60b",
+    "evidence_ref": "gmail:1a1c5d0fa5e2ed23",
     "correction_of": "",
-    "notes": "Bull Put 7335/7280 (width 55), composite +0.63 moderate, half size, sent 9:18 ET, cc to a second recipient. SPX closed 7,549.94 (+2.35 pct), best day since April, per Yahoo/BBN Times/StockTitan: direction HIT. Close ~215pts above the 7335 short put, spread expired OTM: structure HIT. PARTIAL: no close report or published fill. F-01 VIOLATION: body carries Option Alpha and tastytrade click-by-click order entry. Recap scored Nov 6 as MISS correctly. Backstop draft (r-826336784106434025, 8:0x ET) stood down at +0.11 and missed this winner."
+    "notes": "Bear Call 7615/7660 (width 45), composite -0.325 (low conviction, borderline of the band), half size, sent 9:16 ET after the 8:30 CPI print, cc to a second recipient. CPI day: size cut to half and stated, so the binary gate was met by the size-cut branch, though the email never names it as a gate. Hot CPI (headline +0.4 m/m, core +0.3). SPX closed 7,520.93 (-0.38 pct) per BBN Times/Yahoo: direction HIT. Close ~94pts below the 7615 short call, spread expired OTM: structure HIT. PARTIAL: no close report or published fill. F-01 VIOLATION: Option Alpha and tastytrade click-by-click order entry. FABRICATION: recap claims the Nov 9 call was not on file (it was sent, gmail:1a1c0ac63238b60b) and publishes 0W/0L/0SD against the ledger. Backstop draft (r6169026895535564823, 8:05 ET) stood down under the CPI gate."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
