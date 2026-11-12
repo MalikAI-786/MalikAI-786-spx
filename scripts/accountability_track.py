@@ -107,6 +107,23 @@ def stats(rows: list[dict[str, str]]) -> dict:
     direction_hits = sum(r["direction_verdict"].upper() == "HIT" for r in directional)
     structure_hits = sum(r["structure_verdict"].upper() == "HIT" for r in structure)
 
+    # Per-day history for the calibration/deviation chart: every verified row's
+    # published composite score against whether direction turned out to be
+    # right. A stand-down carries no directional call (N/A), so it renders as
+    # neutral rather than as a hit or a miss it never claimed to be.
+    history = [
+        {
+            "date": r["date"],
+            "bias_score": _num(r.get("bias_score")),
+            "bias_label": r.get("bias_label", ""),
+            "stand_down": _bool(r.get("stand_down", "false")),
+            "direction_verdict": r.get("direction_verdict", "N/A").upper(),
+            "structure_verdict": r.get("structure_verdict", "N/A").upper(),
+            "disciplined_pnl": _num(r.get("disciplined_pnl")),
+        }
+        for r in vr
+    ]
+
     non_stand_trade_pnls = [
         _num(r.get("disciplined_pnl")) for r in vr
         if not _bool(r.get("stand_down", "false")) and _num(r.get("disciplined_pnl")) is not None
@@ -129,6 +146,7 @@ def stats(rows: list[dict[str, str]]) -> dict:
         "structure_hit_rate": (structure_hits / len(structure)) if structure else None,
         "structure_scored_days": len(structure),
         "curve": curve,
+        "history": history,
         "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history.",
     }
 
@@ -146,15 +164,20 @@ def diagnosis(row: dict[str, str] | None) -> str:
     stand = _bool(row.get("stand_down", "false"))
     d = row.get("direction_verdict", "").upper()
     s = row.get("structure_verdict", "").upper()
-    pnl = _num(row.get("disciplined_pnl")) or 0.0
+    pnl_known = row.get("disciplined_pnl", "").strip() != ""
+    pnl = _num(row.get("disciplined_pnl")) if pnl_known else None
     if stand:
         return "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
-    if d == "HIT" and s == "HIT" and pnl > 0:
+    if d == "HIT" and s == "HIT" and pnl_known and pnl > 0:
         return "Directional edge and structure both worked: the bias matched the realized move and the published defined-risk structure was profitable."
+    if d == "HIT" and s == "HIT" and not pnl_known:
+        return "Direction and structure both confirmed correct from the sent email's own recap. The exact dollar fill was not stated, so disciplined_pnl is left blank rather than estimated -- this day is excluded from the P&L statistics but counted in the hit-rate ones."
     if d == "HIT" and s in {"MISS", "MIXED"}:
         return "Direction was useful, but structure/strike selection or execution diluted the edge. This is a construction problem, not the same as a bad directional call."
-    if d == "MISS" and pnl >= 0:
+    if d == "MISS" and pnl_known and pnl >= 0:
         return "Direction was wrong, but the discipline layer limited or avoided the loss. Risk controls worked even though the forecast did not."
+    if d == "MISS" and not pnl_known:
+        return "Direction was wrong; the source email did not state whether the structure still avoided a loss, so no dollar claim is made."
     if d == "MISS":
         return "Directional inference failed and the synthetic setup lost money. The next calibration should focus first on the buckets that drove the wrong-way call."
     return "The result is recorded, but the available evidence is not sufficient to classify both direction and structure cleanly."
@@ -178,21 +201,35 @@ def build_outputs() -> dict:
 
     cumulative = summary["verified_cumulative_pnl"]
     if last:
-        last_pnl = _num(last.get("disciplined_pnl"))
+        pnl_known = last.get("disciplined_pnl", "").strip() != ""
+        last_pnl = _num(last.get("disciplined_pnl")) if pnl_known else None
         if _bool(last.get("stand_down", "false")):
             lead = (
                 "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: "
                 "we would have stayed flat. Synthetic disciplined P&L: $0. "
                 "The model took no exposure."
             )
-        elif last_pnl is not None:
+        elif pnl_known:
             action = "made" if last_pnl > 0 else "lost" if last_pnl < 0 else "finished flat at"
             lead = (
                 "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: "
                 f"the standardized synthetic 1-lot result would have {action} {_money(last_pnl)}."
             )
         else:
-            lead = "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: outcome not yet verified."
+            # Direction/structure verdicts can be verified straight from the
+            # sent email's own next-day recap even when the exact dollar fill
+            # was never stated -- that is a confirmed result with an unknown
+            # dollar amount, not an unverified one. Say which is true.
+            d = last.get("direction_verdict", "N/A").upper()
+            s = last.get("structure_verdict", "N/A").upper()
+            if d in {"HIT", "MISS"}:
+                lead = (
+                    "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: "
+                    f"direction {d.lower()}, structure {s.lower() if s in {'HIT','MISS'} else 'unscored'} "
+                    "-- the exact dollar P&L was not stated in the sent email, so no dollar figure is claimed."
+                )
+            else:
+                lead = "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: outcome not yet verified."
     else:
         lead = "IF WE HAD FOLLOWED YESTERDAY'S PUBLISHED MODEL SETUP: no verified prior-day row is available."
 
