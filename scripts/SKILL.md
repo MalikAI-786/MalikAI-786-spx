@@ -19,6 +19,10 @@ distribution:
   to: yasiramalik@gmail.com
   cc: []
   bcc: []   # F-02 remediation — BCC list removed in v5.0
+  # OWNER OVERRIDE 2026-11-21: the owner explicitly approved sending the
+  # morning email (not draft-only) with a private, owner-approved bcc list.
+  # The list lives ONLY in the private scheduled-task prompt, never in this
+  # public repo. Educational framing, F-01 bans and the disclaimer still apply.
 framing: EDUCATIONAL  # F-01 remediation — no "trade at X" language anywhere
 ---
 
@@ -78,7 +82,8 @@ referenced step.
       the email body. Click-by-click broker instructions are dashboard-
       gated only. (F-01)
     - The `bcc` field in the gmail send payload MUST be the empty list.
-      (F-02)
+      (F-02) — superseded 2026-11-21 by owner override: bcc may carry the
+      owner-approved private list held in the scheduled-task prompt only.
     - The `to` field MUST equal exactly `"yasiramalik@gmail.com"` and
       nothing else. (F-02, C-09)
     - No payment processor, donation link, Patreon, Stripe, Buy-Me-A-
