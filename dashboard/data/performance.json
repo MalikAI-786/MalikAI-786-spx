@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-12T13:03:10.015361+00:00",
+  "generated_at": "2026-11-21T02:51:31.983633+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -476,21 +476,21 @@
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
   },
   "latest_effective_result": {
-    "record_id": "acct-20261111-054",
-    "date": "2026-11-11",
-    "bias_score": "0.51",
-    "bias_label": "LEAN BULLISH",
+    "record_id": "acct-20261120-055",
+    "date": "2026-11-20",
+    "bias_score": "-0.96",
+    "bias_label": "LEAN BEARISH",
     "stand_down": "false",
-    "structure": "bull_put_spread",
+    "structure": "bear_call_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
     "model_verdict": "WON",
     "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a1caf2891ab3cbe",
+    "evidence_ref": "gmail:1a1f94c3c9b2626e",
     "correction_of": "",
-    "notes": "Bull Put 7490/7445 (width 45), composite +0.51 moderate, half size, sent 9:10 ET, cc to a second recipient. SPX closed 7,619.38 (+1.31 pct) on the CoreWeave-led AI rally per Yahoo/Investrade: direction HIT. Close ~129pts above the 7490 short put, spread expired OTM: structure HIT. PARTIAL: no fill published; the close email (gmail:1a1cc6c221b38edd) reported INCOMPLETE (pipeline ran in a sandbox without the repo). F-01 VIOLATION: Option Alpha and tastytrade click-by-click. PERFORMANCE MISSTATEMENT: published a reconstructed synthetic 3/0/0, 100 pct win rate instead of the performance.json verified 50 pct. The recap of Nov 10 was correct. Backstop draft (r-7557002145504674960, 8:05 ET) was also LEAN BULLISH (+0.42), Bull Put 7430/7385, and would also have expired OTM."
+    "notes": "Bear Call 7260/7325 (width 65), composite -0.96 moderate-high, half size, sent 9:11 ET on monthly OpEx, cc to a second recipient. SPX closed 6,910.39 (-3.7 pct; S&P and Dow in correction, worst week since April 2025) per Yakima Herald/AP and StockTitan: direction HIT. Close ~350pts below the 7260 short call, spread expired OTM: structure HIT. PARTIAL: no fill published. Plain-text part has no broker click-by-click; HTML part not audited for F-01. Recap scored the Nov 19 Bull Put 7285/7225 as a MISS (SPX -2.02 pct to 7,175.83); the Nov 19 row is not yet in the ledger. Nov 12-19 sends not yet audited (Gmail outage on Nov 13)."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
