@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-21T02:51:31.983633+00:00",
+  "generated_at": "2026-11-21T02:58:29.130393+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 32,
+    "verified_days": 33,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 23,
+    "stand_downs": 24,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -181,6 +181,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261105-050"
+      },
+      {
+        "date": "2026-11-18",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261118-059"
       }
     ],
     "history": [
@@ -471,9 +477,335 @@
         "direction_verdict": "N/A",
         "structure_verdict": "N/A",
         "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-11-18",
+        "bias_score": 0.08,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
       }
     ],
     "coverage_note": "Historical backfill is incomplete; cumulative figures include VERIFIED evidence rows only and are not yet the full published-email history."
+  },
+  "published_record": {
+    "basis": "SYNTHETIC — 1 lot of each published spread held to the close; credit = published target (20% of width if unstated); not real fills; intraday stops ignored",
+    "first_date": "2026-08-18",
+    "last_date": "2026-11-20",
+    "setups": 33,
+    "wins": 31,
+    "losses": 1,
+    "net_synthetic_pnl_1lot": 22200.0,
+    "gross_wins": 27000.0,
+    "gross_losses": -4800.0,
+    "max_drawdown": 4800.0,
+    "loss_days": [
+      {
+        "date": "2026-11-19",
+        "synthetic_pnl_1lot": -4800.0
+      }
+    ],
+    "items": [
+      {
+        "date": "2026-08-18",
+        "structure": "bear_call_spread",
+        "short_strike": 7785.0,
+        "long_strike": 7820.0,
+        "spx_close": 7691.76,
+        "synthetic_pnl_1lot": 700.0,
+        "evidence_ref": "gmail:1a01a228396bfe01"
+      },
+      {
+        "date": "2026-08-19",
+        "structure": "bear_call_spread",
+        "short_strike": 7735.0,
+        "long_strike": 7775.0,
+        "spx_close": 7708.22,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a01f47e865cc964"
+      },
+      {
+        "date": "2026-08-20",
+        "structure": "bull_put_spread",
+        "short_strike": 7640.0,
+        "long_strike": 7605.0,
+        "spx_close": 7641.16,
+        "synthetic_pnl_1lot": 0.0,
+        "evidence_ref": "gmail:1a0246e8c6212baf"
+      },
+      {
+        "date": "2026-08-24",
+        "structure": "bear_call_spread",
+        "short_strike": 7735.0,
+        "long_strike": 7770.0,
+        "spx_close": 7652.86,
+        "synthetic_pnl_1lot": 700.0,
+        "evidence_ref": "gmail:1a0390759bb52413"
+      },
+      {
+        "date": "2026-08-27",
+        "structure": "bull_put_spread",
+        "short_strike": 7625.0,
+        "long_strike": 7585.0,
+        "spx_close": 7730.99,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a0487bb70884ca6"
+      },
+      {
+        "date": "2026-09-02",
+        "structure": "bear_call_spread",
+        "short_strike": 7690.0,
+        "long_strike": 7730.0,
+        "spx_close": 7666.6,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a0623ad2007d106"
+      },
+      {
+        "date": "2026-09-09",
+        "structure": "bear_call_spread",
+        "short_strike": 7725.0,
+        "long_strike": 7765.0,
+        "spx_close": 7629.0,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a08b6d5cfe40838"
+      },
+      {
+        "date": "2026-09-10",
+        "structure": "bear_call_spread",
+        "short_strike": 7715.0,
+        "long_strike": 7750.0,
+        "spx_close": 7591.7,
+        "synthetic_pnl_1lot": 700.0,
+        "evidence_ref": "gmail:1a08b6d5cfe40838"
+      },
+      {
+        "date": "2026-09-25",
+        "structure": "bear_call_spread",
+        "short_strike": 7770.0,
+        "long_strike": 7810.0,
+        "spx_close": 7743.41,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a0d8c1d4e5d2075"
+      },
+      {
+        "date": "2026-09-28",
+        "structure": "bear_call_spread",
+        "short_strike": 7790.0,
+        "long_strike": 7830.0,
+        "spx_close": 7683.69,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a0e83ad0514f847"
+      },
+      {
+        "date": "2026-10-02",
+        "structure": "bull_put_spread",
+        "short_strike": 7640.0,
+        "long_strike": 7600.0,
+        "spx_close": 7722.72,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a0fccb08954ae75"
+      },
+      {
+        "date": "2026-10-06",
+        "structure": "bull_put_spread",
+        "short_strike": 7725.0,
+        "long_strike": 7685.0,
+        "spx_close": 7818.93,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a111650dfcc86d7"
+      },
+      {
+        "date": "2026-10-08",
+        "structure": "bear_call_spread",
+        "short_strike": 7880.0,
+        "long_strike": 7915.0,
+        "spx_close": 7765.36,
+        "synthetic_pnl_1lot": 700.0,
+        "evidence_ref": "gmail:1a11bb1cea7b40dd"
+      },
+      {
+        "date": "2026-10-13",
+        "structure": "bear_call_spread",
+        "short_strike": 7880.0,
+        "long_strike": 7915.0,
+        "spx_close": 7805.45,
+        "synthetic_pnl_1lot": 700.0,
+        "evidence_ref": "gmail:1a13576b27a95858"
+      },
+      {
+        "date": "2026-10-14",
+        "structure": "bear_call_spread",
+        "short_strike": 7880.0,
+        "long_strike": 7920.0,
+        "spx_close": 7718.94,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a13a97d00933177"
+      },
+      {
+        "date": "2026-10-15",
+        "structure": "bear_call_spread",
+        "short_strike": 7775.0,
+        "long_strike": 7815.0,
+        "spx_close": 7744.06,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a13fba2d63c4fc6"
+      },
+      {
+        "date": "2026-10-20",
+        "structure": "bear_call_spread",
+        "short_strike": 7770.0,
+        "long_strike": 7815.0,
+        "spx_close": 7712.57,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a15974da0df9c48"
+      },
+      {
+        "date": "2026-10-22",
+        "structure": "bear_call_spread",
+        "short_strike": 7770.0,
+        "long_strike": 7810.0,
+        "spx_close": 7663.43,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a163c9ffcc48fe2"
+      },
+      {
+        "date": "2026-10-23",
+        "structure": "bear_call_spread",
+        "short_strike": 7745.0,
+        "long_strike": 7790.0,
+        "spx_close": 7623.68,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a168e7b9c5abd7a"
+      },
+      {
+        "date": "2026-10-27",
+        "structure": "bull_put_spread",
+        "short_strike": 7615.0,
+        "long_strike": 7570.0,
+        "spx_close": 7722.6,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a17d8d2cbb0d488"
+      },
+      {
+        "date": "2026-10-29",
+        "structure": "bear_call_spread",
+        "short_strike": 7805.0,
+        "long_strike": 7845.0,
+        "spx_close": 7720.39,
+        "synthetic_pnl_1lot": 800.0,
+        "evidence_ref": "gmail:1a187d7bab90e73b"
+      },
+      {
+        "date": "2026-10-30",
+        "structure": "bear_call_spread",
+        "short_strike": 7730.0,
+        "long_strike": 7775.0,
+        "spx_close": 7580.07,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a18d083c409edec"
+      },
+      {
+        "date": "2026-11-02",
+        "structure": "bull_put_spread",
+        "short_strike": 7525.0,
+        "long_strike": 7480.0,
+        "spx_close": 7541.4,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a19cdd68c67d2d8"
+      },
+      {
+        "date": "2026-11-04",
+        "structure": "bull_put_spread",
+        "short_strike": 7555.0,
+        "long_strike": 7510.0,
+        "spx_close": 7688.62,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a1a6e67e7a1fed0"
+      },
+      {
+        "date": "2026-11-06",
+        "structure": "bear_call_spread",
+        "short_strike": 7500.0,
+        "long_strike": 7565.0,
+        "spx_close": 7376.86,
+        "synthetic_pnl_1lot": 1300.0,
+        "evidence_ref": "gmail:1a1b1358f3148021"
+      },
+      {
+        "date": "2026-11-09",
+        "structure": "bull_put_spread",
+        "short_strike": 7335.0,
+        "long_strike": 7280.0,
+        "spx_close": 7549.94,
+        "synthetic_pnl_1lot": 1100.0,
+        "evidence_ref": "gmail:1a1c0ac63238b60b"
+      },
+      {
+        "date": "2026-11-10",
+        "structure": "bear_call_spread",
+        "short_strike": 7615.0,
+        "long_strike": 7660.0,
+        "spx_close": 7520.93,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a1c5d0fa5e2ed23"
+      },
+      {
+        "date": "2026-11-11",
+        "structure": "bull_put_spread",
+        "short_strike": 7490.0,
+        "long_strike": 7445.0,
+        "spx_close": 7619.38,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a1caf2891ab3cbe"
+      },
+      {
+        "date": "2026-11-12",
+        "structure": "bear_call_spread",
+        "short_strike": 7665.0,
+        "long_strike": 7710.0,
+        "spx_close": 7592.4,
+        "synthetic_pnl_1lot": 900.0,
+        "evidence_ref": "gmail:1a1d01a4b91d0b12"
+      },
+      {
+        "date": "2026-11-16",
+        "structure": "bear_call_spread",
+        "short_strike": 7610.0,
+        "long_strike": 7660.0,
+        "spx_close": 7416.59,
+        "synthetic_pnl_1lot": 1000.0,
+        "evidence_ref": "gmail:1a1e4b2f3a08e664"
+      },
+      {
+        "date": "2026-11-17",
+        "structure": "bear_call_spread",
+        "short_strike": 7515.0,
+        "long_strike": 7570.0,
+        "spx_close": 7340.53,
+        "synthetic_pnl_1lot": 1100.0,
+        "evidence_ref": "gmail:1a1e9d9200cdf68a"
+      },
+      {
+        "date": "2026-11-19",
+        "structure": "bull_put_spread",
+        "short_strike": 7285.0,
+        "long_strike": 7225.0,
+        "spx_close": 7175.83,
+        "synthetic_pnl_1lot": -4800.0,
+        "evidence_ref": "gmail:1a1f4266234edda2"
+      },
+      {
+        "date": "2026-11-20",
+        "structure": "bear_call_spread",
+        "short_strike": 7260.0,
+        "long_strike": 7325.0,
+        "spx_close": 6910.39,
+        "synthetic_pnl_1lot": 1300.0,
+        "evidence_ref": "gmail:1a1f94c3c9b2626e"
+      }
+    ]
   },
   "latest_effective_result": {
     "record_id": "acct-20261120-055",

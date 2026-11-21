@@ -29,6 +29,11 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "ledger" / "accountability-v2.csv"
 PERF_JSON = ROOT / "dashboard" / "data" / "performance.json"
 EMAIL_HTML = ROOT / "dashboard" / "data" / "accountability-email.html"
+SETUPS = ROOT / "ledger" / "published-setups.csv"
+SETUP_FIELDS = [
+    "date", "structure", "short_strike", "long_strike", "credit_target",
+    "spx_close", "evidence_ref", "notes",
+]
 
 FIELDS = [
     "record_id", "date", "bias_score", "bias_label", "stand_down", "structure",
@@ -183,6 +188,71 @@ def diagnosis(row: dict[str, str] | None) -> str:
     return "The result is recorded, but the available evidence is not sufficient to classify both direction and structure cleanly."
 
 
+def load_setups() -> list[dict[str, str]]:
+    if not SETUPS.exists():
+        return []
+    with SETUPS.open(newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def setup_pnl(row: dict[str, str]) -> float | None:
+    """Synthetic 1-lot P&L at expiry from the published strikes and the close.
+
+    Rule (disclosed in every email): one lot of the published spread, credit =
+    the published credit target (20 pct of width when none was stated), held to
+    the 4:00 close, SPX multiplier 100. Not a real fill. Ignores intraday stops.
+    """
+    short, long_, close = _num(row.get("short_strike")), _num(row.get("long_strike")), _num(row.get("spx_close"))
+    if short is None or long_ is None or close is None:
+        return None
+    width = abs(long_ - short)
+    credit = _num(row.get("credit_target"))
+    if credit is None:
+        credit = round(0.2 * width, 2)
+    if row.get("structure") == "bear_call_spread":
+        intrinsic = min(max(close - short, 0.0), width)
+    elif row.get("structure") == "bull_put_spread":
+        intrinsic = min(max(short - close, 0.0), width)
+    else:
+        return None
+    return round((credit - intrinsic) * 100, 2)
+
+
+def published_record() -> dict:
+    """Every published directional setup, wins AND losses, synthetic 1-lot."""
+    items = []
+    for r in load_setups():
+        pnl = setup_pnl(r)
+        if pnl is None:
+            continue
+        items.append({"date": r["date"], "structure": r["structure"],
+                      "short_strike": _num(r["short_strike"]), "long_strike": _num(r["long_strike"]),
+                      "spx_close": _num(r["spx_close"]), "synthetic_pnl_1lot": pnl,
+                      "evidence_ref": r.get("evidence_ref", "")})
+    items.sort(key=lambda x: x["date"])
+    pnls = [i["synthetic_pnl_1lot"] for i in items]
+    losses = [i for i in items if i["synthetic_pnl_1lot"] < 0]
+    running, peak, mdd = 0.0, 0.0, 0.0
+    for v in pnls:
+        running += v
+        peak = max(peak, running)
+        mdd = max(mdd, peak - running)
+    return {
+        "basis": "SYNTHETIC — 1 lot of each published spread held to the close; credit = published target (20% of width if unstated); not real fills; intraday stops ignored",
+        "first_date": items[0]["date"] if items else None,
+        "last_date": items[-1]["date"] if items else None,
+        "setups": len(items),
+        "wins": sum(v > 0 for v in pnls),
+        "losses": len(losses),
+        "net_synthetic_pnl_1lot": round(sum(pnls), 2),
+        "gross_wins": round(sum(v for v in pnls if v > 0), 2),
+        "gross_losses": round(sum(v for v in pnls if v < 0), 2),
+        "max_drawdown": round(mdd, 2),
+        "loss_days": [{"date": i["date"], "synthetic_pnl_1lot": i["synthetic_pnl_1lot"]} for i in losses],
+        "items": items,
+    }
+
+
 def build_outputs() -> dict:
     rows = load_rows()
     summary = stats(rows)
@@ -193,6 +263,7 @@ def build_outputs() -> dict:
         "public_safe": True,
         "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
         "summary": summary,
+        "published_record": published_record(),
         "latest_effective_result": last,
         "diagnosis": diagnosis(last),
     }
@@ -298,6 +369,24 @@ def append_row(args: argparse.Namespace) -> None:
     print(f"Appended {rid} and rebuilt public accountability outputs.")
 
 
+def append_setup(args: argparse.Namespace) -> None:
+    existing = load_setups()
+    if any(r["date"] == args.date for r in existing):
+        raise SystemExit(f"Refusing duplicate setup date {args.date}.")
+    new = not SETUPS.exists()
+    with SETUPS.open("a", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=SETUP_FIELDS)
+        if new:
+            w.writeheader()
+        w.writerow({"date": args.date, "structure": args.structure,
+                    "short_strike": args.short, "long_strike": args.long,
+                    "credit_target": "" if args.credit is None else args.credit,
+                    "spx_close": args.close, "evidence_ref": args.evidence_ref,
+                    "notes": args.notes or ""})
+    build_outputs()
+    print(f"Appended published setup {args.date} and rebuilt outputs.")
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="command", required=True)
@@ -318,6 +407,15 @@ def parser() -> argparse.ArgumentParser:
     a.add_argument("--evidence-ref", required=True)
     a.add_argument("--correction-of")
     a.add_argument("--notes")
+    s_ = sub.add_parser("append-setup", help="log a published directional setup for the money-to-date tally")
+    s_.add_argument("--date", required=True)
+    s_.add_argument("--structure", choices=["bear_call_spread", "bull_put_spread"], required=True)
+    s_.add_argument("--short", type=float, required=True)
+    s_.add_argument("--long", type=float, required=True)
+    s_.add_argument("--credit", type=float, help="published credit target in points; omit to use 20%% of width")
+    s_.add_argument("--close", type=float, required=True, help="SPX 4:00 close that day")
+    s_.add_argument("--evidence-ref", required=True)
+    s_.add_argument("--notes")
     return p
 
 
@@ -328,6 +426,8 @@ def main() -> None:
         print(json.dumps(payload["summary"], indent=2))
     elif args.command == "append":
         append_row(args)
+    elif args.command == "append-setup":
+        append_setup(args)
 
 
 if __name__ == "__main__":
