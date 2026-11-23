@@ -1,0 +1,40 @@
+{
+ "subject": "SPX 0DTE — 2026-11-23 — LEAN BULLISH (+0.51) — Bull Put 6935/6870 (half size)",
+ "date_long": "Monday, November 23, 2026",
+ "run_time": "9:03 AM ET",
+ "yesterday": {
+  "date": "Fri 11/20",
+  "setup": "LEAN BEARISH (-0.96), Bear Call 7260/7325, half size.",
+  "close_line": "SPX closed 6,910.39 (-3.7%). The S&P 500 and Dow closed in correction territory.",
+  "direction": "HIT",
+  "structure": "HIT",
+  "result_line": "The close was about 350 points below the 7260 short call. Synthetic result +$1,300 per 1 lot (the full 13.0 credit). Evidence level: PARTIAL, because no real fill was published."
+ },
+ "gates": "Regular trading day. No FOMC, CPI, PPI or jobs release. Data: CNBC quotes, CME futures and FedWatch, ForexFactory calendar, pulled 9:03 AM ET.",
+ "buckets": [
+  {"name": "Futures", "weight": 0.30, "score": 1.50, "evidence": "December E-mini S&P 7,085.25, +2.17% vs the 6,935 settle. Sharp rebound bid after Friday's -3.7%."},
+  {"name": "Macro", "weight": 0.20, "score": -0.40, "evidence": "10-year yield 4.974% (+6 bp). FedWatch: 94.6% chance of a Dec 9 hike (88.6% Friday). Flash PMIs at 9:45 AM."},
+  {"name": "News", "weight": 0.15, "score": 0.20, "evidence": "WTI crude $80.87 (-3.05%), a mild tailwind. The cause of the overnight rebound was not confirmed by a source (partly sourced)."},
+  {"name": "International", "weight": 0.15, "score": 0.20, "evidence": "DAX +0.59%, FTSE +0.52%, Hang Seng -0.12%. Nikkei closed for a Japanese holiday (not scored)."},
+  {"name": "Sentiment", "weight": 0.20, "score": 0.40, "evidence": "VIX 28.15, down 21.6% from 35.89. Fear is easing quickly but is still elevated."}
+ ],
+ "composite": 0.51,
+ "label": "LEAN BULLISH",
+ "conviction": "low-to-moderate conviction",
+ "caution": "Nov 19 looked very similar — a gap up after a selloff and a bullish lean — and it reversed for the only loss on the record. That is why this setup is half size with a firm invalidation level.",
+ "structure": [
+  "Bull Put Spread, defined risk, half size.",
+  "Reference: futures-implied open ≈ 7,060; VIX 28.15, so 1σ ≈ 125 points.",
+  "Short 6935 put (−1σ) / long 6870 put (−1.5σ), width 65.",
+  "Credit target ≈ 20% of width ≈ 13.0 (a target, not a quote). Max defined loss ≈ 52 points = $5,200 per 1 lot ($2,600 at half size).",
+  "Invalidation: SPX sustained below 6,935, which is also the futures gap-fill.",
+  "Stand down if the gap fades hard by 9:45 AM, if the PMIs trigger a sharp drop, or if the quoted credit is far below target."
+ ],
+ "levels": [
+  "Friday's close 6,910.39 (range 6,882.66–7,198.67). Futures-implied open about 7,060.",
+  "1σ band about 6,935–7,185.",
+  "Support 6,935 (gap fill), 6,883 (Friday's low). Resistance 7,176 (Thursday's close), 7,199 (Friday's high)."
+ ],
+ "catalysts": "Core PCE and GDP Wednesday 8:30 AM ET. Market closed Thursday (Thanksgiving). Friday closes at 1:00 PM ET.",
+ "quote": "The strongest among you is the one who controls his anger."
+}
