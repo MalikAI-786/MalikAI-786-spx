@@ -29,7 +29,7 @@ PAPER = "#f7f3ea"
 RULE = "#2b2b2b"
 MUTED = "#5c5a55"
 NAVY = "#0f1b2d"
-GOLD = "#b08a4f"
+GOLD = "#E0662E"  # Malik brand orange
 RED = "#9b2c2c"
 GREEN = "#2f6b3a"
 SERIF = "Georgia, Times, serif"
@@ -192,8 +192,8 @@ def render(c: dict, out: Path) -> None:
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e9e4d8"><tr><td align="center" style="padding:16px 8px">
 <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="width:100%;max-width:640px;background:{PAPER};border:1px solid #cfc8b8">
 <tr><td style="background:{NAVY};padding:16px 28px" align="center">
-  <img src="cid:att0" width="72" height="77" alt="Malik LLC" style="display:block;border:0;margin:0 auto 6px">
-  <div style="font:bold 12px {SANS};letter-spacing:4px;color:{GOLD}">MALIK LLC</div>
+  <img src="cid:att0" width="72" height="77" alt="Malik Marketplace" style="display:block;border:0;margin:0 auto 6px">
+  <div style="font:bold 12px {SANS};letter-spacing:4px;color:{GOLD}">MALIK MARKETPLACE</div>
 </td></tr>
 <tr><td style="padding:14px 28px 0" align="center">
   <div style="font:bold 40px/1.05 {SERIF};color:{INK};letter-spacing:1px">The SPX Morning Paper</div>
@@ -232,7 +232,7 @@ def render(c: dict, out: Path) -> None:
 </table></td></tr></table></body></html>"""
 
     text = "\n".join([
-        f"THE SPX MORNING PAPER — MALIK LLC — {c['date_long']} — EDUCATIONAL EDITION",
+        f"THE SPX MORNING PAPER — MALIK MARKETPLACE — {c['date_long']} — EDUCATIONAL EDITION",
         "",
         money_txt,
         "",
