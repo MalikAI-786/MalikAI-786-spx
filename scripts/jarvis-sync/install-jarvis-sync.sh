@@ -6,7 +6,9 @@
 set -euo pipefail
 say() { printf '\n\033[1;36m▶ %s\033[0m\n' "$*"; }
 
+say "Jarvis installer v4"
 say "1/7  Homebrew"
+export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ENV_HINTS=1
 if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -129,7 +131,10 @@ say "4/7  Google Drive sign-in (browser will open — use yasiramalik@gmail.com)
 case "${GDRIVE_CLIENT_ID:-}${GDRIVE_CLIENT_SECRET:-}" in
   *PASTE*|*\'*) echo "   ✗ GDRIVE_CLIENT_ID / SECRET still contain the placeholder text. Use your real values, or leave them out."; exit 1;;
 esac
-pkill -x rclone 2>/dev/null || true; sleep 1          # frees the sign-in port 53682 from any stuck run
+pkill -x rclone 2>/dev/null || true                    # stop any stuck rclone run
+for p in $(lsof -ti tcp:53682 2>/dev/null); do kill -9 "$p" 2>/dev/null || true; done   # free the sign-in port
+sleep 1
+if lsof -ti tcp:53682 >/dev/null 2>&1; then echo "   ✗ Port 53682 is still busy: $(lsof -nP -iTCP:53682 -sTCP:LISTEN | tail -1). Close that app and re-run."; exit 1; fi
 if [ -n "${GDRIVE_CLIENT_ID:-}" ] || ! rclone lsf gdrive: --max-depth 1 --dirs-only >/dev/null 2>&1; then
   rclone config delete gdrive 2>/dev/null || true
   if [ -n "${GDRIVE_CLIENT_ID:-}" ]; then
