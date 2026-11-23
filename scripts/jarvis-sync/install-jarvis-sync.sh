@@ -78,7 +78,7 @@ auth_fail=""
 
 # 1. Size guard — how big is the documents-only slice of Drive?
 bytes=0; count=0; gb="0.00"; size_ok=0
-if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json 2>>"$LOG")"; then
+if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts 2>>"$LOG")"; then
   bytes="$(echo "$size_json" | sed -E 's/.*"bytes":([0-9]+).*/\1/')"
   count="$(echo "$size_json" | sed -E 's/.*"count":([0-9]+).*/\1/')"
   gb="$(awk -v b="$bytes" 'BEGIN{printf "%.2f", b/1024/1024/1024}')"
@@ -89,7 +89,8 @@ if [ -n "$auth_fail" ]; then
   echo "ABORT: login failed for: $auth_fail — run: rclone config reconnect ${auth_fail%%+*}:" | tee -a "$LOG"
   result="auth_failed_$auth_fail"
 elif [ "$size_ok" -ne 1 ]; then
-  echo "ABORT: could not measure Drive (see log) — nothing synced." | tee -a "$LOG"
+  echo "ABORT: could not measure Drive — nothing synced. Reason from log:" | tee -a "$LOG"
+  grep -E "ERROR|CRITICAL|Failed|error" "$LOG" | tail -6
   result="size_check_failed"
 elif awk -v g="$gb" -v m="$BOX_BUDGET_GB" 'BEGIN{exit !(g>m)}'; then
   echo "ABORT: ${gb} GB exceeds Box budget ${BOX_BUDGET_GB} GB — tighten jarvis-filter.txt or upgrade Box." | tee -a "$LOG"
@@ -100,6 +101,7 @@ else
     --filter-from "$FILTER" \
     --exclude "/_Agent_Output/**" --exclude "/README*" \
     --drive-export-formats docx,xlsx,pptx,pdf \
+    --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts \
     --max-size 240M \
     --transfers 8 --checkers 16 \
     --log-file "$LOG" --log-level INFO \
@@ -123,25 +125,28 @@ SYNC_EOF
 chmod +x "$HOME/jarvis-sync/jarvis-sync.sh" || { echo "   ✗ First sync did not succeed — paste the lines above to Claude."; exit 1; }
 
 say "4/7  Google Drive sign-in (browser will open — use yasiramalik@gmail.com)"
-# Your own Google client ID (rclone's shared one is being shut off in 2026 and returns 401).
-# Pass it as: GDRIVE_CLIENT_ID=... GDRIVE_CLIENT_SECRET=... bash <(curl ...)
+# Optional own Google client ID: GDRIVE_CLIENT_ID=... GDRIVE_CLIENT_SECRET=... bash <(curl ...)
+case "${GDRIVE_CLIENT_ID:-}${GDRIVE_CLIENT_SECRET:-}" in
+  *PASTE*|*\'*) echo "   ✗ GDRIVE_CLIENT_ID / SECRET still contain the placeholder text. Use your real values, or leave them out."; exit 1;;
+esac
+pkill -x rclone 2>/dev/null || true; sleep 1          # frees the sign-in port 53682 from any stuck run
 if [ -n "${GDRIVE_CLIENT_ID:-}" ] || ! rclone lsf gdrive: --max-depth 1 --dirs-only >/dev/null 2>&1; then
-  pkill -f "rclone size gdrive:" 2>/dev/null || true
   rclone config delete gdrive 2>/dev/null || true
   if [ -n "${GDRIVE_CLIENT_ID:-}" ]; then
-    rclone config create gdrive drive scope drive client_id "$GDRIVE_CLIENT_ID" client_secret "${GDRIVE_CLIENT_SECRET:?set GDRIVE_CLIENT_SECRET too}"
+    rclone config create gdrive drive scope drive client_id "$GDRIVE_CLIENT_ID" client_secret "${GDRIVE_CLIENT_SECRET:?set GDRIVE_CLIENT_SECRET too}" >/dev/null
   else
-    rclone config create gdrive drive scope drive
+    rclone config create gdrive drive scope drive >/dev/null
   fi
 fi
-if rclone lsf gdrive: --max-depth 1 --dirs-only >/dev/null; then echo "   ✓ gdrive connected"
-else echo "   ✗ Google Drive login failed (401). Create your own client ID — see scripts/jarvis-sync/README.md — then re-run with GDRIVE_CLIENT_ID/GDRIVE_CLIENT_SECRET."; exit 1; fi
+if rclone lsf gdrive: --max-depth 1 --dirs-only >/dev/null 2>&1; then echo "   ✓ gdrive connected"
+else echo "   ✗ Google Drive login failed. See 'own client ID' in scripts/jarvis-sync/README.md."; exit 1; fi
 
-say "5/7  Box sign-in (browser will open)"
-if ! rclone listremotes | grep -q '^box:$'; then
-  rclone config create box box
+say "5/7  Box sign-in (browser will open if needed)"
+if ! rclone lsf box:Jarvis >/dev/null 2>&1; then
+  rclone config delete box 2>/dev/null || true
+  rclone config create box box >/dev/null
 fi
-if rclone lsf box:Jarvis >/dev/null; then echo "   ✓ box:Jarvis reachable"; else echo "   ✗ Box login failed — run: rclone config reconnect box:"; exit 1; fi
+if rclone lsf box:Jarvis >/dev/null 2>&1; then echo "   ✓ box:Jarvis reachable"; else echo "   ✗ Box login failed."; exit 1; fi
 
 say "6/7  Preflight + first sync (documents only; Drive is never modified)"
 "$HOME/jarvis-sync/jarvis-sync.sh"

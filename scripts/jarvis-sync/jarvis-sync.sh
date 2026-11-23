@@ -24,7 +24,7 @@ auth_fail=""
 
 # 1. Size guard — how big is the documents-only slice of Drive?
 bytes=0; count=0; gb="0.00"; size_ok=0
-if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json 2>>"$LOG")"; then
+if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts 2>>"$LOG")"; then
   bytes="$(echo "$size_json" | sed -E 's/.*"bytes":([0-9]+).*/\1/')"
   count="$(echo "$size_json" | sed -E 's/.*"count":([0-9]+).*/\1/')"
   gb="$(awk -v b="$bytes" 'BEGIN{printf "%.2f", b/1024/1024/1024}')"
@@ -35,7 +35,8 @@ if [ -n "$auth_fail" ]; then
   echo "ABORT: login failed for: $auth_fail — run: rclone config reconnect ${auth_fail%%+*}:" | tee -a "$LOG"
   result="auth_failed_$auth_fail"
 elif [ "$size_ok" -ne 1 ]; then
-  echo "ABORT: could not measure Drive (see log) — nothing synced." | tee -a "$LOG"
+  echo "ABORT: could not measure Drive — nothing synced. Reason from log:" | tee -a "$LOG"
+  grep -E "ERROR|CRITICAL|Failed|error" "$LOG" | tail -6
   result="size_check_failed"
 elif awk -v g="$gb" -v m="$BOX_BUDGET_GB" 'BEGIN{exit !(g>m)}'; then
   echo "ABORT: ${gb} GB exceeds Box budget ${BOX_BUDGET_GB} GB — tighten jarvis-filter.txt or upgrade Box." | tee -a "$LOG"
@@ -46,6 +47,7 @@ else
     --filter-from "$FILTER" \
     --exclude "/_Agent_Output/**" --exclude "/README*" \
     --drive-export-formats docx,xlsx,pptx,pdf \
+    --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts \
     --max-size 240M \
     --transfers 8 --checkers 16 \
     --log-file "$LOG" --log-level INFO \
