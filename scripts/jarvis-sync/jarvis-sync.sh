@@ -1,69 +1,76 @@
 #!/usr/bin/env bash
-# jarvis-sync.sh — Google Drive (master / guard copy) ──► Box:Jarvis (compact agent layer)
+# jarvis-sync.sh v7 — Google Drive (master / guard copy) ──► Box:Jarvis (compact agent layer)
 #   ./jarvis-sync.sh --dry-run   # preview only
 #   ./jarvis-sync.sh             # real run
-# Guards: one-way only (never writes to Drive); aborts if the filtered set would exceed BOX_BUDGET_GB;
-#         skips files over Box's ~250 MB per-file limit; writes a status JSON into Box for the agent to read.
+# Guards: one-way only (never writes to Drive) · one run at a time (lock) · hard cap on bytes sent to Box
+#         (Box free space, max BOX_BUDGET_GB) · skips files > 240 MB (Box free-tier limit) · status JSON to Box.
 set -uo pipefail
 FILTER="$HOME/.config/rclone/jarvis-filter.txt"
-LOG="$HOME/jarvis-sync/rclone-jarvis.log"
-STATUS="$HOME/jarvis-sync/_sync_status.json"
+DIR="$HOME/jarvis-sync"; LOG="$DIR/rclone-jarvis.log"; STATUS="$DIR/_sync_status.json"; LOCK="$DIR/.lock"
 BOX_BUDGET_GB="${BOX_BUDGET_GB:-9.5}"
 DRY="${1:-}"
-mkdir -p "$(dirname "$LOG")"
+mkdir -p "$DIR"
 RCLONE="$(command -v rclone || echo /opt/homebrew/bin/rclone)"
 
-started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-echo "[$started] jarvis-sync start ${DRY}" >> "$LOG"
+# 0. One run at a time — a second copy exits instead of disturbing the first
+if ! mkdir "$LOCK" 2>/dev/null; then
+  if [ -f "$LOCK/pid" ] && kill -0 "$(cat "$LOCK/pid")" 2>/dev/null; then
+    echo "jarvis-sync already running (pid $(cat "$LOCK/pid")) — leaving it alone." | tee -a "$LOG"; exit 0
+  fi
+  rm -rf "$LOCK"; mkdir "$LOCK"                       # stale lock from a crashed run
+fi
+echo $$ > "$LOCK/pid"; trap 'rm -rf "$LOCK"' EXIT
 
-# 0. Auth check — both remotes must answer, or stop (never sync on a broken login)
-pkill -f "rclone size gdrive:" 2>/dev/null || true
+started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+echo "[$started] jarvis-sync v7 start ${DRY}" | tee -a "$LOG"
+
+# 1. Auth check — both remotes must answer
 auth_fail=""
 "$RCLONE" lsf gdrive: --max-depth 1 --dirs-only >/dev/null 2>>"$LOG" || auth_fail="gdrive"
 "$RCLONE" lsf box:Jarvis --max-depth 1 >/dev/null 2>>"$LOG" || auth_fail="${auth_fail:+$auth_fail+}box"
 
-# 1. Size guard — how big is the documents-only slice of Drive?
-bytes=0; count=0; gb="0.00"; size_ok=0
-if [ -z "$auth_fail" ] && size_json="$("$RCLONE" size gdrive: --filter-from "$FILTER" --json --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts 2>>"$LOG")"; then
-  bytes="$(echo "$size_json" | sed -E 's/.*"bytes":([0-9]+).*/\1/')"
-  count="$(echo "$size_json" | sed -E 's/.*"count":([0-9]+).*/\1/')"
-  gb="$(awk -v b="$bytes" 'BEGIN{printf "%.2f", b/1024/1024/1024}')"
-  size_ok=1
-  echo "filtered set: $count files, ${gb} GB (budget ${BOX_BUDGET_GB} GB)" | tee -a "$LOG"
+# 2. Budget = Box free space (minus 0.5 GB headroom), never more than BOX_BUDGET_GB
+budget_gb="$BOX_BUDGET_GB"
+free_bytes="$("$RCLONE" about box: --json 2>/dev/null | sed -nE 's/.*"free": *([0-9]+).*/\1/p')"
+if [ -n "$free_bytes" ]; then
+  budget_gb="$(awk -v f="$free_bytes" -v m="$BOX_BUDGET_GB" 'BEGIN{g=f/1073741824-0.5; if(g>m)g=m; if(g<0)g=0; printf "%.2f", g}')"
 fi
+budget_mb="$(awk -v g="$budget_gb" 'BEGIN{printf "%d", g*1024}')"
+
 if [ -n "$auth_fail" ]; then
   echo "ABORT: login failed for: $auth_fail — run: rclone config reconnect ${auth_fail%%+*}:" | tee -a "$LOG"
   result="auth_failed_$auth_fail"
-elif [ "$size_ok" -ne 1 ]; then
-  echo "ABORT: could not measure Drive — nothing synced. Reason from log:" | tee -a "$LOG"
-  grep -E "ERROR|CRITICAL|Failed|error" "$LOG" | tail -6
-  result="size_check_failed"
-elif awk -v g="$gb" -v m="$BOX_BUDGET_GB" 'BEGIN{exit !(g>m)}'; then
-  echo "ABORT: ${gb} GB exceeds Box budget ${BOX_BUDGET_GB} GB — tighten jarvis-filter.txt or upgrade Box." | tee -a "$LOG"
-  result="aborted_over_budget"
+elif [ "$budget_mb" -le 0 ]; then
+  echo "ABORT: Box is full — free space before syncing more." | tee -a "$LOG"; result="box_full"
 else
-  # 2. The sync itself
+  echo "budget: up to ${budget_gb} GB this run · progress line every minute in $LOG" | tee -a "$LOG"
+  # 3. The sync — single pass; stops cleanly when the budget is reached
   "$RCLONE" sync gdrive: box:Jarvis $DRY \
     --filter-from "$FILTER" \
     --exclude "/_Agent_Output/**" --exclude "/README*" \
     --drive-export-formats docx,xlsx,pptx,pdf \
-    --fast-list --drive-skip-shortcuts --drive-skip-dangling-shortcuts \
-    --max-size 240M \
-    --transfers 8 --checkers 16 \
+    --drive-skip-shortcuts --drive-skip-dangling-shortcuts \
+    --max-size 240M --max-transfer "${budget_mb}M" --cutoff-mode soft \
+    --transfers 6 --checkers 12 \
     --log-file "$LOG" --log-level INFO \
-    --stats 1m --stats-one-line
+    --stats 1m --stats-one-line --stats-log-level NOTICE
   rc=$?
-  result=$([ $rc -eq 0 ] && echo "ok" || echo "rclone_exit_$rc")
+  case $rc in
+    0) result="ok" ;;
+    8) result="budget_reached"; echo "Box budget (${budget_gb} GB) reached — partial sync kept; tighten the filter or upgrade Box for the rest." | tee -a "$LOG" ;;
+    *) result="rclone_exit_$rc"; echo "Sync ended with errors — last lines:" | tee -a "$LOG"; grep -E "ERROR|CRITICAL" "$LOG" | tail -5 ;;
+  esac
 fi
 
-# 3. Status file → Box so the agent can verify without asking you
+# 4. Status file → Box so the agent can verify without asking you
 finished="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-cat > "$STATUS" <<EOF
+summary="$("$RCLONE" size box:Jarvis --json 2>/dev/null || echo '{}')"
+cat > "$STATUS" <<JSON
 {"result":"$result","dry_run":"${DRY:-false}","started":"$started","finished":"$finished",
- "files_in_scope":$count,"size_gb":$gb,"budget_gb":$BOX_BUDGET_GB,"host":"$(hostname)"}
-EOF
+ "budget_gb":$budget_gb,"box_jarvis":$summary,"host":"$(hostname)"}
+JSON
 if [ -z "$DRY" ] && [[ "$auth_fail" != *box* ]]; then
   "$RCLONE" copyto "$STATUS" box:Jarvis/_Agent_Output/_sync_status.json --log-file "$LOG" --log-level ERROR || true
 fi
 echo "[$finished] jarvis-sync $result — log: $LOG" | tee -a "$LOG"
-[ "$result" = "ok" ]
+case "$result" in ok|budget_reached) exit 0;; *) exit 1;; esac
