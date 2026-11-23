@@ -6,7 +6,7 @@
 set -euo pipefail
 say() { printf '\n\033[1;36m▶ %s\033[0m\n' "$*"; }
 
-say "Jarvis installer v5"
+say "Jarvis installer v6"
 say "1/7  Homebrew"
 export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ENV_HINTS=1
 if ! command -v brew >/dev/null 2>&1; then
@@ -139,9 +139,12 @@ if [ -n "$GDRIVE_CLIENT_ID" ]; then
   if ! printf '%s' "$GDRIVE_CLIENT_ID" | grep -Eq '^[0-9]+-[A-Za-z0-9_]+\.apps\.googleusercontent\.com$'; then
     echo "   ✗ That Client ID doesn't look right (got: ${GDRIVE_CLIENT_ID:0:24}…). It must look like 1234567890-abc123.apps.googleusercontent.com"; exit 1
   fi
-  if [ ${#GDRIVE_CLIENT_SECRET} -lt 10 ] || printf '%s' "$GDRIVE_CLIENT_SECRET" | grep -qiE 'your|paste'; then
-    echo "   ✗ Client secret is missing or still placeholder text."; exit 1
-  fi
+  case "$GDRIVE_CLIENT_SECRET" in
+    "") echo "   ✗ Client secret came through EMPTY (0 characters). Copy the GOCSPX-… secret from the rclone client page, then re-run and paste it at the secret prompt."; exit 1;;
+    *.apps.googleusercontent.com) echo "   ✗ You pasted the Client ID into the secret field. Copy the Client SECRET (starts with GOCSPX-) and re-run."; exit 1;;
+    YOUR-*|PASTE*) echo "   ✗ Client secret is still placeholder text."; exit 1;;
+  esac
+  echo "   ✓ Client secret received (${#GDRIVE_CLIENT_SECRET} characters, starts with ${GDRIVE_CLIENT_SECRET:0:7})"
   echo "   ✓ Client ID format OK (${GDRIVE_CLIENT_ID:0:12}…)"
 fi
 pkill -x rclone 2>/dev/null || true                    # stop any stuck rclone run
