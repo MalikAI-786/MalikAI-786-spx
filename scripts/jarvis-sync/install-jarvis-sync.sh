@@ -6,7 +6,7 @@
 set -euo pipefail
 say() { printf '\n\033[1;36m▶ %s\033[0m\n' "$*"; }
 
-say "Jarvis installer v4"
+say "Jarvis installer v5"
 say "1/7  Homebrew"
 export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ENV_HINTS=1
 if ! command -v brew >/dev/null 2>&1; then
@@ -127,10 +127,23 @@ SYNC_EOF
 chmod +x "$HOME/jarvis-sync/jarvis-sync.sh" || { echo "   ✗ First sync did not succeed — paste the lines above to Claude."; exit 1; }
 
 say "4/7  Google Drive sign-in (browser will open — use yasiramalik@gmail.com)"
-# Optional own Google client ID: GDRIVE_CLIENT_ID=... GDRIVE_CLIENT_SECRET=... bash <(curl ...)
-case "${GDRIVE_CLIENT_ID:-}${GDRIVE_CLIENT_SECRET:-}" in
-  *PASTE*|*\'*) echo "   ✗ GDRIVE_CLIENT_ID / SECRET still contain the placeholder text. Use your real values, or leave them out."; exit 1;;
-esac
+# Own Google client ID: run with the word "own" at the end and the installer asks for both values.
+if [ "${1:-}" = "own" ] && [ -z "${GDRIVE_CLIENT_ID:-}" ]; then
+  echo "   From console.cloud.google.com/auth/clients → your 'rclone' client:"
+  read -r -p "   Paste Client ID (ends in .apps.googleusercontent.com): " GDRIVE_CLIENT_ID </dev/tty
+  read -r -s -p "   Paste Client secret (hidden as you paste): " GDRIVE_CLIENT_SECRET </dev/tty; echo
+fi
+GDRIVE_CLIENT_ID="$(printf '%s' "${GDRIVE_CLIENT_ID:-}" | tr -d '[:space:]')"
+GDRIVE_CLIENT_SECRET="$(printf '%s' "${GDRIVE_CLIENT_SECRET:-}" | tr -d '[:space:]')"
+if [ -n "$GDRIVE_CLIENT_ID" ]; then
+  if ! printf '%s' "$GDRIVE_CLIENT_ID" | grep -Eq '^[0-9]+-[A-Za-z0-9_]+\.apps\.googleusercontent\.com$'; then
+    echo "   ✗ That Client ID doesn't look right (got: ${GDRIVE_CLIENT_ID:0:24}…). It must look like 1234567890-abc123.apps.googleusercontent.com"; exit 1
+  fi
+  if [ ${#GDRIVE_CLIENT_SECRET} -lt 10 ] || printf '%s' "$GDRIVE_CLIENT_SECRET" | grep -qiE 'your|paste'; then
+    echo "   ✗ Client secret is missing or still placeholder text."; exit 1
+  fi
+  echo "   ✓ Client ID format OK (${GDRIVE_CLIENT_ID:0:12}…)"
+fi
 pkill -x rclone 2>/dev/null || true                    # stop any stuck rclone run
 for p in $(lsof -ti tcp:53682 2>/dev/null); do kill -9 "$p" 2>/dev/null || true; done   # free the sign-in port
 sleep 1
