@@ -110,7 +110,7 @@ def money_block(perf: dict) -> tuple[str, str, str]:
     text = (
         f"MONEY TO DATE\nFollowing every published setup since {pr['first_date']} (1 lot each, held to the close, "
         f"credit = published target; synthetic, not real fills): {pr['setups']} setups, {pr['wins']} wins, "
-        f"{pr['losses']} losses" + (f", {scratches} scratch" if scratches else "")
+        f"{pr['losses']} loss{'es' if pr['losses'] != 1 else ''}" + (f", {scratches} scratch" if scratches else "")
         + f". Net {money(pr['net_synthetic_pnl_1lot'])}. Max drawdown {money(-pr['max_drawdown'])}.\n"
         f"Every loss: {loss_txt}.\n"
         f"Verified with real evidence: {money(s.get('verified_cumulative_pnl'))} over "
