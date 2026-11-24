@@ -32,3 +32,4 @@ date,structure,short_strike,long_strike,credit_target,spx_close,evidence_ref,not
 2026-08-19,bear_call_spread,7735.0,7775.0,,7708.22,gmail:1a01f47e865cc964,"close derived from Aug 20 close 7,641.16 / (1-0.0087); short call never threatened per recap"
 2026-08-20,bull_put_spread,7640.0,7605.0,0.0,7641.16,gmail:1a0246e8c6212baf,"SCRATCH: invalidation hit intraday; logged at 0 per the model's own record, not as a paper win"
 2026-08-24,bear_call_spread,7735.0,7770.0,,7652.86,gmail:1a0390759bb52413,
+2026-11-23,bull_put_spread,6935.0,6870.0,13.0,7237.17,gmail:1a208b85971fbd05,

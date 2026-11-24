@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-21T02:58:29.130393+00:00",
+  "generated_at": "2026-11-24T14:03:44.419309+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -493,12 +493,12 @@
   "published_record": {
     "basis": "SYNTHETIC — 1 lot of each published spread held to the close; credit = published target (20% of width if unstated); not real fills; intraday stops ignored",
     "first_date": "2026-08-18",
-    "last_date": "2026-11-20",
-    "setups": 33,
-    "wins": 31,
+    "last_date": "2026-11-23",
+    "setups": 34,
+    "wins": 32,
     "losses": 1,
-    "net_synthetic_pnl_1lot": 22200.0,
-    "gross_wins": 27000.0,
+    "net_synthetic_pnl_1lot": 23500.0,
+    "gross_wins": 28300.0,
     "gross_losses": -4800.0,
     "max_drawdown": 4800.0,
     "loss_days": [
@@ -804,25 +804,34 @@
         "spx_close": 6910.39,
         "synthetic_pnl_1lot": 1300.0,
         "evidence_ref": "gmail:1a1f94c3c9b2626e"
+      },
+      {
+        "date": "2026-11-23",
+        "structure": "bull_put_spread",
+        "short_strike": 6935.0,
+        "long_strike": 6870.0,
+        "spx_close": 7237.17,
+        "synthetic_pnl_1lot": 1300.0,
+        "evidence_ref": "gmail:1a208b85971fbd05"
       }
     ]
   },
   "latest_effective_result": {
-    "record_id": "acct-20261120-055",
-    "date": "2026-11-20",
-    "bias_score": "-0.96",
-    "bias_label": "LEAN BEARISH",
+    "record_id": "acct-20261123-061",
+    "date": "2026-11-23",
+    "bias_score": "0.51",
+    "bias_label": "LEAN BULLISH",
     "stand_down": "false",
-    "structure": "bear_call_spread",
+    "structure": "bull_put_spread",
     "disciplined_pnl": "",
     "counterfactual_pnl": "",
     "model_verdict": "WON",
     "direction_verdict": "HIT",
     "structure_verdict": "HIT",
     "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a1f94c3c9b2626e",
+    "evidence_ref": "gmail:1a208b85971fbd05",
     "correction_of": "",
-    "notes": "Bear Call 7260/7325 (width 65), composite -0.96 moderate-high, half size, sent 9:11 ET on monthly OpEx, cc to a second recipient. SPX closed 6,910.39 (-3.7 pct; S&P and Dow in correction, worst week since April 2025) per Yakima Herald/AP and StockTitan: direction HIT. Close ~350pts below the 7260 short call, spread expired OTM: structure HIT. PARTIAL: no fill published. Plain-text part has no broker click-by-click; HTML part not audited for F-01. Recap scored the Nov 19 Bull Put 7285/7225 as a MISS (SPX -2.02 pct to 7,175.83); the Nov 19 row is not yet in the ledger. Nov 12-19 sends not yet audited (Gmail outage on Nov 13)."
+    "notes": "Bull Put 6935/6870 (width 65), credit target 13.0, composite +0.51 low-moderate, half size. First send from this session to the owner + bcc list (9:05 ET). No ChatGPT send that day. SPX closed 7,237.17 (+4.73 pct, second-largest point gain on record) as Nvidia jumped 31.5 pct on Huang's reinstatement, per Yahoo/Longbridge: direction HIT; close ~302pts above the 6935 short put: structure HIT. PARTIAL: no fill."
   },
   "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
