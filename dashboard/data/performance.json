@@ -1,14 +1,14 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-24T14:03:44.419309+00:00",
+  "generated_at": "2026-11-25T14:05:05.494285+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
-    "verified_days": 33,
+    "verified_days": 34,
     "verified_cumulative_pnl": 120.0,
     "wins": 1,
     "losses": 1,
-    "stand_downs": 24,
+    "stand_downs": 25,
     "flat_non_stand_downs": 2,
     "win_rate": 0.5,
     "avg_win": 300.0,
@@ -187,6 +187,12 @@
         "pnl": 0.0,
         "cumulative": 120.0,
         "record_id": "acct-20261118-059"
+      },
+      {
+        "date": "2026-11-24",
+        "pnl": 0.0,
+        "cumulative": 120.0,
+        "record_id": "acct-20261124-062"
       }
     ],
     "history": [
@@ -481,6 +487,15 @@
       {
         "date": "2026-11-18",
         "bias_score": 0.08,
+        "bias_label": "STAND-DOWN",
+        "stand_down": true,
+        "direction_verdict": "N/A",
+        "structure_verdict": "N/A",
+        "disciplined_pnl": 0.0
+      },
+      {
+        "date": "2026-11-24",
+        "bias_score": 0.0,
         "bias_label": "STAND-DOWN",
         "stand_down": true,
         "direction_verdict": "N/A",
@@ -817,21 +832,21 @@
     ]
   },
   "latest_effective_result": {
-    "record_id": "acct-20261123-061",
-    "date": "2026-11-23",
-    "bias_score": "0.51",
-    "bias_label": "LEAN BULLISH",
-    "stand_down": "false",
-    "structure": "bull_put_spread",
-    "disciplined_pnl": "",
+    "record_id": "acct-20261124-062",
+    "date": "2026-11-24",
+    "bias_score": "0.0",
+    "bias_label": "STAND-DOWN",
+    "stand_down": "true",
+    "structure": "stand-down",
+    "disciplined_pnl": "0.0",
     "counterfactual_pnl": "",
-    "model_verdict": "WON",
-    "direction_verdict": "HIT",
-    "structure_verdict": "HIT",
-    "evidence_status": "PARTIAL",
-    "evidence_ref": "gmail:1a208b85971fbd05",
+    "model_verdict": "STAND-DOWN",
+    "direction_verdict": "N/A",
+    "structure_verdict": "N/A",
+    "evidence_status": "VERIFIED",
+    "evidence_ref": "gmail:1a20ddfdd937e8d7",
     "correction_of": "",
-    "notes": "Bull Put 6935/6870 (width 65), credit target 13.0, composite +0.51 low-moderate, half size. First send from this session to the owner + bcc list (9:05 ET). No ChatGPT send that day. SPX closed 7,237.17 (+4.73 pct, second-largest point gain on record) as Nvidia jumped 31.5 pct on Huang's reinstatement, per Yahoo/Longbridge: direction HIT; close ~302pts above the 6935 short put: structure HIT. PARTIAL: no fill."
+    "notes": "Stand-down: structured data feed unavailable (Firecrawl out of credits), backup web sources conflicted on futures direction, no dated VIX. No trade. SPX closed 7,201.09 (-0.50 pct; range 7,138.93-7,223.95) per CNBC .SPX pulled 2026-11-25 pre-open. 0 USD definitional. A separate ChatGPT publisher sent a Bear Call 7280/7345 to the owner + 1 recipient (gmail:1a20de69c149fd29); not this paper's setup and not counted in money-to-date."
   },
-  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
+  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
 }
