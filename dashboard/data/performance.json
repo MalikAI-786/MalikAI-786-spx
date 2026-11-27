@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-11-25T14:05:05.494285+00:00",
+  "generated_at": "2026-11-27T01:10:59.645214+00:00",
   "public_safe": true,
   "actual_portfolio_disclosure": "PRIVATE_TRACKING_ACTIVE_NO_POSITION_LEVEL_PUBLICATION",
   "summary": {
@@ -508,12 +508,12 @@
   "published_record": {
     "basis": "SYNTHETIC — 1 lot of each published spread held to the close; credit = published target (20% of width if unstated); not real fills; intraday stops ignored",
     "first_date": "2026-08-18",
-    "last_date": "2026-11-23",
-    "setups": 34,
-    "wins": 32,
+    "last_date": "2026-11-25",
+    "setups": 35,
+    "wins": 33,
     "losses": 1,
-    "net_synthetic_pnl_1lot": 23500.0,
-    "gross_wins": 28300.0,
+    "net_synthetic_pnl_1lot": 24900.0,
+    "gross_wins": 29700.0,
     "gross_losses": -4800.0,
     "max_drawdown": 4800.0,
     "loss_days": [
@@ -828,25 +828,34 @@
         "spx_close": 7237.17,
         "synthetic_pnl_1lot": 1300.0,
         "evidence_ref": "gmail:1a208b85971fbd05"
+      },
+      {
+        "date": "2026-11-25",
+        "structure": "bear_call_spread",
+        "short_strike": 7195.0,
+        "long_strike": 7265.0,
+        "spx_close": 7182.78,
+        "synthetic_pnl_1lot": 1400.0,
+        "evidence_ref": "gmail:1a21307920490b59"
       }
     ]
   },
   "latest_effective_result": {
-    "record_id": "acct-20261124-062",
-    "date": "2026-11-24",
-    "bias_score": "0.0",
-    "bias_label": "STAND-DOWN",
-    "stand_down": "true",
-    "structure": "stand-down",
-    "disciplined_pnl": "0.0",
+    "record_id": "acct-20261125-063",
+    "date": "2026-11-25",
+    "bias_score": "-0.85",
+    "bias_label": "LEAN BEARISH",
+    "stand_down": "false",
+    "structure": "bear_call_spread",
+    "disciplined_pnl": "",
     "counterfactual_pnl": "",
-    "model_verdict": "STAND-DOWN",
-    "direction_verdict": "N/A",
-    "structure_verdict": "N/A",
-    "evidence_status": "VERIFIED",
-    "evidence_ref": "gmail:1a20ddfdd937e8d7",
+    "model_verdict": "WON",
+    "direction_verdict": "HIT",
+    "structure_verdict": "HIT",
+    "evidence_status": "PARTIAL",
+    "evidence_ref": "gmail:1a21307920490b59",
     "correction_of": "",
-    "notes": "Stand-down: structured data feed unavailable (Firecrawl out of credits), backup web sources conflicted on futures direction, no dated VIX. No trade. SPX closed 7,201.09 (-0.50 pct; range 7,138.93-7,223.95) per CNBC .SPX pulled 2026-11-25 pre-open. 0 USD definitional. A separate ChatGPT publisher sent a Bear Call 7280/7345 to the owner + 1 recipient (gmail:1a20de69c149fd29); not this paper's setup and not counted in money-to-date."
+    "notes": "Bear Call 7195/7265 (width 70), credit target 14.0, composite -0.85, half size (VIX 31.44), sent 9:05 ET to owner + bcc list. SPX closed 7,182.78 (-0.25 pct; range 6,970.11-7,199.31) per CNBC .SPX: direction HIT vs prior close (but SPX rallied ~210 pts off the low and the intraday high 7,199.31 briefly poked above the 7195 short call; not a sustained break of the invalidation level). Close ~12 pts below the short call: structure HIT, full credit kept on a hold-to-close basis. PARTIAL: no fill. Scored 2026-11-26 evening."
   },
-  "diagnosis": "Stand-down preserved the model's no-exposure rule. The ledger correctly records $0 rather than retrofitting a trade after the fact."
+  "diagnosis": "Execution evidence is incomplete; the model result is not included in verified statistics."
 }
