@@ -1,0 +1,36 @@
+date,structure,short_strike,long_strike,credit_target,spx_close,evidence_ref,notes
+2026-08-18,bear_call_spread,7785,7820,,7691.76,gmail:1a01a228396bfe01,seeded from ledger acct-20260818-008
+2026-08-27,bull_put_spread,7625,7585,,7730.99,gmail:1a0487bb70884ca6,seeded from ledger acct-20260827-014
+2026-09-02,bear_call_spread,7690,7730,,7666.60,gmail:1a0623ad2007d106,seeded from ledger acct-20260902-017
+2026-09-09,bear_call_spread,7725,7765,,7629.00,gmail:1a08b6d5cfe40838,seeded from ledger acct-20260909-018
+2026-09-10,bear_call_spread,7715,7750,,7591.70,gmail:1a08b6d5cfe40838,seeded from ledger acct-20260910-019
+2026-09-25,bear_call_spread,7770,7810,,7743.41,gmail:1a0d8c1d4e5d2075,seeded from ledger acct-20260925-022
+2026-09-28,bear_call_spread,7790,7830,,7683.69,gmail:1a0e83ad0514f847,seeded from ledger acct-20260928-023
+2026-10-02,bull_put_spread,7640,7600,,7722.72,gmail:1a0fccb08954ae75,seeded from ledger acct-20261002-027
+2026-10-06,bull_put_spread,7725,7685,,7818.93,gmail:1a111650dfcc86d7,seeded from ledger acct-20261006-029
+2026-10-08,bear_call_spread,7880,7915,,7765.36,gmail:1a11bb1cea7b40dd,seeded from ledger acct-20261008-031
+2026-10-13,bear_call_spread,7880,7915,,7805.45,gmail:1a13576b27a95858,seeded from ledger acct-20261013-033
+2026-10-14,bear_call_spread,7880,7920,,7718.94,gmail:1a13a97d00933177,seeded from ledger acct-20261014-034
+2026-10-15,bear_call_spread,7775,7815,,7744.06,gmail:1a13fba2d63c4fc6,seeded from ledger acct-20261015-035
+2026-10-20,bear_call_spread,7770,7815,,7712.57,gmail:1a15974da0df9c48,seeded from ledger acct-20261020-038
+2026-10-22,bear_call_spread,7770,7810,,7663.43,gmail:1a163c9ffcc48fe2,seeded from ledger acct-20261022-040
+2026-10-23,bear_call_spread,7745,7790,,7623.68,gmail:1a168e7b9c5abd7a,seeded from ledger acct-20261023-041
+2026-10-27,bull_put_spread,7615,7570,,7722.60,gmail:1a17d8d2cbb0d488,seeded from ledger acct-20261027-043
+2026-10-29,bear_call_spread,7805,7845,,7720.39,gmail:1a187d7bab90e73b,seeded from ledger acct-20261029-045
+2026-10-30,bear_call_spread,7730,7775,,7580.07,gmail:1a18d083c409edec,seeded from ledger acct-20261030-046
+2026-11-02,bull_put_spread,7525,7480,,7541.40,gmail:1a19cdd68c67d2d8,seeded from ledger acct-20261102-047
+2026-11-04,bull_put_spread,7555,7510,,7688.62,gmail:1a1a6e67e7a1fed0,seeded from ledger acct-20261104-049
+2026-11-06,bear_call_spread,7500,7565,,7376.86,gmail:1a1b1358f3148021,seeded from ledger acct-20261106-051
+2026-11-09,bull_put_spread,7335,7280,11.0,7549.94,gmail:1a1c0ac63238b60b,seeded from ledger acct-20261109-052
+2026-11-10,bear_call_spread,7615,7660,9.0,7520.93,gmail:1a1c5d0fa5e2ed23,seeded from ledger acct-20261110-053
+2026-11-11,bull_put_spread,7490,7445,9.0,7619.38,gmail:1a1caf2891ab3cbe,seeded from ledger acct-20261111-054
+2026-11-20,bear_call_spread,7260,7325,13.0,6910.39,gmail:1a1f94c3c9b2626e,seeded from ledger acct-20261120-055
+2026-11-12,bear_call_spread,7665,7710,,7592.40,gmail:1a1d01a4b91d0b12,seeded from ledger acct-20261112-056
+2026-11-16,bear_call_spread,7610,7660,,7416.59,gmail:1a1e4b2f3a08e664,seeded from ledger acct-20261116-057
+2026-11-17,bear_call_spread,7515,7570,,7340.53,gmail:1a1e9d9200cdf68a,seeded from ledger acct-20261117-058
+2026-11-19,bull_put_spread,7285,7225,12.0,7175.83,gmail:1a1f4266234edda2,seeded from ledger acct-20261119-060
+2026-08-19,bear_call_spread,7735.0,7775.0,,7708.22,gmail:1a01f47e865cc964,"close derived from Aug 20 close 7,641.16 / (1-0.0087); short call never threatened per recap"
+2026-08-20,bull_put_spread,7640.0,7605.0,0.0,7641.16,gmail:1a0246e8c6212baf,"SCRATCH: invalidation hit intraday; logged at 0 per the model's own record, not as a paper win"
+2026-08-24,bear_call_spread,7735.0,7770.0,,7652.86,gmail:1a0390759bb52413,
+2026-11-23,bull_put_spread,6935.0,6870.0,13.0,7237.17,gmail:1a208b85971fbd05,
+2026-11-25,bear_call_spread,7195.0,7265.0,14.0,7182.78,gmail:1a21307920490b59,Intraday high 7199.31 touched above short call; closed below
